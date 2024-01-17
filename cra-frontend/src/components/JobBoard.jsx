@@ -127,6 +127,7 @@ const FilterBox = ({ filterFunction }) => {
 
       {/* Filter Box content */}
       <Box display={{ base: "none", md: "inline" }}>
+        <strong>Position:</strong>
         <Input
           placeholder="Search by position"
           value={position}
@@ -338,29 +339,29 @@ const JobList = ({ jobs }) => {
 };
 
 const JobBoard = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [filteredJobs, setFilteredJobs] = useState(dummyJobData);
-
-  const handleFilter = (filter) => {
-    const filtered = dummyJobData.filter((job) =>
-      job.position.toLowerCase().includes(filter.toLowerCase())
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [filteredJobs, setFilteredJobs] = useState(dummyJobData);
+  
+    const handleFilter = (filter) => {
+      const filtered = dummyJobData.filter((job) =>
+        job.position.toLowerCase().includes(filter.toLowerCase())
+      );
+      setFilteredJobs(filtered);
+    };
+  
+    return (
+      <Container maxW="container.xl">
+        {/* Adjusted grid template columns for responsiveness */}
+        <Grid templateColumns={{ base: "1fr", md: "2fr 3fr" }} gap={4}>
+          <GridItem>
+            <FilterBox filterFunction={handleFilter} />
+          </GridItem>
+          <GridItem>
+            <JobList jobs={filteredJobs} />
+          </GridItem>
+        </Grid>
+      </Container>
     );
-    setFilteredJobs(filtered);
   };
-
-  return (
-    <Container maxW="container.xl">
-      <Grid templateColumns="repeat(5, 1fr)" gap={4}>
-        <GridItem colSpan={{ base: 0, md: 2 }}>
-          <FilterBox filterFunction={handleFilter} />
-        </GridItem>
-        <GridItem colSpan={3}>
-            
-        <JobList jobs={filteredJobs}  />
-        </GridItem>
-      </Grid>
-    </Container>
-  );
-};
-
+  
 export default JobBoard;
