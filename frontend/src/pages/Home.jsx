@@ -53,6 +53,24 @@ const Home = () => {
         <HorizontalScrollPane />
       </Box>
     </Box>
+    // <div className="pt-52 pb-20">
+    //   <div className="bg-red-600 h-[10vh]">
+    //     let me Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo
+    //     eum nihil blanditiis numquam quidem quasi asperiores aliquid incidunt.
+    //     Sed ab, natus placeat necessitatibus explicabo inventore velit minus
+    //     delectus recusandae iusto molestias quidem, libero odio ullam aliquam
+    //     provident, deserunt exercitationem? Pariatur aliquid enim cum eveniet
+    //     temporibus praesentium fuga ullam facere!
+    //   </div>
+    //   <div className="bg-red-600 h-[10vh] text-red-600">
+    //     let me Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo
+    //     eum nihil blanditiis numquam quidem quasi asperiores aliquid incidunt.
+    //     Sed ab, natus placeat necessitatibus explicabo inventore velit minus
+    //     delectus recusandae iusto molestias quidem, libero odio ullam aliquam
+    //     provident, deserunt exercitationem? Pariatur aliquid enim cum eveniet
+    //     temporibus praesentium fuga ullam facere!
+    //   </div>
+    // </div>
   );
 };
 
