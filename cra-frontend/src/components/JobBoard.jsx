@@ -26,6 +26,9 @@ import {
   ButtonGroup,
   GridItem,
   Grid,
+  HStack,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import {
   FaCalendarWeek,
@@ -33,9 +36,11 @@ import {
   FaFilter,
   FaInfo,
   FaMapPin,
+  FaTrash,
 } from "react-icons/fa";
-import { FaArrowTrendUp } from "react-icons/fa6";
+import { FaArrowTrendUp, FaRightLong } from "react-icons/fa6";
 import { FaLocationArrow } from "react-icons/fa";
+import { TiTick } from "react-icons/ti";
 
 const dummyJobData = [
   {
@@ -110,18 +115,20 @@ const FilterBox = ({ filterFunction }) => {
   };
 
   return (
-    <Box p={4} m={4} boxShadow={"xl"} py={[6, 12]}>
+    <Box p={[0, 4]} m={[0, 4]} boxShadow="xl" py={[0, 6, 12]} rounded="lg" textAlign="left">
+
       <Box display={{ base: "inline", md: "none" }}>
-        <Text>View Filters</Text>
-        <IconButton
-          icon={<FaFilter />}
-          aria-label="Filter"
+        <Button
+          leftIcon={<Icon as={FaFilter} />}
+          colorScheme="teal"
+          variant="solid"
+          width="full"
           onClick={onOpen}
-          mb={4}
-        />
+        >
+          Filter
+        </Button>
       </Box>
 
-      {/* Filter Box content */}
       <Box display={{ base: "none", md: "inline" }}>
         <strong>Position:</strong>
         <Input
@@ -184,14 +191,15 @@ const FilterBox = ({ filterFunction }) => {
           />
         </Box>
 
-        <Button colorScheme="teal" onClick={handleFilterChange} mb={2}>
+        <Button colorScheme="teal" onClick={handleFilterChange} mb={2} width="full" leftIcon={<Icon as={TiTick} />}>
           Include
         </Button>
 
-        <Button variant="outline" colorScheme="teal" onClick={handleClearAll}>
+        <Button variant="outline" colorScheme="red" onClick={handleClearAll} width="full" leftIcon={<Icon as={FaTrash} />}>
           Clear All
         </Button>
       </Box>
+
 
       {/* Modal for smaller screens */}
       <Modal isOpen={isOpen} onClose={onClose} size="full">
