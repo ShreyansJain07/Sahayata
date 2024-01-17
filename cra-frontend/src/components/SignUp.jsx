@@ -54,7 +54,7 @@ const Signup = () => {
 
   return (
     <Box
-      bgImage={"/hand.jpg"} // Replace with your image path
+      bgImage={"/hand.jpg"}
       bgSize="cover"
       bgPosition="center"
       h="100vh"
@@ -71,7 +71,7 @@ const Signup = () => {
         >
           <VStack spacing="4">
             <FormControl id="signupName" isRequired>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>Full Name </FormLabel>
               <Input
                 type="text"
                 name="signupName"
