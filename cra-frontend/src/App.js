@@ -6,6 +6,7 @@ import Signup from "./components/SignUp";
 import BrowseTalent from "./screens/BrowseTalent";
 import ResumeBuilder from "./screens/ResumeBuilder";
 import VirtualAssistant from "./screens/VirtualAssistant";
+import Dashboard from "./screens/Dashboard";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/browse" element={<BrowseTalent />} />
         <Route path="/virtualassistant" element={<VirtualAssistant />} />
         <Route path="/resumebuilder" element={<ResumeBuilder />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );

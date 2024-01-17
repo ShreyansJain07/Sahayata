@@ -53,6 +53,9 @@ const VirtualAssistant = () => {
         <div>
           <Button
             variant="outline"
+            boxShadow="xl"
+            transition="transform 0.2s" // Add a smooth transition effect
+            _hover={{ transform: "scale(1.05)" }}
             style={{
               fontSize: "0.7rem",
               padding: "0.5rem",
@@ -65,6 +68,9 @@ const VirtualAssistant = () => {
           </Button>
           <Button
             variant="solid"
+            boxShadow="xl"
+            transition="transform 0.2s" // Add a smooth transition effect
+            _hover={{ transform: "scale(1.05)" }}
             style={{
               fontSize: "0.7rem",
               padding: "0.5rem",
@@ -99,7 +105,10 @@ const VirtualAssistant = () => {
         >
           Total Candidates: 20
         </div>
-        <InputGroup style={{ flex: "1" }}>
+        <InputGroup
+          style={{ flex: "1" }}
+          boxShadow="xl"
+        >
           <InputLeftElement pointerEvents="none">
             <CiSearch />
           </InputLeftElement>
@@ -158,6 +167,9 @@ const VirtualAssistant = () => {
                 <Card
                   direction={{ base: "column", sm: "row" }}
                   overflow="hidden"
+                  boxShadow="xl"
+                  transition="transform 0.2s" // Add a smooth transition effect
+                  _hover={{ transform: "scale(1.05)" }}
                   variant="outline"
                 >
                   <Stack>
@@ -232,7 +244,7 @@ const VirtualAssistant = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <div>Applicants</div>
+                <div>Interviewers</div>
                 <div
                   style={{
                     marginLeft: "auto",
@@ -254,6 +266,9 @@ const VirtualAssistant = () => {
                 <Card
                   direction={{ base: "column", sm: "row" }}
                   overflow="hidden"
+                  boxShadow="xl"
+                  transition="transform 0.2s" // Add a smooth transition effect
+                  _hover={{ transform: "scale(1.05)" }}
                   variant="outline"
                 >
                   <Stack>
@@ -328,7 +343,7 @@ const VirtualAssistant = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <div>Applicants</div>
+                <div>Offered</div>
                 <div
                   style={{
                     marginLeft: "auto",
@@ -351,6 +366,9 @@ const VirtualAssistant = () => {
                   direction={{ base: "column", sm: "row" }}
                   overflow="hidden"
                   variant="outline"
+                  boxShadow="xl"
+                  transition="transform 0.2s" // Add a smooth transition effect
+                  _hover={{ transform: "scale(1.05)" }}
                 >
                   <Stack>
                     <CardBody style={{ textAlign: "left" }}>

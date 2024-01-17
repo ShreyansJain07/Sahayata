@@ -111,6 +111,9 @@ const BrowseTalent = () => {
                 <Card
                   direction={{ base: "column", sm: "row" }}
                   overflow="hidden"
+                  boxShadow="xl"
+                  transition="transform 0.2s" // Add a smooth transition effect
+                  _hover={{ transform: "scale(1.02)" }}
                   variant="outline"
                 >
                   <Image
@@ -141,7 +144,12 @@ const BrowseTalent = () => {
           })}
         </div>
         <div style={{ paddingTop: "1rem", paddingRight: "1rem" }}>
-          <Card maxW="sm">
+          <Card
+            maxW="sm"
+            boxShadow="xl"
+            transition="transform 0.2s" // Add a smooth transition effect
+            _hover={{ transform: "scale(1.05)" }}
+          >
             <CardBody>
               <Image
                 src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"

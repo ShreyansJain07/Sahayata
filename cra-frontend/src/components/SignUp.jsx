@@ -16,7 +16,7 @@ import {
   AlertDescription,
   CloseButton,
 } from "@chakra-ui/react";
-import { signInWithPopup, } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../Firebase";
 import { FaGoogle } from "react-icons/fa";
 import { addUserToFirestore } from "../userFirestore";
@@ -31,7 +31,6 @@ const Signup = () => {
     signupEmail: "",
     signupPassword: "",
   });
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -58,8 +57,13 @@ const Signup = () => {
       bgSize="cover"
       bgPosition="center"
       h="100vh"
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+      }}
     >
-      <Center h="100%">
+      <Center h="100%" style={{ flex: 1 }}>
         <Flex
           direction="column"
           bg="white"
@@ -77,6 +81,7 @@ const Signup = () => {
                 name="signupName"
                 value={formData.signupName}
                 onChange={handleInputChange}
+                placeholder="Eg. Shreyans Jain"
               />
             </FormControl>
             <FormControl id="signupEmail" isRequired pb={2}>
@@ -87,6 +92,7 @@ const Signup = () => {
                 value={formData.signupEmail}
                 onChange={handleInputChange}
                 bg={"white"}
+                placeholder="Eg. shreyans@gmail.com"
               />
             </FormControl>
             <FormControl id="signupPassword" isRequired pb={2}>
@@ -97,10 +103,12 @@ const Signup = () => {
                 value={formData.signupPassword}
                 onChange={handleInputChange}
                 bg={"white"}
+                placeholder="Min. 8 characters"
               />
             </FormControl>
             <Button
-              colorScheme="teal"
+              bgColor="#422afb"
+              color="white"
               type="submit"
               isLoading={isLoading}
               width={"full"}
@@ -142,6 +150,26 @@ const Signup = () => {
           )}
         </Flex>
       </Center>
+      <div
+        style={{
+          background: "linear-gradient(to bottom, blue, violet)",
+          minHeight: "100vh",
+          flex: 1,
+          borderBottomLeftRadius: "15rem",
+          color: "white",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          src="https://imgs.search.brave.com/t6T_K2jQCMbz8q1W29jsrOec1J2QhnonZUv2ACDUAls/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9sb2dv/bWFzdGVyLmFpL2hz/LWZzL2h1YmZzL3do/aXRlLWxvZ28tY29j/YS1jb2xhLmpwZz93/aWR0aD0xNzAwJmhl/aWdodD0xMTQ4Jm5h/bWU9d2hpdGUtbG9n/by1jb2NhLWNvbGEu/anBn"
+          alt=""
+          style={{ width: "20rem" }}
+        />
+        <div style={{ fontSize: "3rem", fontWeight: 500 }}>Sahitya</div>
+      </div>
     </Box>
   );
 };
