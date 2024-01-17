@@ -56,10 +56,10 @@ const AiCourse = () => {
         </div>
       ))}
       <Button className="aicourse-button" onClick={handleAddUnit}>
-        Add Unit <span style={{color:"green",fontSize:"20px"}}>+</span>
+        Add Unit <span style={{ color: "green", fontSize: "20px" }}>+</span>
       </Button>
       <Button className="aicourse-button" onClick={handleDeleteLastUnit}>
-        Delete Unit <span style={{color:"red",fontSize:"20px"}}>-</span>
+        Delete Unit <span style={{ color: "red", fontSize: "20px" }}>-</span>
       </Button>
     </>
   );
