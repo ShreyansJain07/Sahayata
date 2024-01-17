@@ -29,7 +29,6 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import ResourcesPage from "./pages/Resources.jsx";
 import QuizApp from "./components/QuizApp.jsx";
-import {auth} from "./firebase"
 
 import GovernmentSchemes from "./components/GovernmentSchemes.jsx";
 
@@ -76,8 +75,6 @@ const router = createBrowserRouter(
   )
 );
 
-const isLoggedIn = auth?.currentUser;
-console.log(isLoggedIn);
 
 function App() {
   return <RouterProvider router={router} />;
