@@ -16,6 +16,7 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import AiCourse from "./screens/AiCourse";
 import Navbar from "./components/Navbar";
 
+
 export const UserContext = createContext(null);
 
 function App() {
@@ -105,7 +106,7 @@ function App() {
         <UserContext.Provider value={user}>
           <div className="App">
             <Navbar />
-            <div style={{paddingTop:"6vh"}}>
+            <div style={{}}>
               <Routes>
                 <Route path="/" element={<RootLayout />} />
                 <Route path="/signup" element={<Signup />} />

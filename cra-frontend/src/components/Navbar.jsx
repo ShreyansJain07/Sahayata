@@ -27,13 +27,12 @@ function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Box
-      position="fixed"
+      position="sticky"
       top={0}
       left={0}
       right={0}
       zIndex={1000}
-      mb={10}
-      boxShadow="xl"
+      boxShadow="lg"
     >
       <Flex
         bg={useColorModeValue("white", "gray.800")}
