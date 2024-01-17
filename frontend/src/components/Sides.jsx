@@ -27,11 +27,13 @@ import {
   FiMenu,
   FiBell,
   FiChevronDown,
+  FiSearch
 } from 'react-icons/fi'
 
 
 const LinkItems= [
-  { name: 'Home', icon: FiHome },
+  { name: 'Dashboard', icon: FiHome },
+  { name: 'Find Work', icon: FiSearch },
   { name: 'Trending', icon: FiTrendingUp },
   { name: 'Explore', icon: FiCompass },
   { name: 'Favourites', icon: FiStar },
@@ -50,11 +52,16 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+        <Text fontSize="2xl" fontWeight="bold">
+          Sahayta
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
+      <Flex direction="column" align="center" mt="4">
+        <Avatar size='2xl' name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
+        <Text mt="2" fontWeight="bold">Name</Text>
+      </Flex>
+
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon}>
           {link.name}
@@ -122,9 +129,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
       <Text
         display={{ base: 'flex', md: 'none' }}
         fontSize="2xl"
-        fontFamily="monospace"
         fontWeight="bold">
-        Logo
+        Sahayta
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
