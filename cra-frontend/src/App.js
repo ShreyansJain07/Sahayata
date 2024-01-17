@@ -14,6 +14,7 @@ import Dashboard from "./screens/Dashboard";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import AiCourse from "./screens/AiCourse";
+import Navbar from "./components/Navbar";
 
 export const UserContext = createContext(null);
 
@@ -103,17 +104,23 @@ function App() {
       >
         <UserContext.Provider value={user}>
           <div className="App">
-            <Routes>
-              <Route path="/" element={<RootLayout />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/browse" element={<BrowseTalent />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/virtualassistant" element={<VirtualAssistant />} />
-              <Route path="/resumebuilder" element={<ResumeBuilder />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/speech" element={<SpeechtoText />} />
-              <Route path="/aicourse" element={<AiCourse />} />
-            </Routes>
+            <Navbar />
+            <div style={{paddingTop:"6vh"}}>
+              <Routes>
+                <Route path="/" element={<RootLayout />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/browse" element={<BrowseTalent />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route
+                  path="/virtualassistant"
+                  element={<VirtualAssistant />}
+                />
+                <Route path="/resumebuilder" element={<ResumeBuilder />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/speech" element={<SpeechtoText />} />
+                <Route path="/aicourse" element={<AiCourse />} />
+              </Routes>
+            </div>
           </div>
         </UserContext.Provider>
       </AppContext.Provider>

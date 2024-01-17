@@ -32,6 +32,7 @@ function WithSubnavigation() {
       left={0}
       right={0}
       zIndex={1000}
+      mb={10}
       boxShadow="xl"
     >
       <Flex
@@ -65,16 +66,16 @@ function WithSubnavigation() {
               textAlign={useBreakpointValue({ base: "center", md: "left" })}
               fontFamily={"heading"}
               fontWeight={"bold"}
-              ml={[0,12]}
+              ml={[0, 12]}
             >
               सहAIता
             </Text>
           </Link>
-          <Spacer/>
+          <Spacer />
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
-          <Spacer/>
+          <Spacer />
         </Flex>
         <Stack
           flex={{ base: 1, md: 0 }}
@@ -267,8 +268,6 @@ const MobileNavItem = ({ label, children, to }) => {
   );
 };
 
-
-
 const NAV_ITEMS = [
   {
     label: "Employers",
@@ -278,7 +277,7 @@ const NAV_ITEMS = [
     label: "Job Seekers",
     to: "/jobs",
   },
-  
+
   {
     label: "Career Fair",
     to: "/career",
@@ -295,7 +294,7 @@ const NAV_ITEMS = [
   {
     label: "Community",
     to: "/community",
-  }
+  },
   // {
   //   label: '',
   //   to:'/resources',
