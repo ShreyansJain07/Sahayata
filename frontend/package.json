@@ -26,6 +26,7 @@
     "framer-motion": "^10.12.18",
     "leaflet": "^1.9.3",
     "noisejs": "^2.1.0",
+    "peerjs": "^1.5.2",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-calendar": "^4.6.0",
