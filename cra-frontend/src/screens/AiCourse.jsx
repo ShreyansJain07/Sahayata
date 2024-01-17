@@ -21,7 +21,12 @@ const AiCourse = () => {
       setInputFields(newInputFields);
     }
   };
-  console.log(inputFields);
+
+  const handleGenerate = async () => {
+    console.log("pressed");
+    // const data = await searchYoutube(inputFields[0].value);
+    // console.log(data);
+  };
 
   return (
     <>
@@ -60,6 +65,9 @@ const AiCourse = () => {
       </Button>
       <Button className="aicourse-button" onClick={handleDeleteLastUnit}>
         Delete Unit <span style={{ color: "red", fontSize: "20px" }}>-</span>
+      </Button>
+      <Button onClick={handleGenerate} className="aicourse-button">
+        Generate <span style={{ color: "lightblue", fontSize: "20px" }}>↓</span>
       </Button>
     </>
   );
