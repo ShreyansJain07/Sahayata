@@ -62,7 +62,7 @@ const Signup = () => {
           bgImage={"/hand.jpg"}
           bgSize="cover"
           bgPosition="center"
-          h="100vh"
+          h="90vh"
           style={{
             display: "flex",
             flexDirection: "row",
@@ -86,20 +86,30 @@ const Signup = () => {
               shadow="lg"
               maxW="400px"
               w="100%"
+              style={{ fontSize: "0.7rem" }}
             >
               <VStack spacing="4">
                 <FormControl id="signupName" isRequired>
-                  <FormLabel>Full Name </FormLabel>
+                  <FormLabel
+                    style={{ fontSize: "0.75rem", marginTop: "-0.5rem" }}
+                  >
+                    Full Name{" "}
+                  </FormLabel>
                   <Input
                     type="text"
                     name="signupName"
                     value={formData.signupName}
                     onChange={handleInputChange}
                     placeholder="Eg. Shreyans Jain"
+                    fontSize="0.75rem"
                   />
                 </FormControl>
                 <FormControl id="signupEmail" isRequired pb={2}>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel
+                    style={{ fontSize: "0.75rem", marginTop: "-0.5rem" }}
+                  >
+                    Email
+                  </FormLabel>
                   <Input
                     type="email"
                     name="signupEmail"
@@ -107,10 +117,15 @@ const Signup = () => {
                     onChange={handleInputChange}
                     bg={"white"}
                     placeholder="Eg. shreyans@gmail.com"
+                    fontSize="0.75rem"
                   />
                 </FormControl>
                 <FormControl id="signupPassword" isRequired>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel
+                    style={{ fontSize: "0.75rem", marginTop: "-0.95rem" }}
+                  >
+                    Password
+                  </FormLabel>
                   <Input
                     type="password"
                     name="signupPassword"
@@ -118,10 +133,15 @@ const Signup = () => {
                     onChange={handleInputChange}
                     bg={"white"}
                     placeholder="Min. 8 characters"
+                    fontSize="0.75rem"
                   />
                 </FormControl>
                 <FormControl id="signupPassword" isRequired>
-                  <FormLabel>Role</FormLabel>
+                  <FormLabel
+                    style={{ fontSize: "0.75rem", marginTop: "-0.7rem" }}
+                  >
+                    Role
+                  </FormLabel>
                   <Select
                     placeholder="Select Option"
                     style={{ backgroundColor: "white", fontSize: "1.0rem" }}
@@ -136,6 +156,11 @@ const Signup = () => {
                   type="submit"
                   isLoading={isLoading}
                   width={"full"}
+                  style={{
+                    fontSize: "0.7rem",
+                    height: "fit-content",
+                    padding: "0.5rem",
+                  }}
                 >
                   Sign Up
                 </Button>
@@ -146,6 +171,12 @@ const Signup = () => {
                   color={"white"}
                   leftIcon={<FaGoogle />}
                   width={"full"}
+                  style={{
+                    fontSize: "0.7rem",
+                    height: "fit-content",
+                    padding: "0.5rem",
+                    marginTop: "-0.4rem",
+                  }}
                 >
                   Sign Up with Google
                 </Button>
