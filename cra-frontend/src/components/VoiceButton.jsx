@@ -88,7 +88,7 @@ const VoiceButton = () => {
   }
 
   return (
-    <Box position="fixed" bottom="4" right="4">
+    <Box position="fixed" bottom="4" right="4" zIndex={1000} color={"teal.800"}>
       <IconButton
         icon={<FaMicrophone />}
         aria-label="Voice Button"
