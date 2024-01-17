@@ -24,6 +24,8 @@ import {
 } from "@chakra-ui/react";
 import { FaFileContract } from "react-icons/fa";
 import { Badge, Calendar } from "antd";
+import { useNavigate } from "react-router-dom";
+
 const getListData = (value) => {
   let listData;
   switch (value.date()) {
@@ -142,6 +144,10 @@ const Dashboard = () => {
     if (info.type === "month") return monthCellRender(current);
     return info.originNode;
   };
+
+  // Routing
+  const navigate = useNavigate();
+
   // Modal
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [gender, setGender] = useState("-");
@@ -308,6 +314,7 @@ const Dashboard = () => {
                     style={{
                       color: "#3261ff",
                     }}
+                    onClick={() => navigate("/")}
                   >
                     Click to upload a PDF {">"}
                   </button>
@@ -345,6 +352,7 @@ const Dashboard = () => {
                     style={{
                       color: "#3261ff",
                     }}
+                    onClick={() => navigate("/resumebuilder")}
                   >
                     Create / Enhance Resume {">"}
                   </button>
