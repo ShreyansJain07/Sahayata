@@ -26,6 +26,7 @@ import RootLayout from "./layouts/RootLayout";
 import HelpLayout from "./layouts/HelpLayout";
 import CareersLayout from "./layouts/CareersLayout.jsx";
 import Signup from "./components/Signup";
+import Login from "./components/Login";
 import ResourcesPage from "./pages/Resources.jsx";
 import QuizApp from "./components/QuizApp.jsx";
 
@@ -43,6 +44,8 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="govschemes" element={<GovernmentSchemes />} />
       <Route path="authenticate" element={<Signup />} />
+      <Route path="signup" element={<Signup />} />
+      <Route path="login" element={<Login />} />
       <Route path="resources" element={<ResourcesPage />} />
       <Route path="about" element={<About />} />
       <Route path="help" element={<HelpLayout />}>
