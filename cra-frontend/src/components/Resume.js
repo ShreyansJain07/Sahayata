@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     border: "none",
     padding: "1rem",
+    borderRadius: "1rem",
+    fontWeight: 625,
     boxShadow: "0 1px 1px 0 rgb(0 0 0 / 20%), 0 1px 2px 0 rgb(0 0 0 / 19%)",
+    transition: "1s",
     "&:hover": {
       background: "#d6d6d6",
     },
@@ -21,11 +24,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     border: "none",
     padding: "1rem",
+    borderRadius: "1rem",
+    fontWeight: 625,
     boxShadow: "0 1px 1px 0 rgb(0 0 0 / 20%), 0 1px 2px 0 rgb(0 0 0 / 19%)",
-    background: "#77bb77",
-    "&:hover": {
-      background: "#548854",
-    },
+    background: "#ff5045",
+    color: "white",
+    // "&:hover": {
+    //   background: "#548854",
+    // },
   },
   resume: {
     padding: "3rem",
@@ -60,7 +66,7 @@ function Resume() {
                 <div
                   style={{
                     textAlign: "right",
-                    backgroundColor:"#f3f4f6",
+                    backgroundColor: "#f3f4f6",
                   }}
                   key={answer.resumeFieldId}
                 >
@@ -99,7 +105,7 @@ function Resume() {
           Build New
         </button>
         <button
-        className={classes.buttonDownload}
+          className={classes.buttonDownload}
           onClick={() => generatePDF(ref, { filename: "page.pdf" })}
         >
           Download PDF
