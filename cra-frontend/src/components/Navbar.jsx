@@ -97,7 +97,7 @@ function WithSubnavigation() {
             fontSize={"sm"}
             fontWeight={600}
             color="white"
-            bg={"teal.800"}
+            bg="#2234da"
             to={"/signup"}
             _hover={{
               bg: "teal.500",
