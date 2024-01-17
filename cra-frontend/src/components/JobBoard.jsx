@@ -17,6 +17,7 @@ import {
   RadioGroup,
   IconButton,
   Slider,
+  Stack,
   Button,
   Text,
   Icon,
@@ -163,11 +164,14 @@ const FilterBox = ({ filterFunction }) => {
         <Box mb={2}>
           <strong>Work Type:</strong>
           <RadioGroup value={workType} onChange={(e) => setWorkType(e)}>
-            <Radio value="remote">Work from Home</Radio>
-            <Radio value="partTime">Part Time</Radio>
-            <Radio value="hybrid">Hybrid</Radio>
+            <Stack direction="column">
+              <Radio value="remote">Work from Home</Radio>
+              <Radio value="partTime">Part Time</Radio>
+              <Radio value="hybrid">Hybrid</Radio>
+            </Stack>
           </RadioGroup>
         </Box>
+
 
         <Box mb={2}>
           <strong>Salary Range:</strong>
