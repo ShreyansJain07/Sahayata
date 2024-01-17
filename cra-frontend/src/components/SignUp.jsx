@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import loader from '../assests/loader.gif';
 import {
   Box,
   Center,
@@ -21,6 +22,7 @@ import { auth, googleProvider } from "../Firebase";
 import { FaGoogle } from "react-icons/fa";
 import { addUserToFirestore } from "../userFirestore";
 import { UserContext } from "../App";
+import '../App.css'
 
 const Signup = () => {
     const localAuth = getAuth();
@@ -66,12 +68,15 @@ const Signup = () => {
             justifyContent: "space-between",
           }}
         >
-          <Center h="100%" style={{ flex: 1 }}>
+          <Center h="100%" style={{ flex: 1 ,
+            background:"linear-gradient(90deg, hsla(192, 95%, 50%, 1) 0%, hsla(225, 89%, 47%, 1) 100%)",
+            borderEndEndRadius:"250px"
+          }}>
             <Flex
               direction="column"
               bg="white"
               p="8"
-              rounded="md"
+              rounded="xl"
               shadow="lg"
               maxW="400px"
               w="100%"
@@ -110,7 +115,7 @@ const Signup = () => {
                   />
                 </FormControl>
                 <Button
-                  bgColor="#422afb"
+                  bgColor="#3261ff"
                   color="white"
                   type="submit"
                   isLoading={isLoading}
@@ -118,8 +123,6 @@ const Signup = () => {
                 >
                   Sign Up
                 </Button>
-                <Divider />
-                <Text>OR</Text>
                 <Button
                   onClick={handleGoogleSignup}
                   bgColor={"black"}
@@ -155,7 +158,11 @@ const Signup = () => {
               )}
             </Flex>
           </Center>
-          <div
+          <div className="left">
+      <h1 style={{color:"#ffcf36", fontSize:"5.5rem",fontWeight:"bolder"}}>सह<span style={{color:"#3261ff"}}>AI</span>ता</h1>
+      <img src={loader} alt="" style={{height:"350px" , width:"450px",marginTop:"10px"}} />
+      </div>
+          {/* <div
             style={{
               background: "linear-gradient(to bottom, blue, violet)",
               minHeight: "100vh",
@@ -174,7 +181,7 @@ const Signup = () => {
               style={{ width: "20rem" }}
             />
             <div style={{ fontSize: "3rem", fontWeight: 500 }}>Sahitya</div>
-          </div>
+          </div> */}
         </Box>
       ) : (
         <button
