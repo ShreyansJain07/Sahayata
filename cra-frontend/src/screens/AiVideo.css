@@ -1,0 +1,19 @@
+.aivideo-main{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.aivideo-contents{
+    width: 350px;
+    padding: 25px;
+}
+
+.li-selected {
+    color: green;
+    cursor: pointer;
+  }
+  
+  .aivideo-video{
+    padding: 25px;
+  }

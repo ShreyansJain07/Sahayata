@@ -4,7 +4,7 @@ import "./AiCourse.css";
 import { Input, Button } from "antd";
 
 const AiCourse = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [inputFields, setInputFields] = useState([{ value: "" }]);
   const [title, setTitle] = useState("");
   const handleInputChange = (e, id) => {
@@ -62,7 +62,7 @@ const AiCourse = () => {
     const params = {
       paramName: data.openai.generated_text,
     };
-    navigate('/aivideo', { state: params });
+    navigate("/aivideo", { state: params });
   };
 
   return (
@@ -97,15 +97,25 @@ const AiCourse = () => {
           </div>
         </div>
       ))}
-      <Button className="aicourse-button" onClick={handleAddUnit}>
-        Add Unit <span style={{ color: "green", fontSize: "20px" }}>+</span>
-      </Button>
-      <Button className="aicourse-button" onClick={handleDeleteLastUnit}>
-        Delete Unit <span style={{ color: "red", fontSize: "20px" }}>-</span>
-      </Button>
-      <Button onClick={handleGenerate} className="aicourse-button">
-        Generate <span style={{ color: "lightblue", fontSize: "20px" }}>↓</span>
-      </Button>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop:"20px"
+        }}
+      >
+        <Button className="aicourse-button" onClick={handleAddUnit}>
+          Add Unit <span style={{ color: "green", fontSize: "20px" }}>+</span>
+        </Button>
+        <Button className="aicourse-button" onClick={handleDeleteLastUnit}>
+          Delete Unit <span style={{ color: "red", fontSize: "20px" }}>-</span>
+        </Button>
+        <Button onClick={handleGenerate} className="aicourse-button">
+          Generate{" "}
+          <span style={{ color: "lightblue", fontSize: "20px" }}>↓</span>
+        </Button>
+      </div>
     </>
   );
 };
