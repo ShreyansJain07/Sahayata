@@ -1,6 +1,11 @@
 import React, { useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { LinearProgress, Typography, Box } from "@material-ui/core";
+import {
+  LinearProgress,
+  CircularProgress,
+  Typography,
+  Box,
+} from "@material-ui/core";
 import Question from "./Question";
 import AppContext from "../AppContext";
 import Resume from "./Resume";
@@ -10,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    minHeight: "80vh",
+    minHeight: "30vh",
   },
   progressBar: {
     margin: "1rem",
@@ -19,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "80vh",
+    height: "30vh",
   },
   question: {},
 }));
@@ -28,7 +33,8 @@ function LinearProgressWithLabel(props) {
   return (
     <Box display="flex" alignItems="center">
       <Box width="100%" mr={1}>
-        <LinearProgress variant="determinate" {...props} />
+        {/* <LinearProgress variant="determinate" {...props} /> */}
+        <CircularProgress variant="determinate" size={150} {...props} />
       </Box>
       <Box minWidth={35}>
         <Typography variant="body2" color="textSecondary">{`${Math.round(
@@ -39,7 +45,7 @@ function LinearProgressWithLabel(props) {
   );
 }
 
-function Questions() {
+function Questions({ setImage }) {
   const classes = useStyles();
 
   const [progress, setProgress] = React.useState(0);
@@ -56,6 +62,12 @@ function Questions() {
     );
   }, [answers]);
 
+  useEffect(() => {
+    if (progress == 100) {
+      setImage(false);
+    }
+  }, [progress]);
+
   return (
     <div>
       {questions.length !== answers.length ? (
@@ -64,14 +76,16 @@ function Questions() {
           className={classes.progressBar}
         />
       ) : null}
-      <div className={classes.root}>
-        {questions.length === answers.length ? (
-          <Resume />
-        ) : (
-          <div className={classes.question}>
-            <Question question={questionAnswer.question} />
-          </div>
-        )}
+      <div>
+        <div className={classes.root}>
+          {questions.length === answers.length ? (
+            <Resume />
+          ) : (
+            <div className={classes.question}>
+              <Question question={questionAnswer.question} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

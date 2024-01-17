@@ -49,7 +49,7 @@ function Question() {
       const data = await response.json();
       const enhancedText = data.google.generated_text;
       setEnhancedAnswer(() => {
-        const enhancedAnswer = enhancedText.replace(/\*/g, ' ');
+        const enhancedAnswer = enhancedText.replace(/\*/g, " ");
         handleChangeInput({ target: { value: enhancedAnswer } });
         return enhancedAnswer;
       });
@@ -73,7 +73,7 @@ function Question() {
           name={questionAnswer.resumeFieldId}
           value={enhancedAnswer || questionAnswer.answer || ""}
           onChange={handleChangeInput}
-          style={{ width: "600px" }}
+          style={{ width: "30rem" }}
         />
         <div className={classes.buttonContainer}>
           <Button
@@ -85,7 +85,16 @@ function Question() {
           >
             Next
           </Button>
-          <Button onClick={() => fetchData()} className={classes.button}>
+          <Button
+            onClick={() => fetchData()}
+            style={{
+              color: "white",
+              backgroundColor: "#ff5045",
+              marginLeft: "1rem",
+              fontWeight: 620,
+            }}
+            className={classes.button}
+          >
             Enhance with AI
           </Button>
         </div>
