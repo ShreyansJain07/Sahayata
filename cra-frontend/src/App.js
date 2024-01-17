@@ -14,6 +14,7 @@ import Dashboard from "./screens/Dashboard";
 import { onAuthStateChanged,getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
+
 export const UserContext = createContext(null);
 
 function App() {
@@ -111,6 +112,9 @@ function App() {
             <Route path="/resumebuilder" element={<ResumeBuilder />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/speech" element={<SpeechtoText />} />
+            
+
+
           </Routes>
         </div>
         </UserContext.Provider>
