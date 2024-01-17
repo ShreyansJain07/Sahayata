@@ -15,6 +15,7 @@ import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import AiCourse from "./screens/AiCourse";
 import Navbar from "./components/Navbar";
+import AiVideo from "./screens/AiVideo";
 
 
 export const UserContext = createContext(null);
@@ -120,6 +121,7 @@ function App() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/speech" element={<SpeechtoText />} />
                 <Route path="/aicourse" element={<AiCourse />} />
+                <Route path="/aivideo" element={<AiVideo />} />
               </Routes>
             </div>
           </div>
