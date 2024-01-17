@@ -1,105 +1,136 @@
 import React, { useState, useEffect } from "react";
-import { Box, IconButton, useDisclosure,Modal,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalBody, Button,ModalFooter } from "@chakra-ui/react";
-import { FaMicrophone } from "react-icons/fa";
+import {
+  Box,
+  IconButton,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  Button,
+  Text,
+  ModalFooter,
+  Icon,
+  VStack, SimpleGrid } from '@chakra-ui/react';
 
+import { FaMicrophone, FaMicrophoneAltSlash } from "react-icons/fa";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+import useClipboard from "react-use-clipboard";
+import { FaMicrophoneAlt, FaMicrophoneSlash } from "react-icons/fa"; // You can use any icon from react-icons library
 
-const SpeechToText = () => {
-  const [isListening, setIsListening] = useState(false);
-  const [transcription, setTranscription] = useState("");
-  const recognition = window.webkitSpeechRecognition
-  ? new window.webkitSpeechRecognition() : null;
-
-  useEffect(() => {
-    if (recognition) {
-      // Your existing code for setting up recognition
-    } else {
-      console.error("SpeechRecognition API is not supported in this browser");
-    }
-  }, []);
-  
-  useEffect(() => {
-    recognition.lang = "en-US";
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setTranscription(transcript);
-    };
-
-    recognition.onend = () => {
-      if (isListening) {
-        recognition.start();
-      }
-    };
-
-    recognition.onerror = (event) => {
-      console.error("Speech recognition error:", event.error);
-      setIsListening(false);
-    };
-
-    return () => {
-      recognition.stop();
-    };
-  }, [isListening]);
-
-  const toggleListening = () => {
-    if (isListening) {
-      recognition.stop();
-    } else {
-      recognition.start();
-    }
-    setIsListening(!isListening);
-  };
+const LanguageButtons = () => {
+  const languages = [
+    { name: 'Hindi', code: 'hi' },
+    { name: 'Tamil', code: 'ta' },
+    { name: 'Telugu', code: 'te' },
+    { name: 'Bengali', code: 'bn' },
+    // Add more languages as needed
+  ];
 
   return (
-    <div>
-      <h1>Speech-to-Text</h1>
-      <button onClick={toggleListening}>
-        {isListening ? "Stop Listening" : "Start Listening"}
-      </button>
-      <p>{transcription}</p>
-    </div>
+    <SimpleGrid columns={{ sm: 1, md: 2, lg: 4 }} spacing={4} width="full">
+      {languages.map((language) => (
+        <Button
+          key={language.code}
+          width="full"
+          colorScheme="teal"
+          size={"lg"}
+          onFocus={() => SpeechRecognition.startListening({ language: language.code })}
+        >
+          <Text fontSize="lg">
+
+          {language.name}
+          </Text>
+        </Button>
+      ))}
+    </SimpleGrid>
   );
 };
 
 
 const VoiceButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const [isListening, setIsListening] = useState(false);
   const handlePress = () => {
     onOpen();
   };
 
-  const handleLongPress = () => {
-    // Handle long press action (if needed)
-    console.log("Long Press");
+  const [textToCopy, setTextToCopy] = useState();
+  const [isCopied, setCopied] = useClipboard(textToCopy, {
+    successDuration: 1000,
+  });
+
+  //subscribe to thapa technical for more awesome videos
+
+  
+
+
+
+  const startListening = () => {
+    SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
+
+    setIsListening(true);
   };
+
+  const stopListening = () => {
+    SpeechRecognition.stopListening();
+    setIsListening(false);
+  }
+  const { transcript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
+
+  if (!browserSupportsSpeechRecognition) {
+    return null;
+  }
 
   return (
     <Box position="fixed" bottom="4" right="4">
-        <IconButton
-          icon={<FaMicrophone />}
-          aria-label="Voice Button"
-          onClick={handlePress}
-          size="lg"
-          colorScheme="teal"
-        />
+      <IconButton
+        icon={<FaMicrophone />}
+        aria-label="Voice Button"
+        onClick={handlePress}
+        size="lg"
+        colorScheme="teal"
+        aria-labelledby="voice-assistant"
+      />
 
-      {/* Your Modal Component */}
-      {/* Replace this with your actual modal content */}
-      {/* isOpen controls the visibility of the modal */}
-      {/* onClose is used to close the modal */}
       <Modal isOpen={isOpen} onClose={onClose} size={"full"}>
-        {/* Modal Content */}
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Voice Modal</ModalHeader>
+          <ModalHeader>Voice Assistant</ModalHeader>
           <ModalCloseButton />
-          <ModalBody minH={"75vh"}>
-<SpeechToText/>
-
+          <ModalBody>
+            <LanguageButtons />
+            <Text>{transcript}</Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" width={"100%"} onClick={onClose}/>
-            </ModalFooter>
+            {isListening ? (
+              <Button
+                colorScheme="red"
+                aria-label="Stop Listening"
+                leftIcon={<Icon as={FaMicrophoneSlash} />}
+                width={"full"}
+                onClick={stopListening}
+              >
+                Stop Listening
+              </Button>
+            ):
+            (
+              <Button
+                colorScheme="blue" // Set the color scheme according to your design
+                aria-label="Start Listening"
+                leftIcon={<Icon as={FaMicrophoneAlt} />}
+                width={"full"}
+                onClick={startListening}
+              >
+                Start Listening
+              </Button>
+            ) }
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </Box>
