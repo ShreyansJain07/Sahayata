@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import loader from '../assests/loader.gif';
+import loader from "../assests/loader.gif";
 import {
   Box,
   Center,
@@ -16,16 +16,17 @@ import {
   AlertTitle,
   AlertDescription,
   CloseButton,
+  Select,
 } from "@chakra-ui/react";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../Firebase";
 import { FaGoogle } from "react-icons/fa";
 import { addUserToFirestore } from "../userFirestore";
 import { UserContext } from "../App";
-import '../App.css'
+import "../App.css";
 
 const Signup = () => {
-    const localAuth = getAuth();
+  const localAuth = getAuth();
   const user = useContext(UserContext);
   console.log(user);
   const [isLoading, setIsLoading] = useState(false);
@@ -68,10 +69,15 @@ const Signup = () => {
             justifyContent: "space-between",
           }}
         >
-          <Center h="100%" style={{ flex: 1 ,
-            background:"linear-gradient(90deg, hsla(192, 95%, 50%, 1) 0%, hsla(225, 89%, 47%, 1) 100%)",
-            borderEndEndRadius:"250px"
-          }}>
+          <Center
+            h="100%"
+            style={{
+              flex: 1,
+              background:
+                "linear-gradient(90deg, hsla(192, 95%, 50%, 1) 0%, hsla(225, 89%, 47%, 1) 100%)",
+              borderEndEndRadius: "250px",
+            }}
+          >
             <Flex
               direction="column"
               bg="white"
@@ -103,7 +109,7 @@ const Signup = () => {
                     placeholder="Eg. shreyans@gmail.com"
                   />
                 </FormControl>
-                <FormControl id="signupPassword" isRequired pb={2}>
+                <FormControl id="signupPassword" isRequired>
                   <FormLabel>Password</FormLabel>
                   <Input
                     type="password"
@@ -113,6 +119,16 @@ const Signup = () => {
                     bg={"white"}
                     placeholder="Min. 8 characters"
                   />
+                </FormControl>
+                <FormControl id="signupPassword" isRequired>
+                  <FormLabel>Role</FormLabel>
+                  <Select
+                    placeholder="Select Option"
+                    style={{ backgroundColor: "white", fontSize: "1.0rem" }}
+                  >
+                    <option value="option1">Employer</option>
+                    <option value="option2">Employee</option>
+                  </Select>
                 </FormControl>
                 <Button
                   bgColor="#3261ff"
@@ -159,9 +175,21 @@ const Signup = () => {
             </Flex>
           </Center>
           <div className="left">
-      <h1 style={{color:"#ffcf36", fontSize:"5.5rem",fontWeight:"bolder"}}>सह<span style={{color:"#3261ff"}}>AI</span>ता</h1>
-      <img src={loader} alt="" style={{height:"350px" , width:"450px",marginTop:"10px"}} />
-      </div>
+            <h1
+              style={{
+                color: "#ffcf36",
+                fontSize: "5.5rem",
+                fontWeight: "bolder",
+              }}
+            >
+              सह<span style={{ color: "#3261ff" }}>AI</span>ता
+            </h1>
+            <img
+              src={loader}
+              alt=""
+              style={{ height: "350px", width: "450px", marginTop: "10px" }}
+            />
+          </div>
           {/* <div
             style={{
               background: "linear-gradient(to bottom, blue, violet)",
@@ -185,13 +213,13 @@ const Signup = () => {
         </Box>
       ) : (
         <button
-        onClick={() => {
-          localAuth.signOut(); 
-          console.log("pressed");
-        }}
-      >
-        LogOut
-      </button>
+          onClick={() => {
+            localAuth.signOut();
+            console.log("pressed");
+          }}
+        >
+          LogOut
+        </button>
       )}
     </>
   );

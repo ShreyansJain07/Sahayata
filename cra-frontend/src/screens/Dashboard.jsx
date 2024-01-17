@@ -6,19 +6,92 @@ import {
   CardFooter,
   Image,
   Stack,
+  Input,
+  FormLabel,
   Heading,
   Text,
   Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Select,
-  Divider,
-  ButtonGroup,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   Checkbox,
   CheckboxGroup,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { FaFileContract } from "react-icons/fa";
+import { Badge, Calendar } from "antd";
+const getListData = (value) => {
+  let listData;
+  switch (value.date()) {
+    case 8:
+      listData = [
+        {
+          type: "warning",
+          content: "This is warning event.",
+        },
+        {
+          type: "success",
+          content: "This is usual event.",
+        },
+      ];
+      break;
+    case 10:
+      listData = [
+        {
+          type: "warning",
+          content: "This is warning event.",
+        },
+        {
+          type: "success",
+          content: "This is usual event.",
+        },
+        {
+          type: "error",
+          content: "This is error event.",
+        },
+      ];
+      break;
+    case 15:
+      listData = [
+        {
+          type: "warning",
+          content: "This is warning event",
+        },
+        {
+          type: "success",
+          content: "This is very long usual event......",
+        },
+        {
+          type: "error",
+          content: "This is error event 1.",
+        },
+        {
+          type: "error",
+          content: "This is error event 2.",
+        },
+        {
+          type: "error",
+          content: "This is error event 3.",
+        },
+        {
+          type: "error",
+          content: "This is error event 4.",
+        },
+      ];
+      break;
+    default:
+  }
+  return listData || [];
+};
+const getMonthData = (value) => {
+  if (value.month() === 8) {
+    return 1394;
+  }
+};
 
 const Dashboard = () => {
   const [Jobs, setJobs] = useState([
@@ -41,6 +114,40 @@ const Dashboard = () => {
       experience: "3",
     },
   ]);
+
+  // Calendar
+  const monthCellRender = (value) => {
+    const num = getMonthData(value);
+    return num ? (
+      <div className="notes-month">
+        <section>{num}</section>
+        <span>Backlog number</span>
+      </div>
+    ) : null;
+  };
+  const dateCellRender = (value) => {
+    const listData = getListData(value);
+    return (
+      <ul className="events">
+        {listData.map((item) => (
+          <li key={item.content}>
+            <Badge status={item.type} text={item.content} />
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  const cellRender = (current, info) => {
+    if (info.type === "date") return dateCellRender(current);
+    if (info.type === "month") return monthCellRender(current);
+    return info.originNode;
+  };
+  // Modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [gender, setGender] = useState("-");
+  const [BloodGrp, setBloodGrp] = useState("-");
+  const [Role, setRole] = useState("-");
+  const [WorkExperience, setWorkExperience] = useState("-");
   return (
     <>
       <div
@@ -111,6 +218,7 @@ const Dashboard = () => {
                   width: "20%",
                   fontWeight: 600,
                 }}
+                onClick={onOpen}
               >
                 Edit
               </button>
@@ -134,7 +242,7 @@ const Dashboard = () => {
               >
                 <div>
                   Gender:{" "}
-                  <a style={{ color: "black", fontWeight: 600 }}>Female</a>
+                  <a style={{ color: "black", fontWeight: 600 }}>{gender}</a>
                 </div>
                 <div>
                   Email:{" "}
@@ -165,18 +273,13 @@ const Dashboard = () => {
               >
                 <div>
                   Blood group:{" "}
-                  <a style={{ color: "black", fontWeight: 600 }}>O-ve</a>
+                  <a style={{ color: "black", fontWeight: 600 }}>{BloodGrp}</a>
                 </div>
-                <CheckboxGroup
-                  colorScheme="green"
-                  defaultValue={["naruto", "kakashi"]}
-                >
-                  {/* <Stack spacing={[1, 5]} direction={["column", "row"]}> */}
+                <CheckboxGroup colorScheme="green">
                   <Checkbox value="naruto">Blind</Checkbox>
                   <Checkbox value="sasuke">Deaf</Checkbox>
                   <Checkbox value="kakashi">Locomotor disability</Checkbox>
                   <Checkbox value="other">Other</Checkbox>
-                  {/* </Stack> */}
                 </CheckboxGroup>
               </div>
             </div>
@@ -228,11 +331,13 @@ const Dashboard = () => {
               >
                 <div>
                   Role:{" "}
-                  <a style={{ color: "black", fontWeight: 600 }}>Designer</a>
+                  <a style={{ color: "black", fontWeight: 600 }}>{Role}</a>
                 </div>
                 <div>
                   Work experience:{" "}
-                  <a style={{ color: "black", fontWeight: 600 }}>2 years</a>
+                  <a style={{ color: "black", fontWeight: 600 }}>
+                    {WorkExperience} years
+                  </a>
                 </div>
                 <div>
                   Resume:{" "}
@@ -413,11 +518,21 @@ const Dashboard = () => {
               </CardBody>
             </Card>
           </div>
-        </div>
-        <div style={{ textAlign: "left", flex: 1 }}>
           <div
             style={{
-              //   marginTop: "1rem",
+              marginTop: "1rem",
+              paddingLeft: "1rem",
+              paddingRight: "1rem",
+              backgroundColor: "white",
+              borderRadius: "0.5rem",
+            }}
+          >
+            <Calendar cellRender={cellRender} />
+          </div>
+        </div>
+        <div style={{ textAlign: "left", flex: 0.4 }}>
+          <div
+            style={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
@@ -508,6 +623,56 @@ const Dashboard = () => {
           })}
         </div>
       </div>
+
+      {/* // Modal  */}
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit profile</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormLabel>Gender</FormLabel>
+            <Input
+              onChange={(e) => setGender(e.target.value)}
+              type="tel"
+              placeholder="Enter gender"
+            />
+            <FormLabel style={{ paddingTop: "0.4rem" }}>Blood group</FormLabel>
+            <Input
+              onChange={(e) => setBloodGrp(e.target.value)}
+              type="tel"
+              placeholder="Enter blood group"
+            />
+            <FormLabel style={{ paddingTop: "0.4rem" }}>Role</FormLabel>
+            <Input
+              onChange={(e) => setRole(e.target.value)}
+              type="tel"
+              placeholder="Enter role"
+            />
+            <FormLabel style={{ paddingTop: "0.4rem" }}>
+              Work experience
+            </FormLabel>
+            <Input
+              onChange={(e) => setWorkExperience(e.target.value)}
+              type="tel"
+              placeholder="Enter work experience in years"
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              style={{
+                backgroundColor: "#ff5045",
+                color: "white",
+                margin: "auto",
+              }}
+              onClick={onClose}
+            >
+              Save
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
