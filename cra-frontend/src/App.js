@@ -1,16 +1,13 @@
 import "./App.css";
 import RootLayout from './layouts/RootLayout';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Signup from './components/SignUp';
 import BrowseTalent from './screens/BrowseTalent';
 import ResumeBuilder from './screens/ResumeBuilder';
 import Blog from './components/Blog';
 import SpeechtoText from './components/SpeechtoText';
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AppContext from "./AppContext";
-import Signup from "./components/SignUp";
-import BrowseTalent from "./screens/BrowseTalent";
-import ResumeBuilder from "./screens/ResumeBuilder";
 import questionsArray from "./constants/questionsArray";
 
 function App() {
