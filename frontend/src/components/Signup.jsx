@@ -16,10 +16,14 @@ import {
   AlertDescription,
   CloseButton,
 } from "@chakra-ui/react";
-import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import {
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { auth, googleProvider } from "../firebase";
 import { redirect, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
+import { addUserToFirestore } from "../userFirestore";
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -63,8 +67,14 @@ const Signup = () => {
   };
 
   const handleGoogleSignup = async (e) => {
-    const provider = await new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result?.user;
+        addUserToFirestore(user)
+      })
+      .catch((error) => {
+        throw new Error(error.message);
+      });
   };
 
   return (
