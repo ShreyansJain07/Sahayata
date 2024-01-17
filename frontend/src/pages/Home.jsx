@@ -4,6 +4,7 @@ import { useState } from "react";
 import Hero from "../components/Hero";
 import StatsCard from "../components/StatsCard";
 import HorizontalScrollPane from "../components/HorizontalScrollPane";
+import StreamComponent from "../components/StreamComponent";
 // import Carousel from "../components/Carousel";
 const cardsData = [
   {
