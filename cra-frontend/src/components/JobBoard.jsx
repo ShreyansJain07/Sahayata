@@ -110,20 +110,16 @@ const FilterBox = ({ filterFunction }) => {
   };
 
   return (
-    <Box
-      p={4}
-      m={4}
-      boxShadow={"xl"}
-      py={[6, 12]}
-    >
-      {/* Filter Icon/Button for smaller screens */}
-      <IconButton
-        icon={<FaFilter />}
-        aria-label="Filter"
-        display={{ base: "inline", md: "none" }}
-        onClick={onOpen}
-        mb={4}
-      />
+    <Box p={4} m={4} boxShadow={"xl"} py={[6, 12]}>
+      <Box display={{ base: "inline", md: "none" }}>
+        <Text>View Filters</Text>
+        <IconButton
+          icon={<FaFilter />}
+          aria-label="Filter"
+          onClick={onOpen}
+          mb={4}
+        />
+      </Box>
 
       {/* Filter Box content */}
       <Box display={{ base: "none", md: "inline" }}>
@@ -339,29 +335,29 @@ const JobList = ({ jobs }) => {
 };
 
 const JobBoard = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [filteredJobs, setFilteredJobs] = useState(dummyJobData);
-  
-    const handleFilter = (filter) => {
-      const filtered = dummyJobData.filter((job) =>
-        job.position.toLowerCase().includes(filter.toLowerCase())
-      );
-      setFilteredJobs(filtered);
-    };
-  
-    return (
-      <Container maxW="container.xl">
-        {/* Adjusted grid template columns for responsiveness */}
-        <Grid templateColumns={{ base: "1fr", md: "2fr 3fr" }} gap={4}>
-          <GridItem>
-            <FilterBox filterFunction={handleFilter} />
-          </GridItem>
-          <GridItem>
-            <JobList jobs={filteredJobs} />
-          </GridItem>
-        </Grid>
-      </Container>
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [filteredJobs, setFilteredJobs] = useState(dummyJobData);
+
+  const handleFilter = (filter) => {
+    const filtered = dummyJobData.filter((job) =>
+      job.position.toLowerCase().includes(filter.toLowerCase())
     );
+    setFilteredJobs(filtered);
   };
-  
+
+  return (
+    <Container maxW="container.xl">
+      {/* Adjusted grid template columns for responsiveness */}
+      <Grid templateColumns={{ base: "1fr", md: "2fr 3fr" }} gap={4}>
+        <GridItem>
+          <FilterBox filterFunction={handleFilter} />
+        </GridItem>
+        <GridItem>
+          <JobList jobs={filteredJobs} />
+        </GridItem>
+      </Grid>
+    </Container>
+  );
+};
+
 export default JobBoard;
