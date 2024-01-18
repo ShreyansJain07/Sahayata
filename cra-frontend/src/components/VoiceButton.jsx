@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   IconButton,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
   Button,
   Text,
   ModalFooter,
   Icon,
   SimpleGrid,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import SpeechRecognition, {
@@ -57,10 +56,26 @@ const LanguageButtons = () => {
 const VoiceButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isListening, setIsListening] = useState(false);
+  const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
   const startListening = () => {
     SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
     setIsListening(true);
+    console.log(transcript)
+      if (transcript.includes("hello")) {
+        stopListening();
+    
+        const initialSpeech = "Voice Assistant, how may I help you today?";
+        const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
+    
+        initialUtterance.onend = () => {
+          // Speech synthesis has ended, set isListening to true
+          // startListening();
+          // setIsListening(true);
+        };
+    
+        window.speechSynthesis.speak(initialUtterance);
+      }    
   };
 
   const stopListening = () => {
@@ -68,37 +83,40 @@ const VoiceButton = () => {
     setIsListening(false);
   };
 
-  const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
-  const [utranscript, setUTranscript] = useState("");
 
-  useEffect(() => {
-    setUTranscript(transcript);
-  }, [transcript]);
+  
+
+  // useEffect to trigger speech synthesis when the component mounts
 
   if (!browserSupportsSpeechRecognition) {
     return null;
   }
 
   return (
-    <Box color={"teal.800"}>
+    <Box color={"teal.800"} aria-label="Voice Assistant">
       <IconButton
         icon={<FaMicrophone />}
         aria-label="Voice Button"
-        onClick={onOpen}
+        onClick={()=>{
+            const initialSpeech = "Voice Assistant How may I help you today?";
+            const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
+            window.speechSynthesis.speak(initialUtterance);
+          
+          onOpen()}}
         size="lg"
         colorScheme="teal"
         aria-labelledby="voice-assistant"
       />
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Voice Assistant</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+      <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerHeader>Voice Assistant</DrawerHeader>
+          <DrawerBody>
+            {/* Your content here */}
             <LanguageButtons />
             <Text>{transcript}</Text>
-          </ModalBody>
+          </DrawerBody>
           <ModalFooter>
             {isListening ? (
               <Button
@@ -122,8 +140,8 @@ const VoiceButton = () => {
               </Button>
             )}
           </ModalFooter>
-        </ModalContent>
-      </Modal>
+        </DrawerContent>
+      </Drawer>
     </Box>
   );
 };
