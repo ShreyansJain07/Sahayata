@@ -9,7 +9,16 @@ import {
   Heading,
   Text,
   Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormLabel,
   Input,
+  useDisclosure,
   InputGroup,
   InputLeftElement,
   Select,
@@ -18,6 +27,7 @@ import {
 } from "@chakra-ui/react";
 import { CiSearch } from "react-icons/ci";
 import { FaRegStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const VirtualAssistant = () => {
   const [Applicants, setApplicants] = useState([
@@ -36,6 +46,83 @@ const VirtualAssistant = () => {
     { name: "Varun", skills: "Front-End Dev" },
     { name: "Rishab", skills: "Front-End Dev" },
   ]);
+
+  // Modal
+  const [meetings, setMeetings] = useState([
+    {
+      companyName: "Microsoft",
+      disability: "blind",
+      experience: "3",
+      posted: "18 January 2024 at 21:53:16 UTC+5:30",
+      rating: "5",
+      role: "Senior Developer",
+      salary: "1,00,000",
+    },
+    {
+      companyName: "Microsoft",
+      disability: "blind",
+      experience: "3",
+      posted: "18 January 2024 at 21:53:16 UTC+5:30",
+      rating: "5",
+      role: "Senior Developer",
+      salary: "1,00,000",
+    },
+    {
+      companyName: "Microsoft",
+      disability: "blind",
+      experience: "3",
+      posted: "18 January 2024 at 21:53:16 UTC+5:30",
+      rating: "5",
+      role: "Senior Developer",
+      salary: "1,00,000",
+    },
+  ]);
+  const {
+    isOpen: isMeetModalOpen,
+    onOpen: onMeetModalOpen,
+    onClose: onMeetModalClose,
+  } = useDisclosure();
+
+  const [newMeeting, setNewMeeting] = useState({
+    companyName: "", // New field
+    disability: "", // New field
+    experience: "", // New field
+    posted: "", // New field
+    rating: "", // New field
+    role: "", // New field
+    salary: "", // New field
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewMeeting((prevMeeting) => ({
+      ...prevMeeting,
+      [name]: value,
+    }));
+  };
+
+  const handleAddMeeting = () => {
+    // Validate the input or perform any other checks if needed
+    // if (newMeeting.meetingName.trim() === "") {
+    //   alert("Please enter a meeting name");
+    //   return;
+    // }
+
+    // Add the new meeting to the meetings array
+    setMeetings((prevMeetings) => [...prevMeetings, newMeeting]);
+
+    // Reset the newMeeting state for the next input
+    setNewMeeting({
+      companyName: "", // New field
+      disability: "", // New field
+      experience: "", // New field
+      posted: "", // New field
+      rating: "", // New field
+      role: "", // New field
+      salary: "", // New field
+    });
+    onMeetModalClose();
+  };
   return (
     <div style={{ backgroundColor: "#f3f4f6", paddingBottom: "2rem" }}>
       <hr />
@@ -57,6 +144,23 @@ const VirtualAssistant = () => {
             transition="transform 0.2s" // Add a smooth transition effect
             _hover={{ transform: "scale(1.05)" }}
             style={{
+              fontSize: "0.7rem",
+              padding: "0.5rem",
+              paddingTop: "0",
+              paddingBottom: "0",
+            }}
+            color="#2234da"
+            onClick={onMeetModalOpen}
+          >
+            +
+          </Button>
+          <Button
+            variant="outline"
+            boxShadow="xl"
+            transition="transform 0.2s" // Add a smooth transition effect
+            _hover={{ transform: "scale(1.05)" }}
+            style={{
+              marginLeft: "0.5rem",
               fontSize: "0.7rem",
               padding: "0.5rem",
               paddingTop: "0",
@@ -85,6 +189,113 @@ const VirtualAssistant = () => {
           </Button>
         </div>
       </div>
+      {/* // */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          padding: "1rem",
+        }}
+      >
+        {meetings.map((meeting) => {
+          return (
+            <Card
+              overflow="hidden"
+              variant="outline"
+              boxShadow="xl"
+              transition="transform 0.3s" // Add a smooth transition effect
+              _hover={{ transform: "scale(1.02)" }}
+              style={{
+                marginTop: "1rem",
+                cursor: "pointer",
+              }}
+            >
+              <div
+                style={{
+                  padding: "0.5rem",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "1.15rem",
+                    fontWeight: 625,
+                    marginBottom: "1rem",
+                  }}
+                >
+                  {meeting.companyName}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    fontWeight: "520",
+                  }}
+                >
+                  <div>{meeting.disability}</div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: "0.9rem",
+                    fontWeight: "520",
+                  }}
+                >
+                  <div>Experience: {meeting.experience} years</div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    fontWeight: "520",
+                  }}
+                >
+                  <div>{meeting.posted}</div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    fontWeight: "520",
+                  }}
+                >
+                  <div>Rating: {meeting.rating}</div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    fontWeight: "520",
+                  }}
+                >
+                  <div>Role: {meeting.role}</div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    fontWeight: "520",
+                  }}
+                >
+                  <div>Salary: {meeting.salary}</div>
+                </div>
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+      {/* // */}
       <div
         style={{
           display: "flex",
@@ -169,52 +380,54 @@ const VirtualAssistant = () => {
                   _hover={{ transform: "scale(1.05)" }}
                   variant="outline"
                 >
-                  <Stack>
-                    <CardBody style={{ textAlign: "left" }}>
-                      <Heading size="md">{candidate?.name}</Heading>
-                      <Text py="2">
-                        A forward-thinking front-end developer, I specialize in
-                        architecting innovative and intuitive user interfaces.
-                        My skill set encompasses cutting-edge technologies,
-                        allowing me to transform design visions into captivating
-                        and user-centric web experiences.
-                      </Text>
-                      <Text pb="2">Speaks: English, Hindi</Text>
-                      <Text pb="2">Skills: {candidate?.skills}</Text>
-                      <hr />
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          paddingTop: "0.5rem",
-                        }}
-                      >
+                  <Link to={`/profile/${candidate.name}`}>
+                    <Stack>
+                      <CardBody style={{ textAlign: "left" }}>
+                        <Heading size="md">{candidate?.name}</Heading>
+                        <Text py="2">
+                          A forward-thinking front-end developer, I specialize
+                          in architecting innovative and intuitive user
+                          interfaces. My skill set encompasses cutting-edge
+                          technologies, allowing me to transform design visions
+                          into captivating and user-centric web experiences.
+                        </Text>
+                        <Text pb="2">Speaks: English, Hindi</Text>
+                        <Text pb="2">Skills: {candidate?.skills}</Text>
+                        <hr />
                         <div
                           style={{
                             display: "flex",
                             flexDirection: "row",
-                            justifyContent: "left",
-                            gap: "0.5rem",
+                            justifyContent: "space-between",
+                            paddingTop: "0.5rem",
                           }}
                         >
-                          <div>Rs 800/hr</div>
                           <div
                             style={{
                               display: "flex",
                               flexDirection: "row",
-                              alignItems: "center",
-                              gap: "0.25rem",
+                              justifyContent: "left",
+                              gap: "0.5rem",
                             }}
                           >
-                            <FaRegStar />
-                            4.5
+                            <div>Rs 800/hr</div>
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: "0.25rem",
+                              }}
+                            >
+                              <FaRegStar />
+                              4.5
+                            </div>
                           </div>
+                          <div style={{ color: "gray" }}>4 days ago</div>
                         </div>
-                        <div style={{ color: "gray" }}>4 days ago</div>
-                      </div>
-                    </CardBody>
-                  </Stack>
+                      </CardBody>
+                    </Stack>
+                  </Link>
                 </Card>
               </div>
             );
@@ -425,6 +638,83 @@ const VirtualAssistant = () => {
           })}
         </div>
       </div>
+      <Modal isOpen={isMeetModalOpen} onClose={onMeetModalClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit profile</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormLabel style={{ paddingTop: "0.4rem" }}>Company Name</FormLabel>
+            <Input
+              type="tel"
+              name="companyName"
+              value={newMeeting.companyName}
+              onChange={handleInputChange}
+              placeholder="Company Name"
+            />
+            <FormLabel style={{ paddingTop: "0.4rem" }}>Disability</FormLabel>
+            <Input
+              type="tel"
+              name="disability"
+              value={newMeeting.disability}
+              onChange={handleInputChange}
+              placeholder="Disability"
+            />
+            <FormLabel style={{ paddingTop: "0.4rem" }}>Experience</FormLabel>
+            <Input
+              type="tel"
+              name="experience"
+              value={newMeeting.experience}
+              onChange={handleInputChange}
+              placeholder="Experience"
+            />
+            <FormLabel style={{ paddingTop: "0.4rem" }}>Posted</FormLabel>
+            <Input
+              type="tel"
+              name="posted"
+              value={newMeeting.posted}
+              onChange={handleInputChange}
+              placeholder="Posted"
+            />
+            <FormLabel style={{ paddingTop: "0.4rem" }}>Rating</FormLabel>
+            <Input
+              type="tel"
+              name="rating"
+              value={newMeeting.rating}
+              onChange={handleInputChange}
+              placeholder="Rating"
+            />
+            <FormLabel style={{ paddingTop: "0.4rem" }}>Role</FormLabel>
+            <Input
+              type="tel"
+              name="role"
+              value={newMeeting.role}
+              onChange={handleInputChange}
+              placeholder="Role"
+            />
+            <FormLabel style={{ paddingTop: "0.4rem" }}>Salary</FormLabel>
+            <Input
+              type="tel"
+              name="salary"
+              value={newMeeting.salary}
+              onChange={handleInputChange}
+              placeholder="Salary"
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              style={{
+                backgroundColor: "#ff5045",
+                color: "white",
+                margin: "auto",
+              }}
+              onClick={handleAddMeeting}
+            >
+              Add
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };
