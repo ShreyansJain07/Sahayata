@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { auth } from "../Firebase";
-import {FaRegStar} from "react-icons/fa"
+import { FaRegStar } from "react-icons/fa";
 import { getFirestore, doc, getDocs, collection } from "firebase/firestore";
 import {
   Card,
@@ -109,14 +109,14 @@ const Dashboard = () => {
   function time(posted) {
     // Extract Date object from Firebase Timestamp
     const timestamp = posted.toDate();
-  
+
     const currentTime = new Date(); // Current time
     const differenceInMilliseconds = currentTime - timestamp;
-  
+
     const minutes = Math.floor(differenceInMilliseconds / (1000 * 60));
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-  
+
     if (minutes < 60) {
       return `${minutes} minutes ago`;
     } else if (hours < 24) {
@@ -144,8 +144,6 @@ const Dashboard = () => {
 
     fetchJobs();
   }, []);
-
-  
 
   // Calendar
   const monthCellRender = (value) => {
@@ -701,7 +699,7 @@ const Dashboard = () => {
               >
                 <CardBody style={{ textAlign: "left" }}>
                   <Heading size="md" style={{ paddingBottom: "0.5rem" }}>
-                    {job?.category}
+                    {job?.Role}
                   </Heading>
                   <div
                     style={{
@@ -711,7 +709,7 @@ const Dashboard = () => {
                     }}
                   >
                     <Text pb="2">{job.CompanyName}</Text>•
-                    <Text pb="2">{job?.Role}</Text>•
+                    <Text pb="2">{job?.Disability}</Text>•
                     <Text pb="2">{job?.Experience} years experience</Text>
                   </div>
                   <hr />
