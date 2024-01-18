@@ -227,7 +227,7 @@ const Community = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         minWidth: "10%",
-                        backgroundColor: "red",
+                        backgroundColor: "blue",
                         opacity: "0.65",
                       }}
                     >

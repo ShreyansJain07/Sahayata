@@ -86,9 +86,13 @@ const DisabilityRightsInfo = () => {
         style={{
           display: "flex",
           flexDirection: "row",
-          gap: "1.15rem",
+          gap: "1.5rem",
           // border: "2px solid gray",
           marginBottom: "2rem",
+          fontWeight: 600,
+          fontSize: "1.7rem",
+          justifyContent: "center",
+          color: "#2234da",
           // padding: "1rem",
         }}
       >
@@ -96,6 +100,7 @@ const DisabilityRightsInfo = () => {
           style={{
             textDecoration:
               currentPage === "Flash Cards" ? "underline" : "none",
+            color: currentPage === "Flash Cards" ? "#ffcf36" : "#2234da",
           }}
           onClick={() => setCurrentPage("Flash Cards")}
         >
@@ -105,6 +110,8 @@ const DisabilityRightsInfo = () => {
           style={{
             textDecoration:
               currentPage === "Educational Content" ? "underline" : "none",
+            color:
+              currentPage === "Educational Content" ? "#ffcf36" : "#2234da",
           }}
           onClick={() => setCurrentPage("Educational Content")}
         >
@@ -114,6 +121,7 @@ const DisabilityRightsInfo = () => {
           style={{
             textDecoration:
               currentPage === "Legal Resources" ? "underline" : "none",
+            color: currentPage === "Legal Resources" ? "#ffcf36" : "#2234da",
           }}
           onClick={() => setCurrentPage("Legal Resources")}
         >
@@ -143,8 +151,11 @@ const DisabilityRightsInfo = () => {
             return (
               <div class="flip-card">
                 <div class="flip-card-inner">
-                  <div class="flip-card-front">
-                    <p style={{ fontWeight: 600 }}>FLIP CARD</p>
+                  <div class="flip-card-front" style={{ padding: "1rem" }}>
+                    {/* <p style={{ fontWeight: 600 }}>FLIP CARD</p> */}
+                    <p style={{ fontWeight: 800, fontSize: "1.5rem" }}>
+                      {Card.title}
+                    </p>
                     <p>Hover Me</p>
                   </div>
                   <div class="flip-card-back">

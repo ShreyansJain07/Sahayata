@@ -122,7 +122,7 @@ const VirtualAssistant = () => {
   };
   return (
     <div style={{ backgroundColor: "#f3f4f6", paddingBottom: "2rem" }}>
-      <hr />
+      {/* <hr /> */}
       <div
         style={{
           display: "flex",
@@ -132,7 +132,7 @@ const VirtualAssistant = () => {
         }}
       >
         <div style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
-          Applicantions Manager
+          Application Manager
         </div>
         <div>
           <Button
