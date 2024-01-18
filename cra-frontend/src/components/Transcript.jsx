@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const YoutubeSearch = () => {
+const YoutubeSearch = ({title}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [videos, setVideos] = useState([]);
   const [videoSummary, setVideoSummary] = useState('');
@@ -10,21 +10,19 @@ const YoutubeSearch = () => {
 
 
 
-  const API_KEY = 'AIzaSyBK_eq1iTPXDI2IDA11AO6h3_7r3FEb3Uw'; // Replace with your actual YouTube API key
+  const API_KEY = 'AIzaSyBrdsClFkrQokGYbdXCVSbUTtcOanxUFBM'; // Replace with your actual YouTube API key
   const OPENAI_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY';
 
  
-  useEffect(() => {
-    // Call generateQuestionsAndAnswers when videoSummary is updated
-    if (videoSummary) {
-      generateQuestionsAndAnswers(videoSummary);
-    }
-  }, [videoSummary]);
+  
+    
+    
+ 
 
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${searchQuery}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`
+        `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${title}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`
       );
 
       setVideos(response.data.items);
@@ -41,7 +39,7 @@ const YoutubeSearch = () => {
 
   const summarizeVideo = async (videoId) => {
     try {
-      // const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+      // const videoUrl = https://www.youtube.com/embed/${videoId};
       const response = await fetch("https://api.edenai.run/v2/text/generation", {
         method: "POST",
         headers: {
@@ -50,7 +48,7 @@ const YoutubeSearch = () => {
         },
         body: JSON.stringify({
           providers: "google",
-          text: `Write a random paragraph about the YouTube video related to ${searchQuery}.`,
+          text: `Write a random paragraph about the YouTube video related to ${title}.`,
           temperature: 0.2,
           max_tokens: 500,
           fallback_providers: "",
@@ -58,7 +56,7 @@ const YoutubeSearch = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}` );
       }
 
       const data = await response.json();
@@ -72,7 +70,7 @@ const YoutubeSearch = () => {
   const generateQuestionsAndAnswers = async (summary) => {
     
       try {
-      // const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+      
       const response = await fetch("https://api.edenai.run/v2/text/generation", {
         method: "POST",
         headers: {
@@ -122,15 +120,17 @@ const YoutubeSearch = () => {
       return '';
     }
   };
-  
+  if (videoSummary) {
+    generateQuestionsAndAnswers(videoSummary);
+  }
   return (
     <div>
-      <input
+      {/* <input
         type="text"
         placeholder="Enter your search query"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+        value={title}
+        // onChange={(e) => setSearchQuery(e.target.value)}
+      /> */}
       <button onClick={handleSearch}>Search</button>
 
       {videos.length > 0 && (
