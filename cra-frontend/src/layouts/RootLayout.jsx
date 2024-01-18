@@ -1,18 +1,14 @@
 import React from "react";
 import VoiceButton from "../components/VoiceButton";
 import LandingPage from "../screens/LandingPage";
-import TextToSpeechComponent from "../components/TexttoSpeech";
-import { Box, Stack } from "@chakra-ui/react";
-import JobBoard from "../components/JobBoard";
-import AccessibilityMenu from "../components/AccessibilityMenu";
-
+import Carousel  from "../components/Carousel";
+import FeatureList from "../components/FeatureList";
 export default function RootLayout() {
   return (
     <>
       <LandingPage />
-      <Box>
-        <JobBoard />
-      </Box>
+      <Carousel/>
+      <FeatureList/>
     </>
   );
 }

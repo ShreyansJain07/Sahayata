@@ -1,105 +1,66 @@
-import React from "react";
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
+  Button,
+  Flex,
+  Heading,
   Image,
   Stack,
-  Heading,
   Text,
-  Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/react";
+  useBreakpointValue,
+} from '@chakra-ui/react'
 
-const LandingPage = () => {
-  const containerStyle = {
-    margin: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-    background: "#3498db",
-    overflow: "hidden",
-    position: "relative",
-  };
-
-  const wavyPatternStyle = {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: "300px", // Adjust the height of the waves as needed
-    backgroundImage: "linear-gradient(90deg, #fff 50%, #3498db 50%)",
-    animation: "wave-animation 2s infinite linear",
-  };
+export default function LandingPage() {
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: "1.5rem",
-        }}
-      >
-        <img
-          src="https://imgs.search.brave.com/1bKHf00qm0SbzKs6UoP6QSXZ6xNk9v_7PeBC320kqsU/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9kaXNh/YmxlZC13b21hbi1v/ZmZpY2UtbW9kZXJu/LWNhcnRvb24tcGVv/cGxlLWNoYXJhY3Rl/cnMtaWxsdXN0cmF0/aW9uLXBlcnNvbi13/aGVlbGNoYWlyLXRh/bGtzLXRvLXlvdW5n/LWNvbGxlYWd1ZS13/b3JraW5nLTEwMDEw/MTk5NC5qcGc"
-          alt=""
-        />
-        <div
-          className="magicpatternblob"
-          style={{
-            height: "90vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "2rem",
-              fontWeight: "700",
-              paddingBottom: "1rem",
-            }}
-          >
-            Unleashing Opportunities, Creating Futures – Where Every Talent
-            Finds Its Stage.
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Input
-              type="tel"
-              style={{
-                backgroundColor: "white",
-                fontSize: "1.1rem",
-              }}
-              placeholder="Search by name or keyword"
-            />
+    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+      <Flex p={8} flex={1} align={'center'} justify={'center'}>
+        <Stack spacing={6} w={'full'} maxW={'lg'}>
+          <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+            <Text
+              as={'span'}
+              position={'relative'}
+              _after={{
+                content: "''",
+                width: 'full',
+                height: useBreakpointValue({ base: '20%', md: '30%' }),
+                position: 'absolute',
+                bottom: 1,
+                left: 0,
+                bg: 'blue.400',
+                zIndex: -1,
+              }}>
+              Freelance
+            </Text>
+            <br />{' '}
+            <Text color={'blue.400'} as={'span'}>
+              Design Projects
+            </Text>{' '}
+          </Heading>
+          <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
+            The project board is an exclusive resource for contract work. It&apos;s
+            perfect for freelancers, agencies, and moonlighters.
+          </Text>
+          <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
             <Button
-              variant="solid"
-              style={{ backgroundColor: "#ff5045", fontWeight: 655 }}
-              color="white"
-            >
-              Search
+              rounded={'full'}
+              bg={'blue.400'}
+              color={'white'}
+              _hover={{
+                bg: 'blue.500',
+              }}>
+              Create Project
             </Button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div style={containerStyle}>
-          <div style={wavyPatternStyle}>hello</div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default LandingPage;
+            <Button rounded={'full'}>How It Works</Button>
+          </Stack>
+        </Stack>
+      </Flex>
+      <Flex flex={1}>
+        <Image
+          alt={'Login Image'}
+          objectFit={'cover'}
+          src={
+            'https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+          }
+        />
+      </Flex>
+    </Stack>
+  )
+}

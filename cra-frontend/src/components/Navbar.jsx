@@ -80,9 +80,15 @@ function WithSubnavigation() {
             </span>
           </Link>
           <Spacer />
-          <Flex display={{ base: "none", md: "flex" }} ml={10}>
-            <DesktopNav />
-          </Flex>
+          <Flex
+  display={{ base: "none", md: "flex" }}
+  ml={10}
+  align="center"  // Center vertically
+  justify="center" // Center horizontally
+>
+  <DesktopNav />
+</Flex>
+
           <Spacer />
         </Flex>
         <Stack
@@ -283,7 +289,7 @@ const MobileNavItem = ({ label, children, to }) => {
 
 const NAV_ITEMS = [
   {
-    label: "Employers",
+    label: "Virtual Assitant",
     to: "/employers",
   },
   {
