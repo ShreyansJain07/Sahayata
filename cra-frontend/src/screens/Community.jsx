@@ -25,25 +25,67 @@ import { IoCameraOutline } from "react-icons/io5";
 const Community = () => {
   const [Groups, setGroups] = useState([
     {
-      name: "Locomotory Disability",
-      description: "Walking problem lorem5",
-      posts: 100,
-      messages: 699,
-      forums: ["#Wealth Building", "#Estate Building"],
+      name: "Mobility Challenges",
+      description: "Empowering individuals with mobility challenges.",
+      posts: 150,
+      messages: 850,
+      forums: ["#JobOpportunities", "#CareerAdvice"],
     },
     {
-      name: "Locomotory Disability",
-      description: "Walking problem lorem5",
-      posts: 100,
-      messages: 699,
-      forums: ["#Wealth Building", "#Estate Building"],
+      name: "Visual Impairment Network",
+      description: "Connecting the visually impaired community.",
+      posts: 120,
+      messages: 720,
+      forums: ["#TechJobs", "#AccessibleTech"],
     },
     {
-      name: "Locomotory Disability",
-      description: "Walking problem lorem5",
+      name: "Deaf and Hard of Hearing Hub",
+      description: "Supporting the deaf and hard of hearing community.",
+      posts: 90,
+      messages: 600,
+      forums: ["#InclusiveWorkplaces", "#CommunicationTips"],
+    },
+    {
+      name: "Neurodiversity Allies",
+      description: "Advocating for neurodiversity in the workplace.",
+      posts: 80,
+      messages: 550,
+      forums: ["#NeurodiverseTalent", "#InclusiveHiring"],
+    },
+    {
+      name: "Cognitive Accessibility Forum",
+      description: "Fostering cognitive accessibility awareness.",
       posts: 100,
-      messages: 699,
-      forums: ["#Wealth Building", "#Estate Building"],
+      messages: 680,
+      forums: ["#AccessibleDesign", "#InclusiveTechnology"],
+    },
+    {
+      name: "Disability Entrepreneurs Network",
+      description: "Empowering disabled entrepreneurs and professionals.",
+      posts: 110,
+      messages: 720,
+      forums: ["#BusinessOpportunities", "#EntrepreneurialTips"],
+    },
+    {
+      name: "Invisible Disabilities Community",
+      description: "Connecting individuals with invisible disabilities.",
+      posts: 70,
+      messages: 500,
+      forums: ["#SupportNetwork", "#InvisibleDisabilityAwareness"],
+    },
+    {
+      name: "Accessible Travel Enthusiasts",
+      description: "Exploring accessible travel options for everyone.",
+      posts: 95,
+      messages: 600,
+      forums: ["#AccessibleDestinations", "#TravelTips"],
+    },
+    {
+      name: "Community Advocates for Access",
+      description: "Advocating for accessibility in public spaces.",
+      posts: 120,
+      messages: 800,
+      forums: ["#AccessibleCities", "#PublicSpacesInclusion"],
     },
   ]);
 
@@ -118,7 +160,7 @@ const Community = () => {
 
   return (
     <div style={{ padding: "2rem", backgroundColor: "#f3f4f6" }}>
-      <div>Caraousel</div>
+      {/* <div>Caraousel</div> */}
       <div
         style={{
           display: "flex",
@@ -166,6 +208,7 @@ const Community = () => {
                         alignItems: "center",
                         minWidth: "10%",
                         backgroundColor: "red",
+                        opacity: "0.65",
                       }}
                     >
                       <TbMessages
@@ -189,17 +232,74 @@ const Community = () => {
                             marginTop: "0.5rem",
                           }}
                         >
-                          {group.forums?.map((forum) => {
+                          {group.forums?.map((forum, forumIndex) => {
+                            let backgroundColor;
+                            switch (forum) {
+                              case "#JobOpportunities":
+                                backgroundColor = "#FFEC8B"; // Light Goldenrod Yellow
+                                break;
+                              case "#CareerAdvice":
+                                backgroundColor = "#98FB98"; // Pale Green
+                                break;
+                              case "#TechJobs":
+                                backgroundColor = "#B0E0E6"; // Powder Blue
+                                break;
+                              case "#AccessibleTech":
+                                backgroundColor = "#87CEFA"; // Light Sky Blue
+                                break;
+                              case "#InclusiveWorkplaces":
+                                backgroundColor = "#F0FFF0"; // Honeydew
+                                break;
+                              case "#CommunicationTips":
+                                backgroundColor = "#FFB6C1"; // Light Pink
+                                break;
+                              case "#NeurodiverseTalent":
+                                backgroundColor = "#DDA0DD"; // Plum
+                                break;
+                              case "#InclusiveHiring":
+                                backgroundColor = "#FFDAB9"; // Peachpuff
+                                break;
+                              case "#AccessibleDesign":
+                                backgroundColor = "#FFA07A"; // Light Salmon
+                                break;
+                              case "#InclusiveTechnology":
+                                backgroundColor = "#FFD700"; // Gold
+                                break;
+                              case "#BusinessOpportunities":
+                                backgroundColor = "#AFEEEE"; // Pale Turquoise
+                                break;
+                              case "#EntrepreneurialTips":
+                                backgroundColor = "#98FB98"; // Pale Green
+                                break;
+                              case "#SupportNetwork":
+                                backgroundColor = "#FFC0CB"; // Pink
+                                break;
+                              case "#InvisibleDisabilityAwareness":
+                                backgroundColor = "#ADD8E6"; // Light Blue
+                                break;
+                              case "#AccessibleDestinations":
+                                backgroundColor = "#FFD700"; // Gold
+                                break;
+                              case "#TravelTips":
+                                backgroundColor = "#FF7F50"; // Coral
+                                break;
+                              case "#AccessibleCities":
+                                backgroundColor = "#FFDAB9"; // Peachpuff
+                                break;
+                              case "#PublicSpacesInclusion":
+                                backgroundColor = "#FFE4C4"; // Bisque
+                                break;
+                              // Add more cases for other forums if needed
+                              default:
+                                backgroundColor = "#D3D3D3"; // Light Grey
+                                break;
+                            }
                             return (
                               <div
+                                key={forumIndex}
                                 style={{
                                   padding: "0.5rem",
-                                  backgroundColor:
-                                    forum === "#Wealth Building"
-                                      ? "yellow"
-                                      : forum === "#Estate Building"
-                                      ? "green"
-                                      : "orange",
+                                  backgroundColor,
                                   borderRadius: "10rem",
                                   fontWeight: "600",
                                   fontSize: "0.75rem",
