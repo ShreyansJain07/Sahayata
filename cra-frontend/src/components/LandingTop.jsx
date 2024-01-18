@@ -203,7 +203,10 @@ export default function LandingTop() {
           Join Us Now
         </a>
       </div>
-      <div className="section1" style={{ position: "relative" }}>
+      <div
+        className="section1"
+        style={{ position: "relative", marginTop: "0" }}
+      >
         <img
           className="pie"
           src={pie}
@@ -359,6 +362,7 @@ export default function LandingTop() {
         className="section1"
         id="s2"
         style={{
+          marginTop: "0",
           display: "flex",
           alignItems: "center",
           position: "relative",
