@@ -134,10 +134,10 @@ const YoutubeSearch = ({ title }) => {
           justifyContent: "space-between",
         }}
       >
-        <div>
+        <div style={{ width: "fit-content" }}>
           {videos.length > 0 && (
             <div>
-              <h2>Details for the First Video</h2>
+              {/* <h2>Details for the First Video</h2> */}
               {videos[0].id.videoId && (
                 <iframe
                   title={
@@ -184,6 +184,8 @@ const YoutubeSearch = ({ title }) => {
               marginBottom: "0.5rem",
               fontSize: "1.25rem",
               fontWeight: 590,
+              minWidth: "33%",
+              flex: 1,
             }}
           >
             Questions and Answers
@@ -198,7 +200,7 @@ const YoutubeSearch = ({ title }) => {
           })} */}
           {Array.isArray(ques) ? (
             ques.map((question) => (
-              <div key={question.id}>
+              <div key={question.id} style={{ marginTop: "0.7rem" }}>
                 <div style={{ fontWeight: 550 }}>{question.question}</div>
                 <div>
                   {question.answer.map((option, index) => (

@@ -72,10 +72,12 @@ const AiVideo = () => {
         ))}
       </div>
       <div className="aivideo-video">
-        <div>
+        <div style={{ fontWeight: 590, fontSize: "2rem" }}>
           Unit {selected.unit} · Chapter {selected.chapter}
         </div>
-        {selected.title}
+        <div style={{ fontWeight: 590, fontSize: "1.5rem" }}>
+          {selected.title}
+        </div>
         <YoutubeSearch title={selected.title} />
       </div>
       {/* <div className="aivideo-ques"></div> */}
