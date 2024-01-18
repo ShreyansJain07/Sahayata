@@ -14,16 +14,11 @@ import {
   DrawerBody,
   useDisclosure,
 } from "@chakra-ui/react";
-
+import { useNavigate } from "react-router-dom";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import useClipboard from "react-use-clipboard";
-import {
-  FaMicrophoneAlt,
-  FaMicrophoneSlash,
-  FaMicrophone,
-} from "react-icons/fa";
+import { FaMicrophoneAlt, FaMicrophoneSlash, FaMicrophone } from "react-icons/fa";
 
 const LanguageButtons = () => {
   const languages = [
@@ -56,26 +51,14 @@ const LanguageButtons = () => {
 const VoiceButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isListening, setIsListening] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
+  const [currentLink,setCurrentLink] = useState("");
   const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const navigate = useNavigate();
 
   const startListening = () => {
     SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
     setIsListening(true);
-    console.log(transcript)
-      if (transcript.includes("hello")) {
-        stopListening();
-    
-        const initialSpeech = "Voice Assistant, how may I help you today?";
-        const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
-    
-        initialUtterance.onend = () => {
-          // Speech synthesis has ended, set isListening to true
-          // startListening();
-          // setIsListening(true);
-        };
-    
-        window.speechSynthesis.speak(initialUtterance);
-      }    
   };
 
   const stopListening = () => {
@@ -83,10 +66,44 @@ const VoiceButton = () => {
     setIsListening(false);
   };
 
+  const handleConfirmation = (confirmed) => {
+    setConfirmation(confirmed);
 
-  
+    if (confirmed && currentLink !== null) {
+      navigate(`/${currentLink}`);
+    }
+setConfirmation(false)
+    setCurrentLink("")    
+  };
 
-  // useEffect to trigger speech synthesis when the component mounts
+  useEffect(() => {
+    let parsingText=transcript.toLowerCase()
+    // remove punctuation
+    parsingText = parsingText.replace(/[^\w\s]/gi, "");
+    console.log(transcript,parsingText)
+    if(parsingText.includes("dashboard") && !confirmation) {setCurrentLink("dashboard")}
+    if(parsingText.includes("job") && !confirmation) {setCurrentLink("jobs")}
+    if(parsingText.includes("virtual assistant") && !confirmation) {setCurrentLink("virtualassistant")}
+    if(parsingText.includes("ai course") && !confirmation) {setCurrentLink("aicourse")}
+    if(parsingText.includes("community") && !confirmation) {setCurrentLink("community")}
+    if(parsingText.includes("feedback") && !confirmation) {setCurrentLink("feedback")}
+    if(parsingText.includes("yes") && !confirmation) {handleConfirmation(true)}
+      stopListening();
+
+      if(currentLink!=""){
+      const initialSpeech =
+        "Do you want to navigate to " + currentLink + "? Please say yes or no.";
+      const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
+
+      initialUtterance.onend = () => {
+        // Speech synthesis has ended, set isListening to true
+        // startListening();
+        // setIsListening(true);
+      };
+
+      window.speechSynthesis.speak(initialUtterance);
+  }
+  }, [transcript, confirmation]);
 
   if (!browserSupportsSpeechRecognition) {
     return null;
@@ -97,12 +114,14 @@ const VoiceButton = () => {
       <IconButton
         icon={<FaMicrophone />}
         aria-label="Voice Button"
-        onClick={()=>{
-            const initialSpeech = "Voice Assistant How may I help you today?";
-            const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
-            window.speechSynthesis.speak(initialUtterance);
-          
-          onOpen()}}
+        onClick={() => {
+          const initialSpeech =
+            "Voice Assistant How may I help you today?";
+          const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
+          window.speechSynthesis.speak(initialUtterance);
+
+          onOpen();
+        }}
         size="lg"
         colorScheme="teal"
         aria-labelledby="voice-assistant"
