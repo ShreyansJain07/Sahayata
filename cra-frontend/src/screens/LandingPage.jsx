@@ -7,10 +7,12 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-
+import LandingTop from "../components/LandingTop";
 export default function LandingPage() {
   return (
+    <>
     <Stack minH={"89vh"} direction={{ base: "column", md: "row" }}>
+    <LandingTop/>
       <Flex p={8} flex={1} align={"center"} justify={"center"}>
         <Stack spacing={6} w={"full"} maxW={"lg"}>
           <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
@@ -64,5 +66,6 @@ export default function LandingPage() {
         />
       </Flex>
     </Stack>
+    </>
   );
 }
