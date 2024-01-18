@@ -17,12 +17,15 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import { FaMicrophone, FaMicrophoneAltSlash } from "react-icons/fa";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import useClipboard from "react-use-clipboard";
-import { FaMicrophoneAlt, FaMicrophoneSlash } from "react-icons/fa"; // You can use any icon from react-icons library
+import {
+  FaMicrophoneAlt,
+  FaMicrophoneSlash,
+  FaMicrophone,
+} from "react-icons/fa"; // You can use any icon from react-icons library
 
 const LanguageButtons = () => {
   const languages = [
@@ -84,7 +87,7 @@ const VoiceButton = () => {
   }
 
   return (
-    <Box position="fixed" bottom="4" right="4" zIndex={1000} color={"teal.800"}>
+    <Box color={"teal.800"}>
       <IconButton
         icon={<FaMicrophone />}
         aria-label="Voice Button"
