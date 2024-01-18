@@ -61,31 +61,33 @@ import { GoLaw } from "react-icons/go";
         <div className="box-container" style={{ zIndex: "2", fontFamily: "sunflower" }}>
   <div className="boxes-line" id="b1">
     <div className="box" style={{backgroundColor:"#2c4c4b"}}><FaDollarSign style={{ color: "#50c5a3" }} /></div>
-    <span className='lowerhead' style={{ color: "white" }}>GST</span>
+    <span className='lowerhead' style={{ color: "white" }}>Easy Money</span>
     <div className="subheading">
-      <p>Goods and Services Tax (GST) consulting and compliance services.</p>
+    <p>Disability Inclusive Employment Solutions - Consulting and Compliance Services</p>
     </div>
   </div>
   <div className="boxes-line" id="b2">
     <div className="box" style={{backgroundColor:"#4f2e4d"}}><HiOutlineReceiptTax style={{ color: "#fa3daf" }} /></div>
-    <span className='lowerhead' style={{ color: "white" }}>Income Tax</span>
+    <span className='lowerhead' style={{ color: "white" }}>Employment </span>
     <div className="subheading">
-      <p>Expertise in income tax planning, filing, and advisory services.</p>
+      <p>Comprehensive services in accessible employment planning, recruitment, and advisory for diverse abilities.</p>
     </div>
+
   </div>
   <div className="boxes-line" id='b3'>
     <div className="box"style={{backgroundColor:"#4e483c"}}><GoLaw style={{ color: "yellow" }} /></div>
-    <span className='lowerhead' style={{ color: "white" }}>Company Law</span>
-    <div className="subheading">
-      <p>Legal consultation and compliance services related to company laws.</p>
-    </div>
+    <span className='lowerhead' style={{ color: "white" }}>Legal Assistance</span>
+<div className="subheading">
+  <p>Providing legal consultation and compliance services with a focus on accessibility and inclusivity in law practice.</p>
+</div>
+
   </div>
   <div className="boxes-line" id='b4'>
     <div className="box" style={{backgroundColor:"#1c495c"}}><CiCalendar style={{ color: "#04a8e1" }} /></div>
-    <span className='lowerhead' style={{ color: "white" }}>Finance & Consultancy</span>
-    <div className="subheading" >
-      <p>Comprehensive financial services tailored to your business needs.</p>
-    </div>
+    <span className='lowerhead' style={{ color: "white" }}>Effortless Interview</span>
+<div className="subheading">
+  <p>Simplify your scheduling with user-friendly and accessible appointment booking solutions.</p>
+</div>
   </div>
 </div>
 
