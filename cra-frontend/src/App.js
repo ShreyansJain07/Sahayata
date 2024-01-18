@@ -17,6 +17,7 @@ import AiCourse from "./screens/AiCourse";
 import Navbar from "./components/Navbar";
 import DisabilityRightsInfo from "./screens/DisabilityRightsInfo";
 import Footer from "./components/Footer";
+import AiVideo from "./screens/AiVideo";
 
 
 export const UserContext = createContext(null);
@@ -123,6 +124,7 @@ function App() {
                 <Route path="/speech" element={<SpeechtoText />} />
                 <Route path="/aicourse" element={<AiCourse />} />
                 <Route path="/disabilityrightsinfo" element={<DisabilityRightsInfo />} />
+                <Route path="/aivideo" element={<AiVideo />} />
               </Routes>
             </div>
             <Footer />
