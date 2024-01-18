@@ -158,7 +158,7 @@ const DisabilityRightsInfo = () => {
                     </p>
                     <p>Hover Me</p>
                   </div>
-                  <div class="flip-card-back">
+                  <div class="flip-card-back" style={{ padding: "0.75rem" }}>
                     <p style={{ fontWeight: 600 }}>{Card.section}</p>
                     <div>
                       <strong style={{ marginRight: "0.3rem" }}>
