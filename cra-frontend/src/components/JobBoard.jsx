@@ -34,10 +34,13 @@ import {
 import {
   FaCalendarWeek,
   FaClock,
+  FaCoins,
   FaFilter,
   FaInfo,
   FaMapPin,
   FaTrash,
+  FaUser,
+  FaWatchmanMonitoring,
 } from "react-icons/fa";
 import { FaArrowTrendUp, FaRightLong } from "react-icons/fa6";
 import { FaLocationArrow } from "react-icons/fa";
@@ -199,12 +202,7 @@ const FilterBox = ({ filterFunction }) => {
 
 const JobList = ({ jobs }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [modalContent, setModalContent] = useState("Hello, I'm a modal!");
 
-  const handleOpenModal = () => {
-    // You can set the content dynamically here if needed
-    onOpen();
-  };
 
   return (
     <Box width={{ base: "full", md: "10/12" }} p={4}>
@@ -232,7 +230,7 @@ const JobList = ({ jobs }) => {
             <Text fontSize="3xl" fontWeight="bold" align={"left"}>
               {job.position}
             </Text>
-            <Image src={"logo192.png"} alt={job.company} w={10} h={10}></Image>
+            <Image src={job.thumbnail} alt={job.company} w={10} h={10}></Image>
           </Flex>
 
           <Flex
@@ -248,7 +246,7 @@ const JobList = ({ jobs }) => {
           <Divider my={2} />
           <Flex>
             <Button leftIcon={<FaMapPin />} variant="link" mb={2}>
-              Location | Work From Home
+              {job.place}|{job.modeOfWork}
             </Button>
           </Flex>
 
@@ -260,7 +258,15 @@ const JobList = ({ jobs }) => {
                 colorScheme="gray"
                 mb={2}
               >
-                Posted At
+                Posted At {job.postDate}
+              </Button>
+              <Button
+                leftIcon={<FaWatchmanMonitoring />}
+                variant="link"
+                colorScheme="gray"
+                mb={2}
+              >
+                Start At {job.startDate}
               </Button>
               <Button
                 leftIcon={<FaClock />}
@@ -268,7 +274,24 @@ const JobList = ({ jobs }) => {
                 colorScheme="gray"
                 mb={2}
               >
-                Schedule
+                {job.contract}
+              </Button>
+              <Button
+                leftIcon={<FaCoins />}
+                variant="link"
+                colorScheme="gray"
+                mb={2}
+              >
+                {job.ctc}
+              </Button>
+              <Button
+                leftIcon={<FaUser />}
+                variant="link"
+                colorScheme="gray"
+                mb={2}
+              >
+                Experience
+                {job.experience==''?'Any':job.experience}
               </Button>
             </ButtonGroup>
           </Flex>
@@ -276,14 +299,14 @@ const JobList = ({ jobs }) => {
           <Divider my={2} />
           <Flex justify={"space-between"}>
             <Button leftIcon={<FaLocationArrow />} variant="link" m={2}>
-              Via
+             {job.via}
             </Button>
             <Button
               variant={"outline"}
               colorScheme={"teal"}
               bordersize={"lg"}
               m={2}
-              onClick={handleOpenModal}
+              onClick={onOpen}
             >
               View Details
             </Button>
@@ -369,26 +392,21 @@ const JobBoard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://serpapi.com/search", {
-          params: {
-            api_key:
-              "98a1671d5b1c1efae84bf3516820fab33875cb7a4e541c9fa4ddc6523eadeb98",
-            engine: "google_jobs",
-            google_domain: "google.com",
-            q: "Frontend Developer Mumbai",
-            gl: "in",
-            lrad: "0",
-          },
-        });
-
-        console.log(response.json());
-
-        const jobDataFromAPI = response.data.jobs_results.map((job, index) => {
+        const response = await fetch(
+          "http://localhost:8000/jobs"
+        );
+  
+        // Use await to get the actual data from the response
+        const responseData = await response.json();
+        console.log(responseData);
+       
+  
+        const jobDataFromAPI = responseData.jobs_results.map((job, index) => {
           const postedAt =
             job.extensions.find((ext) => ext.includes("ago")) || "";
           const yearlySalary =
             job.extensions.find((ext) => ext.includes("year")) || "";
-
+  
           return {
             id: index + 1,
             position: job.title || "",
@@ -401,18 +419,22 @@ const JobBoard = () => {
             description: job.description || "",
             postDate: job.posted_at || "",
             thumbnail: job.thumbnail || "",
+            via: job.via || "",
           };
         });
-
+  
+        console.log(jobDataFromAPI);
         // Use jobDataFromAPI in your setDummyJobData function
         setDummyJobData(jobDataFromAPI);
+        setFilteredJobs(jobDataFromAPI);
       } catch (error) {
         console.error("Error fetching job data:", error);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   const handleFilter = (filter) => {
     const filtered = dummyJobData.filter((job) =>
@@ -437,4 +459,3 @@ const JobBoard = () => {
 };
 
 export default JobBoard;
-//https://serpapi.com/search.html?engine=google_jobs&q=Frontend+Developer+mumbai&google_domain=google.com&gl=in&lrad=0&api_key=98a1671d5b1c1efae84bf3516820fab33875cb7a4e541c9fa4ddc6523eadeb98
