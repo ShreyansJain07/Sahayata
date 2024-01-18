@@ -254,15 +254,80 @@ const Signup = () => {
           </div> */}
         </Box>
       ) : (
-        <div>
-          <button
-            onClick={() => {
-              localAuth.signOut();
-              console.log("pressed");
+        <div
+          style={{
+            backgroundColor: "#f3f4f6",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1rem",
+            minHeight: "90vh",
+            fontSize: "1.6rem",
+            fontWeight: 600,
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "white",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "4rem",
+              borderRadius: "3rem",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
             }}
           >
-            LogOut
-          </button>
+            Are you sure, you want to logout?
+            <div
+              style={{
+                paddingTop: "3rem",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "1rem",
+              }}
+            >
+              <button
+                // onClick={() => {
+                //   localAuth.signOut();
+                //   console.log("pressed");
+                // }}
+                style={{
+                  fontWeight: 555,
+                  backgroundColor: "lightgray",
+                  paddingTop: "0.3rem",
+                  paddingBottom: "0.3rem",
+                  paddingLeft: "1.6rem",
+                  paddingRight: "1.6rem",
+                  borderRadius: "4rem",
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  localAuth.signOut();
+                  console.log("pressed");
+                }}
+                style={{
+                  fontWeight: 555,
+                  backgroundColor: "#2234da",
+                  paddingTop: "0.3rem",
+                  paddingBottom: "0.3rem",
+                  paddingLeft: "1.6rem",
+                  paddingRight: "1.6rem",
+                  borderRadius: "4rem",
+                  color: "white",
+                }}
+              >
+                LogOut
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </>

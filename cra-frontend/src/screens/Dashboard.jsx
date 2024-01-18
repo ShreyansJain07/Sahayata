@@ -175,7 +175,7 @@ const Dashboard = () => {
       });
     }
     onClose();
-    window.location.reload(); 
+    window.location.reload();
   };
 
   const handleCheckboxChange = (values) => {
@@ -212,6 +212,7 @@ const Dashboard = () => {
             marginTop: "1rem",
             borderRadius: "1rem",
             // boxShadow: "1rem",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
           }}
         >
           <div
