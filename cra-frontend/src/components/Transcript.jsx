@@ -110,13 +110,61 @@ const YoutubeSearch = ({ title }) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
+      // const data = await response.json();
+      // // setques(data.openai.generated_text);
+
       const data = await response.json();
-      setques(data.openai.generated_text);
+      const generatedText = JSON.parse(data.openai.generated_text);
+
+      // Ensure generatedText is an array
+      const questionsArray = Array.isArray(generatedText)
+        ? generatedText
+        : [{ question: "Unable to fetch questions", options: [] }];
+
+      setques(questionsArray);
     } catch (error) {
       console.error("Error generating summary:", error);
       return "";
     }
   };
+
+  const [dummy, setDummy] = useState([
+    {
+      question: "What is the main idea of the video?",
+      options: [
+        "An introduction to React",
+        "A tutorial on web development",
+        "A review of JavaScript libraries",
+        "A guide to virtual DOM",
+      ],
+    },
+    {
+      question: "Who is the presenter of the video?",
+      options: ["John Smith", "Jane Doe", "React Guru", "None of the above"],
+    },
+    {
+      question: "What is the video's publication date?",
+      options: [
+        "January 1, 2020",
+        "March 15, 2019",
+        "June 30, 2021",
+        "Not mentioned",
+      ],
+    },
+    {
+      question: "Where was the video filmed?",
+      options: ["New York City", "San Francisco", "London", "Remote location"],
+    },
+    {
+      question: "What is the significance of the video?",
+      options: [
+        "To teach React fundamentals",
+        "To showcase advanced techniques",
+        "To promote a new library",
+        "To entertain viewers",
+      ],
+    },
+  ]);
 
   return (
     <div>
@@ -181,8 +229,45 @@ const YoutubeSearch = ({ title }) => {
         </div>
 
         <div>
-          <h2>Questions and Answers</h2>
+          <h2
+            style={{
+              marginBottom: "0.5rem",
+              fontSize: "1.25rem",
+              fontWeight: 590,
+            }}
+          >
+            Questions and Answers
+          </h2>
           {ques}
+          {/* {ques?.map((question) => {
+            return (
+              <div>
+                <div>{question.question}</div>
+              </div>
+            );
+          })} */}
+          {dummy?.map((question) => {
+            return (
+              <div style={{ paddingBottom: "1rem" }}>
+                <div style={{ fontWeight: 550 }}>{question.question}</div>
+                <div>
+                  {question.options.map((option, index) => {
+                    return (
+                      <div>
+                        <input
+                          type="checkbox"
+                          name=""
+                          style={{ marginRight: "0.5rem" }}
+                          id=""
+                        />
+                        {option}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
