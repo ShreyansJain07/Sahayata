@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./AiVideo.css";
+import YoutubeSearch from "../components/Transcript";
 
 const AiVideo = () => {
   const location = useLocation();
@@ -68,6 +69,7 @@ const AiVideo = () => {
           Unit {selected.unit} · Chapter {selected.chapter}
         </div>
         {selected.title}
+        <YoutubeSearch title={selected.title}/>
       </div>
       <div className="aivideo-ques"></div>
     </div>
