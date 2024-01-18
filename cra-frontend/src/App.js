@@ -153,7 +153,7 @@ function App() {
                   <Route path="/aivideo" element={<AiVideo />} />
                   <Route path="/community" element={<Community />} />
                   <Route path="/jobs" element={<JobBoard />} />
-                  <Route path="/landing2" element={<LandingTop/>}/>
+                  <Route path="/landing2" element={<LandingTop />} />
                   <Route path="/feedback" element={<Feedback />} />
                   <Route
                     path="/profile/:name"
