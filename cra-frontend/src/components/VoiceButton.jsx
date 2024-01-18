@@ -13,7 +13,6 @@ import {
   Text,
   ModalFooter,
   Icon,
-  VStack,
   SimpleGrid,
 } from "@chakra-ui/react";
 
@@ -25,7 +24,7 @@ import {
   FaMicrophoneAlt,
   FaMicrophoneSlash,
   FaMicrophone,
-} from "react-icons/fa"; // You can use any icon from react-icons library
+} from "react-icons/fa";
 
 const LanguageButtons = () => {
   const languages = [
@@ -58,20 +57,9 @@ const LanguageButtons = () => {
 const VoiceButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isListening, setIsListening] = useState(false);
-  const handlePress = () => {
-    onOpen();
-  };
-
-  const [textToCopy, setTextToCopy] = useState();
-  const [isCopied, setCopied] = useClipboard(textToCopy, {
-    successDuration: 1000,
-  });
-
-  //subscribe to thapa technical for more awesome videos
 
   const startListening = () => {
     SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
-
     setIsListening(true);
   };
 
@@ -79,8 +67,13 @@ const VoiceButton = () => {
     SpeechRecognition.stopListening();
     setIsListening(false);
   };
-  const { transcript, browserSupportsSpeechRecognition } =
-    useSpeechRecognition();
+
+  const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const [utranscript, setUTranscript] = useState("");
+
+  useEffect(() => {
+    setUTranscript(transcript);
+  }, [transcript]);
 
   if (!browserSupportsSpeechRecognition) {
     return null;
@@ -91,13 +84,13 @@ const VoiceButton = () => {
       <IconButton
         icon={<FaMicrophone />}
         aria-label="Voice Button"
-        onClick={handlePress}
+        onClick={onOpen}
         size="lg"
         colorScheme="teal"
         aria-labelledby="voice-assistant"
       />
 
-      <Modal isOpen={isOpen} onClose={onClose} size={"full"}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Voice Assistant</ModalHeader>

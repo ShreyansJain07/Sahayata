@@ -37,10 +37,25 @@ import {
 } from "react-icons/io5";
 import { FaQuestion, FaTrash } from "react-icons/fa";
 import { Divider } from "antd";
+import { ZoomIn, ZoomInSharp, ZoomOutSharp } from "@material-ui/icons";
 
 const AccessibilityGrid = (props) => {
  const { toggleColorMode } = useColorMode();
+ const [zoomLevel, setZoomLevel] = useState(100);
 
+ const zoomIn = () => {
+   setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200));
+   adjustZoom();
+ };
+
+ const zoomOut = () => {
+   setZoomLevel((prevZoom) => Math.max(prevZoom - 10, 50));
+   adjustZoom();
+ };
+
+ const adjustZoom = () => {
+   document.body.style.zoom = `${zoomLevel}%`;
+ };
 
   const features = [
     {
@@ -51,7 +66,12 @@ const AccessibilityGrid = (props) => {
             },
     },
     { icon: <IoColorWandOutline />, label: "Highlight Links" },
-    { icon: <IoResize />, label: "Change Font Size" },
+    { icon: <ZoomInSharp />, label: "Increase Font Size" ,func: () => { 
+          zoomIn();
+     }},
+     { icon: <ZoomOutSharp />, label: "Decrease Font Size" ,func: () => { 
+          zoomOut();
+     }},
     { icon: <IoText />, label: "Text Spacing" },
     { icon: <IoPauseOutline />, label: "Pause Animations" },
     { icon: <IoEyeOffOutline />, label: "Hide Images" },
