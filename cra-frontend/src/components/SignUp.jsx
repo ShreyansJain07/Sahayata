@@ -216,7 +216,7 @@ const Signup = () => {
               )}
             </Flex>
           </Center>
-          <div className="left" style={{ flex: 1 }}>
+          <div className="left" style={{ flex: 0.6 }}>
             <h1
               style={{
                 color: "#ffcf36",
@@ -254,14 +254,16 @@ const Signup = () => {
           </div> */}
         </Box>
       ) : (
-        <button
-          onClick={() => {
-            localAuth.signOut();
-            console.log("pressed");
-          }}
-        >
-          LogOut
-        </button>
+        <div>
+          <button
+            onClick={() => {
+              localAuth.signOut();
+              console.log("pressed");
+            }}
+          >
+            LogOut
+          </button>
+        </div>
       )}
     </>
   );

@@ -290,7 +290,7 @@ const MobileNavItem = ({ label, children, to }) => {
 const NAV_ITEMS = [
   {
     label: "Employers",
-    to: "/employers",
+    to: "/virtualassistant",
   },
   {
     label: "Job Seekers",
@@ -313,6 +313,10 @@ const NAV_ITEMS = [
   {
     label: "Community",
     to: "/community",
+  },
+  {
+    label: "Feedback",
+    to: "/feedback",
   },
   // {
   //   label: '',
