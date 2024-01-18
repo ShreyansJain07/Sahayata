@@ -22,6 +22,7 @@ import AiVideo from "./screens/AiVideo";
 import Community from "./screens/Community";
 import AccessibilityMenu from "./components/AccessibilityMenu";
 import VoiceButton from "./components/VoiceButton";
+import ReadAloud from "./components/ReadAloud";
 import { HStack, Stack } from "@chakra-ui/react";
 import JobBoard from "./components/JobBoard";
 import TextReader from "./components/TextReader";
@@ -122,11 +123,13 @@ function App() {
               <Navbar />
               <HStack
                 gap={4}
+                justif
                 position="fixed"
                 bottom="4"
                 right="4"
                 zIndex={1000}
               >
+                <ReadAloud />
                 <VoiceButton />
                 <AccessibilityMenu />
               </HStack>
