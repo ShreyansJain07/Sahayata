@@ -1,8 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { TbMessages } from "react-icons/tb";
 import { VscSend } from "react-icons/vsc";
 
 const ChatCard = () => {
+  const [messages, setMessages] = useState([
+    {
+      text: "Hello! I'm facing mobility challenges and would love to connect with others who understand. Any tips for making daily activities easier?",
+      type: "receiver",
+    },
+    {
+      text: "Hi there! I've been using a wheelchair for a few years and found that ramps and wider doorways make a big difference. Happy to share more tips!",
+      type: "sender",
+    },
+    {
+      text: "That's great advice! I'm also looking for accessible transportation options. Any recommendations?",
+      type: "receiver",
+    },
+    {
+      text: "Absolutely! I've had success with accessible ride-sharing services. They provide wheelchair-friendly vehicles. Let me know if you need more info!",
+      type: "sender",
+    },
+  ]);
+
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSendMessage = () => {
+    if (inputValue.trim() === "") {
+      // Don't send empty messages
+      return;
+    }
+
+    // Add the new message to the messages array
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { text: inputValue, type: "sender" },
+    ]);
+
+    // Clear the input field
+    setInputValue("");
+  };
+
   return (
     <div
       style={{
@@ -20,16 +61,6 @@ const ChatCard = () => {
           marginBottom: "1rem",
         }}
       >
-        {/* <img
-          src="https://media.istockphoto.com/id/1476170969/photo/portrait-of-young-man-ready-for-job-business-concept.jpg?s=612x612&w=0&k=20&c=w8SlKv-4u6xYyU07CXeBRvfW6F0iYx-a7HR2ChM8ZbU="
-          alt="Profile photo"
-          style={{
-            borderRadius: "3rem",
-            height: "3rem",
-            width: "3rem",
-            objectFit: "cover",
-          }}
-        /> */}
         <div
           style={{
             display: "flex",
@@ -56,66 +87,28 @@ const ChatCard = () => {
           padding: "1rem",
           width: "100%",
           marginTop: "1rem",
+          maxHeight: "70vh",
+          overflowY: "scroll",
         }}
       >
-        <div
-          style={{
-            backgroundColor: "gray",
-            width: "fit-content",
-            padding: "1rem",
-            borderRadius: "1rem",
-            margin: "1rem",
-            fontSize: "1.25rem",
-            fontWeight: "550",
-            color: "white",
-          }}
-        >
-          Receiver chat
-        </div>
-        <div
-          style={{
-            backgroundColor: "#2234da",
-            width: "fit-content",
-            padding: "1rem",
-            borderRadius: "1rem",
-            margin: "1rem",
-            marginLeft: "auto",
-            color: "white",
-            fontSize: "1.25rem",
-            fontWeight: "550",
-          }}
-        >
-          Sender chat
-        </div>
-        <div
-          style={{
-            backgroundColor: "gray",
-            width: "fit-content",
-            padding: "1rem",
-            borderRadius: "1rem",
-            margin: "1rem",
-            fontSize: "1.25rem",
-            color: "white",
-            fontWeight: "550",
-          }}
-        >
-          Receiver chat
-        </div>
-        <div
-          style={{
-            backgroundColor: "#2234da",
-            width: "fit-content",
-            padding: "1rem",
-            borderRadius: "1rem",
-            margin: "1rem",
-            marginLeft: "auto",
-            color: "white",
-            fontSize: "1.25rem",
-            fontWeight: "550",
-          }}
-        >
-          Sender chat
-        </div>
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            style={{
+              backgroundColor: message.type === "sender" ? "#2234da" : "gray",
+              width: "45%",
+              padding: "1rem",
+              borderRadius: "1rem",
+              margin: "1rem",
+              marginLeft: message.type === "receiver" ? "0" : "auto",
+              color: "white",
+              fontSize: "1.25rem",
+              fontWeight: "550",
+            }}
+          >
+            {message.text}
+          </div>
+        ))}
       </div>
       <div
         style={{
@@ -135,6 +128,8 @@ const ChatCard = () => {
         <input
           type="text"
           placeholder="Enter message"
+          value={inputValue}
+          onChange={handleInputChange}
           style={{
             color: "#2234da",
             width: "100%",
@@ -144,6 +139,7 @@ const ChatCard = () => {
           }}
         />
         <button
+          onClick={handleSendMessage}
           style={{
             backgroundColor: "#2234da",
             width: "fit-content",
@@ -160,7 +156,7 @@ const ChatCard = () => {
             gap: "1rem",
           }}
         >
-          <a href="">Send</a>
+          <span>Send</span>
           <VscSend />
         </button>
       </div>

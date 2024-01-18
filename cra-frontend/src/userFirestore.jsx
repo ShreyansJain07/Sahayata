@@ -14,7 +14,7 @@ export const addUserToFirestore = async(user,role) =>{
     })
 }
 
-export const updateUserProfile = async (uid, gender, bloodGrp, role, workExperience) => {
+export const updateUserProfile = async (uid, gender, bloodGrp, role, workExperience,disability) => {
     const userRef = doc(firestore, 'users', uid);
   
     await setDoc(userRef, {
@@ -22,6 +22,6 @@ export const updateUserProfile = async (uid, gender, bloodGrp, role, workExperie
       BloodGrp: bloodGrp,
       Role: role,
       WorkExperience: workExperience,
+      disability
     }, { merge: true });
   };
-  

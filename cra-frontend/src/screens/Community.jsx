@@ -93,32 +93,32 @@ const Community = () => {
 
   const [meetings, setMeetings] = useState([
     {
-      meetingName: "Sad",
-      userName: "Shreyansi",
-      hashtag: "Dsds",
+      meetingName: "Team Collaboration",
+      userName: "John Doe",
+      hashtag: "#Collab123",
       camera: "Online",
-      time: "11-23-93w 72wy72 am",
+      time: "18 January 2024 at 10:00 AM",
     },
     {
-      meetingName: "Sad22",
-      userName: "Shreyansi",
-      hashtag: "Dsds",
+      meetingName: "Project Review",
+      userName: "Jane Smith",
+      hashtag: "#Project456",
       camera: "Online",
-      time: "11-23-93w 72wy72 am",
+      time: "18 January 2024 at 11:30 AM",
     },
     {
-      meetingName: "Sad22",
-      userName: "Shreyansi",
-      hashtag: "Dsds",
+      meetingName: "Client Presentation",
+      userName: "Client A",
+      hashtag: "#Client789",
       camera: "Online",
-      time: "11-23-93w 72wy72 am",
+      time: "18 January 2024 at 02:00 PM",
     },
     {
-      meetingName: "Sad22",
-      userName: "Shreyansi",
-      hashtag: "Dsds",
+      meetingName: "Design Discussion",
+      userName: "Designer X",
+      hashtag: "#Design789",
       camera: "Online",
-      time: "11-23-93w 72wy72 am",
+      time: "18 January 2024 at 03:45 PM",
     },
   ]);
 

@@ -1,5 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { auth } from "../Firebase";
+import {FaRegStar} from "react-icons/fa"
+import { getFirestore, doc, getDocs, collection } from "firebase/firestore";
 import {
   Card,
   CardHeader,
@@ -102,26 +104,48 @@ const getMonthData = (value) => {
 
 const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
-  const [Jobs, setJobs] = useState([
-    {
-      category: "Virtual assistant",
-      companyName: "Apple",
-      skills: "Front end",
-      experience: "3",
-    },
-    {
-      category: "Virtual assistant",
-      companyName: "Google",
-      skills: "Front end",
-      experience: "3",
-    },
-    {
-      category: "Virtual assistant",
-      companyName: "Apple",
-      skills: "Front end",
-      experience: "3",
-    },
-  ]);
+  const [Jobs, setJobs] = useState([]);
+
+  function time(posted) {
+    // Extract Date object from Firebase Timestamp
+    const timestamp = posted.toDate();
+  
+    const currentTime = new Date(); // Current time
+    const differenceInMilliseconds = currentTime - timestamp;
+  
+    const minutes = Math.floor(differenceInMilliseconds / (1000 * 60));
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+  
+    if (minutes < 60) {
+      return `${minutes} minutes ago`;
+    } else if (hours < 24) {
+      return `${hours} hours ago`;
+    } else {
+      return `${days} days ago`;
+    }
+  }
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const db = getFirestore();
+        const jobsCollection = await getDocs(collection(db, "jobs"));
+        const jobsData = jobsCollection.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log(jobsData);
+        setJobs(jobsData);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  
 
   // Calendar
   const monthCellRender = (value) => {
@@ -166,21 +190,25 @@ const Dashboard = () => {
     if (!user) {
       alert("Sign in first");
     } else {
-      updateUserProfile(user.uid, gender, BloodGrp, Role, WorkExperience);
+      updateUserProfile(
+        user.uid,
+        gender,
+        BloodGrp,
+        Role,
+        WorkExperience,
+        selectedValues
+      );
       setUser({
         ...user,
         gender: gender,
         bloodGrp: BloodGrp,
-        role: Role,
+        Role: Role,
         workExperience: WorkExperience,
+        disability: selectedValues,
       });
     }
     onClose();
-    window.location.reload();
-  };
-
-  const handleCheckboxChange = (values) => {
-    setSelectedValues(values);
+    // window.location.reload();
   };
 
   return (
@@ -240,6 +268,7 @@ const Dashboard = () => {
                   margin: "auto",
                   borderRadius: "1rem",
                   marginBottom: "1rem",
+                  height: "120px",
                 }}
               />
               <div style={{ fontWeight: 625 }}>{user ? user.name : "User"}</div>
@@ -357,15 +386,39 @@ const Dashboard = () => {
                     {user ? user.BloodGrp : "-"}
                   </a>
                 </div>
-                <CheckboxGroup
-                  value={selectedValues}
-                  onChange={handleCheckboxChange}
-                  colorScheme="orange"
-                >
-                  <Checkbox value="blind">Blind</Checkbox>
-                  <Checkbox value="deaf">Deaf</Checkbox>
-                  <Checkbox value="locomotor">Locomotor disability</Checkbox>
-                  <Checkbox value="other">Other</Checkbox>
+                <CheckboxGroup colorScheme="orange">
+                  <div
+                    onClick={(e) => {
+                      if (e.target.value)
+                        setSelectedValues((prev) => [...prev, e.target.value]);
+                    }}
+                  >
+                    <Checkbox value="blind">Blind</Checkbox>
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      if (e.target.value)
+                        setSelectedValues((prev) => [...prev, e.target.value]);
+                    }}
+                  >
+                    <Checkbox value="deaf">Deaf</Checkbox>
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      if (e.target.value)
+                        setSelectedValues((prev) => [...prev, e.target.value]);
+                    }}
+                  >
+                    <Checkbox value="locomotor">Locomotor disability</Checkbox>
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      console.log("pressed", e.target.value);
+                      setSelectedValues((prev) => [...prev, e.target.value]);
+                    }}
+                  >
+                    <Checkbox value="other">Other</Checkbox>
+                  </div>
                 </CheckboxGroup>
               </div>
             </div>
@@ -657,9 +710,9 @@ const Dashboard = () => {
                       gap: "0.5rem",
                     }}
                   >
-                    <Text pb="2">{job.companyName}</Text>•
-                    <Text pb="2">{job?.skills}</Text>•
-                    <Text pb="2">{job?.experience} years experience</Text>
+                    <Text pb="2">{job.CompanyName}</Text>•
+                    <Text pb="2">{job?.Role}</Text>•
+                    <Text pb="2">{job?.Experience} years experience</Text>
                   </div>
                   <hr />
                   <div
@@ -678,7 +731,7 @@ const Dashboard = () => {
                         gap: "0.5rem",
                       }}
                     >
-                      <div>Rs 800/hr</div>
+                      <div>₹{job.Salary}</div>
                       <div
                         style={{
                           display: "flex",
@@ -687,8 +740,8 @@ const Dashboard = () => {
                           gap: "0.25rem",
                         }}
                       >
-                        {/* <FaRegStar /> */}
-                        4.5
+                        <FaRegStar />
+                        {job.Rating}
                       </div>
                     </div>
                     <div style={{ color: "gray" }}>
@@ -707,7 +760,7 @@ const Dashboard = () => {
                       >
                         Apply
                       </button>
-                      4 days ago
+                      {time(job.Posted)}
                     </div>
                   </div>
                 </CardBody>
