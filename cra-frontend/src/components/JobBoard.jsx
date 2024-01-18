@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -17,6 +17,7 @@ import {
   RadioGroup,
   IconButton,
   Slider,
+  Stack,
   Button,
   Text,
   Icon,
@@ -41,47 +42,7 @@ import {
 import { FaArrowTrendUp, FaRightLong } from "react-icons/fa6";
 import { FaLocationArrow } from "react-icons/fa";
 import { TiTick } from "react-icons/ti";
-
-const dummyJobData = [
-  {
-    id: 1,
-    position: "Software Engineer",
-    company: "TechCo",
-    ctc: "$100,000",
-    modeOfWork: "Remote",
-    place: "Any",
-    startDate: "ASAP",
-    experience: "2+ years",
-    description: "Exciting job opportunity for a software engineer...",
-    postDate: "2024-01-20",
-  },
-  {
-    id: 2,
-    position: "Product Manager",
-    company: "ProductX",
-    ctc: "$120,000",
-    modeOfWork: "Hybrid",
-    place: "New York",
-    startDate: "2024-03-01",
-    experience: "5+ years",
-    description:
-      "Join our team as a product manager and lead innovative projects...",
-    postDate: "2024-01-15",
-  },
-  {
-    id: 3,
-    position: "Data Scientist",
-    company: "DataTech",
-    ctc: "$90,000",
-    modeOfWork: "On-site",
-    place: "San Francisco",
-    startDate: "2024-02-15",
-    experience: "3+ years",
-    description:
-      "Exciting opportunity for a data scientist to work on cutting-edge projects...",
-    postDate: "2024-01-10",
-  },
-];
+import axios from "axios";
 
 const FilterBox = ({ filterFunction }) => {
   const [position, setPosition] = useState("");
@@ -115,8 +76,14 @@ const FilterBox = ({ filterFunction }) => {
   };
 
   return (
-    <Box p={[0, 4]} m={[0, 4]} boxShadow="xl" py={[0, 6, 12]} rounded="lg" textAlign="left">
-
+    <Box
+      p={[0, 4]}
+      m={[0, 4]}
+      boxShadow="xl"
+      py={[0, 6, 12]}
+      rounded="lg"
+      textAlign="left"
+    >
       <Box display={{ base: "inline", md: "none" }}>
         <Button
           leftIcon={<Icon as={FaFilter} />}
@@ -163,9 +130,11 @@ const FilterBox = ({ filterFunction }) => {
         <Box mb={2}>
           <strong>Work Type:</strong>
           <RadioGroup value={workType} onChange={(e) => setWorkType(e)}>
-            <Radio value="remote">Work from Home</Radio>
-            <Radio value="partTime">Part Time</Radio>
-            <Radio value="hybrid">Hybrid</Radio>
+            <Stack direction="column">
+              <Radio value="remote">Work from Home</Radio>
+              <Radio value="partTime">Part Time</Radio>
+              <Radio value="hybrid">Hybrid</Radio>
+            </Stack>
           </RadioGroup>
         </Box>
 
@@ -191,15 +160,26 @@ const FilterBox = ({ filterFunction }) => {
           />
         </Box>
 
-        <Button colorScheme="teal" onClick={handleFilterChange} mb={2} width="full" leftIcon={<Icon as={TiTick} />}>
+        <Button
+          colorScheme="teal"
+          onClick={handleFilterChange}
+          mb={2}
+          width="full"
+          leftIcon={<Icon as={TiTick} />}
+        >
           Include
         </Button>
 
-        <Button variant="outline" colorScheme="red" onClick={handleClearAll} width="full" leftIcon={<Icon as={FaTrash} />}>
+        <Button
+          variant="outline"
+          colorScheme="red"
+          onClick={handleClearAll}
+          width="full"
+          leftIcon={<Icon as={FaTrash} />}
+        >
           Clear All
         </Button>
       </Box>
-
 
       {/* Modal for smaller screens */}
       <Modal isOpen={isOpen} onClose={onClose} size="full">
@@ -344,7 +324,95 @@ const JobList = ({ jobs }) => {
 
 const JobBoard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [dummyJobData, setDummyJobData] = useState([
+    {
+      id: 1,
+      position: "Software Engineer",
+      company: "TechCo",
+      ctc: "$100,000",
+      modeOfWork: "Remote",
+      place: "Any",
+      startDate: "ASAP",
+      experience: "2+ years",
+      description: "Exciting job opportunity for a software engineer...",
+      postDate: "2024-01-20",
+    },
+    {
+      id: 2,
+      position: "Product Manager",
+      company: "ProductX",
+      ctc: "$120,000",
+      modeOfWork: "Hybrid",
+      place: "New York",
+      startDate: "2024-03-01",
+      experience: "5+ years",
+      description:
+        "Join our team as a product manager and lead innovative projects...",
+      postDate: "2024-01-15",
+    },
+    {
+      id: 3,
+      position: "Data Scientist",
+      company: "DataTech",
+      ctc: "$90,000",
+      modeOfWork: "On-site",
+      place: "San Francisco",
+      startDate: "2024-02-15",
+      experience: "3+ years",
+      description:
+        "Exciting opportunity for a data scientist to work on cutting-edge projects...",
+      postDate: "2024-01-10",
+    },
+  ]);
   const [filteredJobs, setFilteredJobs] = useState(dummyJobData);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://serpapi.com/search", {
+          params: {
+            api_key:
+              "98a1671d5b1c1efae84bf3516820fab33875cb7a4e541c9fa4ddc6523eadeb98",
+            engine: "google_jobs",
+            google_domain: "google.com",
+            q: "Frontend Developer Mumbai",
+            gl: "in",
+            lrad: "0",
+          },
+        });
+
+        console.log(response.json());
+
+        const jobDataFromAPI = response.data.jobs_results.map((job, index) => {
+          const postedAt =
+            job.extensions.find((ext) => ext.includes("ago")) || "";
+          const yearlySalary =
+            job.extensions.find((ext) => ext.includes("year")) || "";
+
+          return {
+            id: index + 1,
+            position: job.title || "",
+            company: job.company_name || "",
+            ctc: yearlySalary,
+            modeOfWork: job.detected_extensions?.schedule_type || "",
+            place: job.location?.trim() || "",
+            startDate: job.posted_at || postedAt,
+            experience: job.experience || "",
+            description: job.description || "",
+            postDate: job.posted_at || "",
+            thumbnail: job.thumbnail || "",
+          };
+        });
+
+        // Use jobDataFromAPI in your setDummyJobData function
+        setDummyJobData(jobDataFromAPI);
+      } catch (error) {
+        console.error("Error fetching job data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleFilter = (filter) => {
     const filtered = dummyJobData.filter((job) =>
@@ -369,3 +437,4 @@ const JobBoard = () => {
 };
 
 export default JobBoard;
+//https://serpapi.com/search.html?engine=google_jobs&q=Frontend+Developer+mumbai&google_domain=google.com&gl=in&lrad=0&api_key=98a1671d5b1c1efae84bf3516820fab33875cb7a4e541c9fa4ddc6523eadeb98

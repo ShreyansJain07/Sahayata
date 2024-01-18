@@ -23,6 +23,9 @@ function ResumeBiulder() {
               flex: 1,
               height: "85vh",
               width: "fit-content",
+              maxWidth: "55%",
+              paddingLeft: "1rem",
+              paddingRight: "1.5rem",
             }}
           />
         )}

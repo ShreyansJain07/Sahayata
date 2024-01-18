@@ -13,7 +13,9 @@ import {
   Text,
   ModalFooter,
   Icon,
-  VStack, SimpleGrid } from '@chakra-ui/react';
+  VStack,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
 import { FaMicrophone, FaMicrophoneAltSlash } from "react-icons/fa";
 import SpeechRecognition, {
@@ -24,10 +26,10 @@ import { FaMicrophoneAlt, FaMicrophoneSlash } from "react-icons/fa"; // You can 
 
 const LanguageButtons = () => {
   const languages = [
-    { name: 'Hindi', code: 'hi' },
-    { name: 'Tamil', code: 'ta' },
-    { name: 'Telugu', code: 'te' },
-    { name: 'Bengali', code: 'bn' },
+    { name: "Hindi", code: "hi" },
+    { name: "Tamil", code: "ta" },
+    { name: "Telugu", code: "te" },
+    { name: "Bengali", code: "bn" },
     // Add more languages as needed
   ];
 
@@ -39,18 +41,16 @@ const LanguageButtons = () => {
           width="full"
           colorScheme="teal"
           size={"lg"}
-          onFocus={() => SpeechRecognition.startListening({ language: language.code })}
+          onFocus={() =>
+            SpeechRecognition.startListening({ language: language.code })
+          }
         >
-          <Text fontSize="lg">
-
-          {language.name}
-          </Text>
+          <Text fontSize="lg">{language.name}</Text>
         </Button>
       ))}
     </SimpleGrid>
   );
 };
-
 
 const VoiceButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,10 +66,6 @@ const VoiceButton = () => {
 
   //subscribe to thapa technical for more awesome videos
 
-  
-
-
-
   const startListening = () => {
     SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
 
@@ -79,7 +75,7 @@ const VoiceButton = () => {
   const stopListening = () => {
     SpeechRecognition.stopListening();
     setIsListening(false);
-  }
+  };
   const { transcript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
 
@@ -118,10 +114,9 @@ const VoiceButton = () => {
               >
                 Stop Listening
               </Button>
-            ):
-            (
+            ) : (
               <Button
-                colorScheme="blue" // Set the color scheme according to your design
+                style={{ backgroundColor: "#2234da", color: "white" }}
                 aria-label="Start Listening"
                 leftIcon={<Icon as={FaMicrophoneAlt} />}
                 width={"full"}
@@ -129,7 +124,7 @@ const VoiceButton = () => {
               >
                 Start Listening
               </Button>
-            ) }
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>

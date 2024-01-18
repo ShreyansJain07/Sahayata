@@ -2,6 +2,7 @@
     font-size: 30px;
     font-weight: 600;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .aicourse-info{
@@ -35,4 +36,5 @@
     width: 130px;
     margin: 10px 20px;
     height: auto;
+    
 }

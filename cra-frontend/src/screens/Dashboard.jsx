@@ -23,7 +23,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaFileContract } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 import { Badge, Calendar } from "antd";
+import { useNavigate } from "react-router-dom";
+
 const getListData = (value) => {
   let listData;
   switch (value.date()) {
@@ -142,6 +145,10 @@ const Dashboard = () => {
     if (info.type === "month") return monthCellRender(current);
     return info.originNode;
   };
+
+  // Routing
+  const navigate = useNavigate();
+
   // Modal
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [gender, setGender] = useState("-");
@@ -204,7 +211,9 @@ const Dashboard = () => {
               />
               <div style={{ fontWeight: 625 }}>Shreyans Jain</div>
               <div>214 rates</div>
-              <div>85% trust</div>
+              <div style={{
+                  marginBottom: "0.5rem",
+              }}>85% trust</div>
               <button
                 style={{
                   color: "white",
@@ -214,13 +223,18 @@ const Dashboard = () => {
                   paddingRight: "0.5rem",
                   paddingTop: "0.35rem",
                   paddingBottom: "0.35rem",
-                  marginTop: "0.5rem",
+                  margin:"auto",
                   width: "20%",
                   fontWeight: 600,
+                  display: "flex",
+                  flexDirection:"row",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
                 onClick={onOpen}
               >
                 Edit
+                <MdEdit style={{ marginLeft: "0.4rem" }} />
               </button>
             </div>
           </div>
@@ -275,7 +289,7 @@ const Dashboard = () => {
                   Blood group:{" "}
                   <a style={{ color: "black", fontWeight: 600 }}>{BloodGrp}</a>
                 </div>
-                <CheckboxGroup colorScheme="green">
+                <CheckboxGroup colorScheme="orange">
                   <Checkbox value="naruto">Blind</Checkbox>
                   <Checkbox value="sasuke">Deaf</Checkbox>
                   <Checkbox value="kakashi">Locomotor disability</Checkbox>
@@ -308,6 +322,7 @@ const Dashboard = () => {
                     style={{
                       color: "#3261ff",
                     }}
+                    onClick={() => navigate("/")}
                   >
                     Click to upload a PDF {">"}
                   </button>
@@ -345,6 +360,7 @@ const Dashboard = () => {
                     style={{
                       color: "#3261ff",
                     }}
+                    onClick={() => navigate("/resumebuilder")}
                   >
                     Create / Enhance Resume {">"}
                   </button>
