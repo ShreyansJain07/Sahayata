@@ -126,7 +126,6 @@ function App() {
                 <Route path="/speech" element={<SpeechtoText />} />
                 <Route path="/aicourse" element={<AiCourse />} />
                 <Route path="/web" element={<YoutubeSearch />} />
-
                 <Route path="/disabilityrightsinfo" element={<DisabilityRightsInfo />} />
                 <Route path="/aivideo" element={<AiVideo />} />
                 <Route path="/jobs" element ={<JobBoard />} />
