@@ -29,6 +29,7 @@ import { Badge, Calendar } from "antd";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { updateUserProfile } from "../userFirestore";
+import { IoStarSharp } from "react-icons/io5";
 
 const getListData = (value) => {
   let listData;
@@ -242,7 +243,32 @@ const Dashboard = () => {
                 }}
               />
               <div style={{ fontWeight: 625 }}>{user ? user.name : "User"}</div>
-              <div>214 rating</div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "1rem",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                  }}
+                >
+                  <IoStarSharp color="#ffcf36" />
+                  <IoStarSharp color="#ffcf36" />
+                  <IoStarSharp color="#ffcf36" />
+                  <IoStarSharp color="#ffcf36" />
+                  <IoStarSharp color="#ffcf36" />
+                </div>
+                <div>214 ratings</div>
+              </div>
               <div
                 style={{
                   marginBottom: "0.5rem",

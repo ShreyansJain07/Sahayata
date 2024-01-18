@@ -105,10 +105,7 @@ const VirtualAssistant = () => {
         >
           Total Candidates: 20
         </div>
-        <InputGroup
-          style={{ flex: "1" }}
-          boxShadow="xl"
-        >
+        <InputGroup style={{ flex: "1" }} boxShadow="xl">
           <InputLeftElement pointerEvents="none">
             <CiSearch />
           </InputLeftElement>
@@ -176,8 +173,11 @@ const VirtualAssistant = () => {
                     <CardBody style={{ textAlign: "left" }}>
                       <Heading size="md">{candidate?.name}</Heading>
                       <Text py="2">
-                        Caffè latte is a coffee beverage of Italian origin made
-                        with espresso and steamed milk.
+                        A forward-thinking front-end developer, I specialize in
+                        architecting innovative and intuitive user interfaces.
+                        My skill set encompasses cutting-edge technologies,
+                        allowing me to transform design visions into captivating
+                        and user-centric web experiences.
                       </Text>
                       <Text pb="2">Speaks: English, Hindi</Text>
                       <Text pb="2">Skills: {candidate?.skills}</Text>
@@ -275,8 +275,11 @@ const VirtualAssistant = () => {
                     <CardBody style={{ textAlign: "left" }}>
                       <Heading size="md">{candidate?.name}</Heading>
                       <Text py="2">
-                        Caffè latte is a coffee beverage of Italian origin made
-                        with espresso and steamed milk.
+                        With a passion for interactivity, I excel in crafting
+                        web interfaces that go beyond static presentations.
+                        Proficient in JavaScript and popular frameworks, I bring
+                        websites to life with dynamic elements, enhancing user
+                        engagement and overall satisfaction.
                       </Text>
                       <Text pb="2">Speaks: English, Hindi</Text>
                       <Text pb="2">Skills: {candidate?.skills}</Text>
@@ -374,8 +377,11 @@ const VirtualAssistant = () => {
                     <CardBody style={{ textAlign: "left" }}>
                       <Heading size="md">{candidate?.name}</Heading>
                       <Text py="2">
-                        Caffè latte is a coffee beverage of Italian origin made
-                        with espresso and steamed milk.
+                        As a dedicated front-end developer, I bring a wealth of
+                        expertise in crafting seamless and visually captivating
+                        user experiences. Proficient in the core technologies of
+                        front-end development, I excel in translating design
+                        concepts into responsive and interactive web interfaces.
                       </Text>
                       <Text pb="2">Speaks: English, Hindi</Text>
                       <Text pb="2">Skills: {candidate?.skills}</Text>
