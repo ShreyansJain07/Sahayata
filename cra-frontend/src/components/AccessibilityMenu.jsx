@@ -18,6 +18,8 @@ import {
   Icon,
   Grid,
   GridItem,
+  useColorMode,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { FaAccessibleIcon } from "react-icons/fa6";
 import {Link} from "react-router-dom"
@@ -36,12 +38,17 @@ import {
 import { FaQuestion, FaTrash } from "react-icons/fa";
 import { Divider } from "antd";
 
-const AccessibilityGrid = () => {
+const AccessibilityGrid = (props) => {
+ const { toggleColorMode } = useColorMode();
+
+
   const features = [
     {
       icon: <IoContrastOutline />,
       label: "Contrast",
-      description: "Increase contrast",
+      func: () => {
+        toggleColorMode();
+            },
     },
     { icon: <IoColorWandOutline />, label: "Highlight Links" },
     { icon: <IoResize />, label: "Change Font Size" },
@@ -61,9 +68,8 @@ const AccessibilityGrid = () => {
           <Box
             borderRadius={"xl"}
             as="button"
-            onClick={() => console.log(feature.label)}
+            onClick={() => feature.func()}
             p="4"
-            bg={"white"}
             borderWidth="1px"
             shadow="md"
             width={"full"}
@@ -83,7 +89,7 @@ const AccessibilityGrid = () => {
   );
 };
 
-const AccessibilityMenu = () => {
+const AccessibilityMenu = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onToggle = () => {
@@ -113,7 +119,7 @@ const AccessibilityMenu = () => {
   }, []); // Empty dependency array ensures the effect runs only once during mount and unmount
 
   return (
-    <Box color={"teal.800"}>
+    <Box color={useColorModeValue("gray.800", "whiteAlpha.900")}>
       <IconButton
         icon={<FaAccessibleIcon />}
         aria-label="Voice Button"
@@ -133,14 +139,14 @@ const AccessibilityMenu = () => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>Accessibility Menu</DrawerHeader>
-          <DrawerBody bg={"gray.100"}>
+          <DrawerBody bg={useColorModeValue("gray.100", "gray.900")}>
             <VStack spacing={4} my={4}>
 
-          <Button as={Link} width={"full"} colorScheme="teal"  borderRadius={"xl"} size={"lg"}> <Icon as={FaQuestion} mr={2} /> How to use</Button>
+          <Button as={Link} width={"full"} colorScheme="teal" to={"/help"}  borderRadius={"xl"} size={"lg"}> <Icon as={FaQuestion} mr={2} /> How to use</Button>
           <Button as={Link} width={"full"} colorScheme="red"  borderRadius={"xl"} size={"lg"}> <Icon as={FaTrash} mr={2} /> Clear All Setttings</Button>
             </VStack>
             <Divider/>
-            <AccessibilityGrid />
+            <AccessibilityGrid {...props} />
 
           </DrawerBody>
           <DrawerFooter>
