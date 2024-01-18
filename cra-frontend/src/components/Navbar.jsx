@@ -115,7 +115,7 @@ function WithSubnavigation() {
             bg="#2234da"
             to={"/signup"}
             _hover={{
-              bg: "teal.500",
+              bg: "blue",
             }}
           >
             Sign Up
