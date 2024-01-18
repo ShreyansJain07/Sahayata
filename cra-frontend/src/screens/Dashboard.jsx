@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Card,
   CardHeader,
@@ -26,6 +26,8 @@ import { FaFileContract } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { Badge, Calendar } from "antd";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
+import { updateUserProfile } from "../userFirestore";
 
 const getListData = (value) => {
   let listData;
@@ -97,6 +99,7 @@ const getMonthData = (value) => {
 };
 
 const Dashboard = () => {
+  const user = useContext(UserContext);
   const [Jobs, setJobs] = useState([
     {
       category: "Virtual assistant",
@@ -155,6 +158,14 @@ const Dashboard = () => {
   const [BloodGrp, setBloodGrp] = useState("-");
   const [Role, setRole] = useState("-");
   const [WorkExperience, setWorkExperience] = useState("-");
+
+  const addDetails = () => {
+    if (!user) {
+      alert("Sign in first");
+    } else updateUserProfile(user.uid, gender, BloodGrp, Role, WorkExperience);
+    onClose()
+  };
+
   return (
     <>
       <div
@@ -174,7 +185,7 @@ const Dashboard = () => {
             fontWeight: 725,
           }}
         >
-          Good morning, Shreyans
+          Good morning, {user ? user.name : "User"}
         </div>
         <div style={{ fontWeight: 625 }}>User Profile</div>
         <div
@@ -211,9 +222,13 @@ const Dashboard = () => {
               />
               <div style={{ fontWeight: 625 }}>Shreyans Jain</div>
               <div>214 rates</div>
-              <div style={{
+              <div
+                style={{
                   marginBottom: "0.5rem",
-              }}>85% trust</div>
+                }}
+              >
+                {user ? user.role : "Sign in to continue"}
+              </div>
               <button
                 style={{
                   color: "white",
@@ -223,11 +238,11 @@ const Dashboard = () => {
                   paddingRight: "0.5rem",
                   paddingTop: "0.35rem",
                   paddingBottom: "0.35rem",
-                  margin:"auto",
+                  margin: "auto",
                   width: "20%",
                   fontWeight: 600,
                   display: "flex",
-                  flexDirection:"row",
+                  flexDirection: "row",
                   justifyContent: "center",
                   alignItems: "center",
                 }}
@@ -261,12 +276,14 @@ const Dashboard = () => {
                 <div>
                   Email:{" "}
                   <a style={{ color: "black", fontWeight: 600 }}>
-                    shreyans@gmail.com
+                    {user ? user.email : "-"}
                   </a>
                 </div>
                 <div>
                   Phone number:{" "}
-                  <a style={{ color: "black", fontWeight: 600 }}>98786726732</a>
+                  <a style={{ color: "black", fontWeight: 600 }}>
+                    {user ? "943739262" : "-"}
+                  </a>
                 </div>
               </div>
             </div>
@@ -314,7 +331,10 @@ const Dashboard = () => {
                 }}
               >
                 <div>
-                  UIUD: <a style={{ color: "black", fontWeight: 600 }}>2169</a>
+                  UIUD:{" "}
+                  <a style={{ color: "black", fontWeight: 600 }}>
+                    {user ? "8326732" : "-"}
+                  </a>
                 </div>
                 <div>
                   Disability PDF:{" "}
@@ -682,7 +702,7 @@ const Dashboard = () => {
                 color: "white",
                 margin: "auto",
               }}
-              onClick={onClose}
+              onClick={addDetails}
             >
               Save
             </Button>
