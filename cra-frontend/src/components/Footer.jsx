@@ -104,7 +104,6 @@ export default function LargeWithLogoLeft() {
             </Box>
             <Box
               as="a"
-              //   href={"#"}
               style={{ cursor: "pointer" }}
               onClick={() => navigate("/disabilityrightsinfo")}
             >

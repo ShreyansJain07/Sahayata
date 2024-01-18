@@ -69,7 +69,15 @@ function Questions({ setImage }) {
   }, [progress]);
 
   return (
-    <div>
+    <div
+      style={{
+        margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {questions.length !== answers.length ? (
         <LinearProgressWithLabel
           value={progress}

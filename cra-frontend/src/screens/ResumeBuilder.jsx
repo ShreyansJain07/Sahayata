@@ -29,7 +29,15 @@ function ResumeBiulder() {
             }}
           />
         )}
-        <div>
+        <div
+          style={{
+            margin: "auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Typography
             variant="h6"
             style={{

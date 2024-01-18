@@ -289,7 +289,7 @@ const MobileNavItem = ({ label, children, to }) => {
 
 const NAV_ITEMS = [
   {
-    label: "Virtual Assitant",
+    label: "Employers",
     to: "/employers",
   },
   {
