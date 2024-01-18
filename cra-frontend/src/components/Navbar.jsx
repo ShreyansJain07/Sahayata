@@ -297,10 +297,10 @@ const NAV_ITEMS = [
     to: "/jobs",
   },
 
-  {
-    label: "Career Fair",
-    to: "/career",
-  },
+  // {
+  //   label: "Career Fair",
+  //   to: "/career",
+  // },
   {
     label: "Upskill",
     to: "/aicourse",

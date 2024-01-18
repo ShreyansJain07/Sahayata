@@ -21,6 +21,8 @@ import { TbMessages } from "react-icons/tb";
 import { IoPersonOutline } from "react-icons/io5";
 import { LuClock4 } from "react-icons/lu";
 import { IoCameraOutline } from "react-icons/io5";
+import ChatCard from "./ChatCard";
+// import Modal2 from "@mui/material/Modal";
 
 const Community = () => {
   const [Groups, setGroups] = useState([
@@ -121,7 +123,17 @@ const Community = () => {
   ]);
 
   // Modal
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isMeetModalOpen,
+    onOpen: onMeetModalOpen,
+    onClose: onMeetModalClose,
+  } = useDisclosure();
+  const {
+    isOpen: isChatModalOpen,
+    onOpen: onChatModalOpen,
+    onClose: onChatModalClose,
+  } = useDisclosure();
+
   const [newMeeting, setNewMeeting] = useState({
     meetingName: "",
     userName: "",
@@ -155,12 +167,18 @@ const Community = () => {
       camera: "",
       time: "",
     });
-    onClose();
+    onMeetModalClose();
   };
+
+  // Chat modal
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div style={{ padding: "2rem", backgroundColor: "#f3f4f6" }}>
       {/* <div>Caraousel</div> */}
+      {/* <ChatCard /> */}
       <div
         style={{
           display: "flex",
@@ -200,6 +218,8 @@ const Community = () => {
                       marginBottom: "1rem",
                       cursor: "pointer",
                     }}
+                    onClick={onChatModalOpen}
+                    // onClick={() => alert("Hi")}
                   >
                     <div
                       style={{
@@ -358,7 +378,7 @@ const Community = () => {
             boxShadow="2xl"
             transition="transform 0.3s" // Add a smooth transition effect
             _hover={{ transform: "scale(1.02)" }}
-            onClick={onOpen}
+            onClick={onMeetModalOpen}
           >
             + Tap to add a meet
           </Button>
@@ -449,7 +469,8 @@ const Community = () => {
       </div>
       {/* // Modal  */}
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      {/* Meet Modal */}
+      <Modal isOpen={isMeetModalOpen} onClose={onMeetModalClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Edit profile</ModalHeader>
@@ -508,6 +529,15 @@ const Community = () => {
               Add
             </Button>
           </ModalFooter>
+        </ModalContent>
+      </Modal>
+      <Modal size={"5xl"} isOpen={isChatModalOpen} onClose={onChatModalClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody>
+            <ChatCard />
+          </ModalBody>
         </ModalContent>
       </Modal>
     </div>
