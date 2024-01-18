@@ -46,7 +46,7 @@ export default function LargeWithLogoLeft() {
               <Text fontWeight="bold">सहAIता</Text>
               {/* <Logo color={useColorModeValue('gray.700', 'white')} /> */}
             </Box>
-            <Text fontSize={'sm'}>© 2022 Chakra Templates. All rights reserved</Text>
+            <Text fontSize={'sm'}>© 2024 All rights reserved</Text>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Product</ListHeader>
