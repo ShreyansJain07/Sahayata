@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-// import sunflower from './sunflower.otf'
+// import poppins from './poppins.otf'
 
 import { RiArrowUpSLine } from "react-icons/ri";
 import { RiArrowDownSLine } from "react-icons/ri";
-import blob from "../assests/blob.svg";
-import invoice from "../assests/Invoice.svg";
-import management from "../assests/Management.svg";
+import blob from "../assests/disable.svg";
+import invoice from "../assests/invoice.svg";
+import management from "../assests/management.svg";
 import accounting from "../assests/accountinng.svg";
 import arrow from "../assests/Vector4.svg";
 import pie from "../assests/Vector1.svg";
@@ -44,7 +44,7 @@ export default function LandingTop() {
           </div>
           <div
             className="home-content-top"
-            style={{ fontFamily: "Sunflower", fontWeight: "bold" }}
+            style={{ fontFamily: "poppins", fontWeight: "bold" }}
           >
             <p className="p1">
               Empowering Every Ability : <br />
@@ -60,7 +60,7 @@ export default function LandingTop() {
         <div className="buttons">
           <a
             href="https://calendly.com/varun-jajoo18"
-            style={{ textDecoration: "none", backgroundColor: "#2234da" }}
+            style={{ textDecoration: "none" }}
             className="btn btn1"
           >
             Make an Appointment
@@ -135,7 +135,7 @@ export default function LandingTop() {
 
         <div
           className="box-container"
-          style={{ zIndex: "2", fontFamily: "sunflower" }}
+          style={{ zIndex: "2", fontFamily: "poppins" }}
         >
           <div className="boxes-line" id="b1">
             <div className="box" style={{ backgroundColor: "#2c4c4b" }}>
@@ -203,106 +203,7 @@ export default function LandingTop() {
           Join Us Now
         </a>
       </div>
-      <div
-        className="section1"
-        style={{ position: "relative", marginTop: "0" }}
-      >
-        <img
-          className="pie"
-          src={pie}
-          alt=""
-          style={{ position: "absolute", left: "-60px", opacity: "55%" }}
-        />
-        <img
-          className="pie2"
-          src={pie2}
-          alt=""
-          style={{ position: "absolute", opacity: "55%", zIndex: "1" }}
-        />
-
-        <p className="section-title">
-          Unlock Your Potential. Excel in Your Career <br />
-          Journey with Inclusive Employment!
-        </p>
-        <p className="subheading">
-          Discover Your Path. Navigate Your Career Journey with Confidence.
-          Personalized Job Matching.
-        </p>
-        <p className="subheading" id="2" style={{ marginTop: "-15px" }}>
-          Empowering Solutions. Accessibility Advocacy. Inclusive Employment
-          Opportunities.
-        </p>
-
-        <div
-          className="box-container"
-          style={{ zIndex: "2", fontFamily: "sunflower" }}
-        >
-          <div className="boxes-line" id="b1">
-            <div className="box" style={{ backgroundColor: "#2c4c4b" }}>
-              <FaDollarSign style={{ color: "#50c5a3" }} />
-            </div>
-            <span className="lowerhead" style={{ color: "white" }}>
-              Easy Money
-            </span>
-            <div className="subheading">
-              <p>
-                Disability Inclusive Employment Solutions - Consulting and
-                Compliance Services
-              </p>
-            </div>
-          </div>
-          <div className="boxes-line" id="b2">
-            <div className="box" style={{ backgroundColor: "#4f2e4d" }}>
-              <HiOutlineReceiptTax style={{ color: "#fa3daf" }} />
-            </div>
-            <span className="lowerhead" style={{ color: "white" }}>
-              Employment{" "}
-            </span>
-            <div className="subheading">
-              <p>
-                Comprehensive services in accessible employment planning,
-                recruitment, and advisory for diverse abilities.
-              </p>
-            </div>
-          </div>
-          <div className="boxes-line" id="b3">
-            <div className="box" style={{ backgroundColor: "#4e483c" }}>
-              <GoLaw style={{ color: "yellow" }} />
-            </div>
-            <span className="lowerhead" style={{ color: "white" }}>
-              Legal Assistance
-            </span>
-            <div className="subheading">
-              <p>
-                Providing legal consultation and compliance services with a
-                focus on accessibility and inclusivity in law practice.
-              </p>
-            </div>
-          </div>
-          <div className="boxes-line" id="b4">
-            <div className="box" style={{ backgroundColor: "#1c495c" }}>
-              <CiCalendar style={{ color: "#04a8e1" }} />
-            </div>
-            <span className="lowerhead" style={{ color: "white" }}>
-              Effortless Interview
-            </span>
-            <div className="subheading">
-              <p>
-                Simplify your scheduling with user-friendly and accessible
-                appointment booking solutions.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSfNcTB41jQPWYFckTmcPfo7LNhTWmh7BrNU54vgDaD_BJ3Q4Q/viewform?usp=sf_link"
-          className="btn3 "
-          style={{ textDecoration: "none" }}
-        >
-          Join Us Now
-        </a>
-      </div>
+      
       <div className="description-container" style={{ position: "relative" }}>
         <img
           id="star"
@@ -335,7 +236,7 @@ export default function LandingTop() {
         <div className="description" id="d2">
           <img className="image1" src={management} alt="" />
           <div className="description-title">
-            Accessible Workplaces <br />
+            Accessible Work <br />places 
             For Everyone
             <div className="subheading" id="description-heading">
               Explore job opportunities in companies committed to creating
@@ -395,7 +296,7 @@ export default function LandingTop() {
 
         <div
           className="questions"
-          style={{ color: click1 ? "white" : "#2234da" }}
+          style={{ color: click1 ? "white" : "#b6d6fc" }}
         >
           <h5
             onClick={() => {
@@ -431,7 +332,7 @@ export default function LandingTop() {
         </span>
         <div
           className="questions"
-          style={{ color: click2 ? "white" : "#2234da" }}
+          style={{ color: click2 ? "white" : "#b6d6fc" }}
         >
           <h5
             onClick={() => {
@@ -474,7 +375,7 @@ export default function LandingTop() {
 
         <div
           className="questions"
-          style={{ color: click3 ? "white" : "#2234da" }}
+          style={{ color: click3 ? "white" : "#b6d6fc" }}
         >
           <h5
             onClick={() => {
@@ -516,7 +417,7 @@ export default function LandingTop() {
 
         <div
           className="questions"
-          style={{ color: click4 ? "white" : "#2234da" }}
+          style={{ color: click4 ? "white" : "#b6d6fc" }}
         >
           <h5
             onClick={() => {

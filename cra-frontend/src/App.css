@@ -4,37 +4,39 @@
 }
 
 @font-face {
-  font-family: "Sunflower";
-  src: url("sunflower.otf") format("opentype");
+
+  font-family: 'sunflower';
+  src: url('sunflower.otf') format('opentype');
 }
-/* * {
-  font-family: "Poppins";
-} */
-body {
-  background-color: #e4e5ef;
+*{
+  font-family: "poppins";
 }
-.home-container {
-  padding: 0 14vh;
-}
-.home-image {
-  height: 580px;
-  width: 580px;
-  margin: -100px 0 -150px 50px;
-}
-.home-content-top {
+body    {
+      background-color: #e4e5ef;
+      
+    }
+    .home-container{
+      padding: 0 14vh;
+    }
+    .home-image{
+      height: 580px;
+      width: 580px;
+      margin: -100px 0 -150px 50px ;
+    }
+.home-content-top{
   font-size: 8vh;
-  letter-spacing: 1.6px;
-  color: #49486d;
+  font-weight: bolder;
+  color: #0d0c6a;
   display: flex;
 }
-.home-content-top-title {
-  margin: 14vh 0 0 0;
-  font-family: "Sunflower";
+.home-content-top-title{
+  margin: 14vh 0 0 0 ;
+  font-family:"poppins";
   padding: 1vh 2vh;
   font-size: small;
   border-radius: 50px;
-  background: #d5d9f1;
-  color: #a6aced;
+  background: #b6d6fc;
+  color: #0b75f6;
   width: fit-content;
 }
 .bg {
@@ -52,15 +54,16 @@ body {
   margin-left: 6vw;
   white-space: nowrap;
   margin-right: 3vw;
-  background-color: #6c76f2;
-  font-family: "Sunflower";
+  background-color: #0b75f6;
+  font-family:"poppins";
   color: aliceblue;
 }
-.btn1:hover {
-  background-color: #e4e5ef;
-  font-family: "Sunflower";
-  color: #6c76f2;
-  border: 2px solid #6c76f2;
+.btn1:hover{
+  background-color: #b6d6fc;
+  font-family:"poppins";
+  color: #0b75f6;
+  border:2px solid #0b75f6;
+
 }
 .buttons {
   width: 20vw;
@@ -70,24 +73,25 @@ body {
 }
 .btn2 {
   padding: 16px;
-  white-space: nowrap;
-  background-color: #e4e5ef;
-  font-family: "Sunflower";
-  color: #6c76f2;
-  border: 2px solid #6c76f2;
+  white-space:nowrap;
+  background-color: #b6d6fc;
+  font-family:"poppins";
+  color: #0b75f6;
+  border: 2px solid #0b75f6;
+
 }
-.btn2:hover {
-  background-color: #6c76f2;
-  font-family: "Sunflower";
+.btn2:hover{
+  background-color: #0b75f6;
+  font-family:"poppins";
   color: aliceblue;
 }
 .company {
   width: 100%;
   font-size: 1.7rem;
   letter-spacing: 1px;
-  color: #49486d;
+  color: #0d0c6a;
   font-weight: bold;
-  font-family: "sunflower";
+  font-family: "poppins";
   margin-top: 6rem;
   display: flex;
   justify-content: center;
@@ -101,9 +105,9 @@ body {
   margin-top: 16px;
   width: 80%;
   height: 5rem;
-  background-color: rgb(236, 234, 245);
+  background-color: #b6d6fc;
   border-radius: 16px;
-  border-bottom: solid 5px #6c76f2;
+  border-bottom: solid 5px #0d0c6a;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -134,8 +138,8 @@ body {
 }
 .section-title {
   padding-top: 84px;
-  color: #d4d6e8;
-  font-family: "sunflower";
+  color: #b6d6fc;
+  font-family: "poppins";
   font-size: 2.2rem;
   text-align: center;
   z-index: 99;
@@ -145,23 +149,21 @@ body {
   font-family: "poppins";
 }
 
-.btn3 {
-  box-shadow: rgb(225, 199, 252) 0px 1px 1px 0px inset,
-    rgb(225, 199, 252) 0px 50px 100px -20px,
-    rgb(225, 199, 252) 0px 30px 60px -30px;
-  padding: 0.8rem 2rem;
-  background-color: #e4e5ef;
+.btn3{
+  box-shadow: rgb(225, 199, 252) 0px 1px 1px 0px inset, rgb(225, 199, 252) 0px 50px 100px -20px, rgb(225, 199, 252) 0px 30px 60px -30px;
+  padding:0.8rem 2rem;
+  background-color: #b6d6fc;
   margin-bottom: 64px;
-  font-family: "Sunflower";
-  color: #49486d;
+  font-family: 'poppins';
+  color: #0d0c6a;
   font-weight: bolder;
   font-size: 1.2rem;
   letter-spacing: 1.2px;
   border-radius: 8px;
   margin-top: 5vh;
 }
-.btn3:hover {
-  background-color: #6c76f2;
+.btn3:hover{
+  background-color: #3261ff;
   color: #e4e5ef;
 
   transition: background-color 0.2s ease-in-out;
@@ -178,10 +180,10 @@ body {
   margin: auto;
   width: 60%;
 }
-.boxes-line {
-  border: solid 2px #49486d;
-  height: 52vh;
-  width: 25%;
+.boxes-line{
+  border: solid 2px #b6d6fc ;
+  height:52vh;
+  width:25%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -201,13 +203,14 @@ body {
   justify-content: space-around;
   padding-left: 164px;
 }
-.description-title {
-  font-family: "sunflower";
+.description-title{
+  font-family: 'poppins';
   font-weight: bold;
   font-size: 2.5rem;
   letter-spacing: 1.2px;
   margin-top: 25vh;
-  color: #32315b;
+  color: #0d0c6a;
+  
 }
 #description-heading {
   font-size: 1rem;
@@ -223,8 +226,9 @@ body {
 #image3 {
   margin-top: 10vh;
   margin-right: 100px;
-  height: 500px;
-  width: 500px;
+  height: 400px;
+  width: 400px;
+  
 }
 #s2 {
   height: auto;
@@ -254,7 +258,7 @@ body {
 .questions {
   font-size: medium;
   margin-top: 5vh;
-  font-family: "sunflower";
+  font-family: "poppins";
   width: 55%;
   z-index: 12;
 }
@@ -292,16 +296,8 @@ body {
   height: 300px;
   width: 300px;
 }
-.footer {
-  margin-bottom: 3rem;
-  height: 10rem;
-  font-family: "sunflower";
-  color: #32315b;
-  display: flex;
-  justify-content: space-evenly;
-  padding: 1rem 3rem;
-}
-.pie {
+
+.pie{
   height: 300px;
   width: 300px;
   top: 30px;

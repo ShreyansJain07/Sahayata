@@ -126,10 +126,12 @@ function App() {
                 justif
                 position="fixed"
                 bottom="4"
-                right="4"
+                right={"4"}
+                width={"full"}
+                justifyContent={["space-between", "flex-end"]}
                 zIndex={1000}
               >
-                <ReadAloud />
+                <ReadAloud value={screenReader} handleChangeInput={setScreenReader}/>
                 <VoiceButton />
                 <AccessibilityMenu />
               </HStack>
