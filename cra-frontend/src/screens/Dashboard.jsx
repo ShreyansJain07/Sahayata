@@ -701,7 +701,7 @@ const Dashboard = () => {
               >
                 <CardBody style={{ textAlign: "left" }}>
                   <Heading size="md" style={{ paddingBottom: "0.5rem" }}>
-                    {job?.category}
+                    {job?.Role}
                   </Heading>
                   <div
                     style={{
@@ -711,7 +711,7 @@ const Dashboard = () => {
                     }}
                   >
                     <Text pb="2">{job.CompanyName}</Text>•
-                    <Text pb="2">{job?.Role}</Text>•
+                    <Text pb="2">{job?.Disability}</Text>•
                     <Text pb="2">{job?.Experience} years experience</Text>
                   </div>
                   <hr />
