@@ -68,7 +68,12 @@ const Testimonials = () => {
             <img
               src="https://topmate.io/_next/image?url=%2Fimages%2Fhomepage%2Ftestimonials%2Fdr_joerg_storm.webp&w=48&q=75"
               alt="Profile photo"
-              style={{ borderRadius: "1rem" }}
+              style={{
+                borderRadius: "3rem",
+                height: "3rem",
+                width: "3rem",
+                objectFit: "cover",
+              }}
             />
             <div>Varun Jajoo</div>
           </div>
@@ -104,9 +109,14 @@ const Testimonials = () => {
             }}
           >
             <img
-              src="https://topmate.io/_next/image?url=%2Fimages%2Fhomepage%2Ftestimonials%2Fdr_joerg_storm.webp&w=48&q=75"
+              src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.webp?b=1&s=170667a&w=0&k=20&c=YQ_j83pg9fB-HWOd1Qur3_kBmG_ot_hZty8pvoFkr6A="
               alt="Profile photo"
-              style={{ borderRadius: "1rem" }}
+              style={{
+                borderRadius: "3rem",
+                height: "3rem",
+                width: "3rem",
+                objectFit: "cover",
+              }}
             />
             <div>Varun Jajoo</div>
           </div>
@@ -142,9 +152,14 @@ const Testimonials = () => {
             }}
           >
             <img
-              src="https://topmate.io/_next/image?url=%2Fimages%2Fhomepage%2Ftestimonials%2Fdr_joerg_storm.webp&w=48&q=75"
+              src="https://media.istockphoto.com/id/1386479313/photo/happy-millennial-afro-american-business-woman-posing-isolated-on-white.jpg?s=612x612&w=0&k=20&c=8ssXDNTp1XAPan8Bg6mJRwG7EXHshFO5o0v9SIj96nY="
               alt="Profile photo"
-              style={{ borderRadius: "1rem" }}
+              style={{
+                borderRadius: "3rem",
+                height: "3rem",
+                width: "3rem",
+                objectFit: "cover",
+              }}
             />
             <div>Varun Jajoo</div>
           </div>
@@ -189,9 +204,14 @@ const Testimonials = () => {
             }}
           >
             <img
-              src="https://topmate.io/_next/image?url=%2Fimages%2Fhomepage%2Ftestimonials%2Fdr_joerg_storm.webp&w=48&q=75"
+              src="https://media.istockphoto.com/id/1398385367/photo/happy-millennial-business-woman-in-glasses-posing-with-hands-folded.jpg?s=612x612&w=0&k=20&c=Wd2vTDd6tJ5SeEY-aw0WL0bew8TAkyUGVvNQRj3oJFw="
               alt="Profile photo"
-              style={{ borderRadius: "1rem" }}
+              style={{
+                borderRadius: "3rem",
+                height: "3rem",
+                width: "3rem",
+                objectFit: "cover",
+              }}
             />
             <div>Varun Jajoo</div>
           </div>
@@ -227,9 +247,14 @@ const Testimonials = () => {
             }}
           >
             <img
-              src="https://topmate.io/_next/image?url=%2Fimages%2Fhomepage%2Ftestimonials%2Fdr_joerg_storm.webp&w=48&q=75"
+              src="https://media.istockphoto.com/id/1300972574/photo/millennial-male-team-leader-organize-virtual-workshop-with-employees-online.jpg?s=612x612&w=0&k=20&c=uP9rKidKETywVil0dbvg_vAKyv2wjXMwWJDNPHzc_Ug="
               alt="Profile photo"
-              style={{ borderRadius: "1rem" }}
+              style={{
+                borderRadius: "3rem",
+                height: "3rem",
+                width: "3rem",
+                objectFit: "cover",
+              }}
             />
             <div>Varun Jajoo</div>
           </div>
@@ -265,9 +290,14 @@ const Testimonials = () => {
             }}
           >
             <img
-              src="https://topmate.io/_next/image?url=%2Fimages%2Fhomepage%2Ftestimonials%2Fdr_joerg_storm.webp&w=48&q=75"
+              src="https://media.istockphoto.com/id/1476170969/photo/portrait-of-young-man-ready-for-job-business-concept.jpg?s=612x612&w=0&k=20&c=w8SlKv-4u6xYyU07CXeBRvfW6F0iYx-a7HR2ChM8ZbU="
               alt="Profile photo"
-              style={{ borderRadius: "1rem" }}
+              style={{
+                borderRadius: "3rem",
+                height: "3rem",
+                width: "3rem",
+                objectFit: "cover",
+              }}
             />
             <div>Varun Jajoo</div>
           </div>
