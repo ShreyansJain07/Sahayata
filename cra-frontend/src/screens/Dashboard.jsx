@@ -175,6 +175,7 @@ const Dashboard = () => {
       });
     }
     onClose();
+    window.location.reload(); 
   };
 
   const handleCheckboxChange = (values) => {
