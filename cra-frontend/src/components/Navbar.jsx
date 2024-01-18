@@ -73,7 +73,7 @@ function WithSubnavigation() {
               style={{
                 color: "#ffcf36",
                 fontWeight: "bolder",
-                fontSize:"40px"
+                fontSize: "40px",
               }}
             >
               सह<span style={{ color: "#3261ff" }}>AI</span>ता
@@ -182,7 +182,11 @@ const DesktopSubNav = ({ label, to, subLabel }) => {
       rounded={"md"}
       _hover={{ bg: useColorModeValue("teal.50", "gray.900") }}
     >
-      <Stack direction={"row"} align={"center"}>
+      <Stack
+        direction={"row"}
+        align={"center"}
+        // style={{ alignItems: "center" }}
+      >
         <Box>
           <Text
             transition={"all .3s ease"}
@@ -215,7 +219,7 @@ const MobileNav = () => {
       bg={useColorModeValue("white", "gray.800")}
       p={4}
       display={{ md: "none" }}
-      style={{display:"flex",alignItems:"center"}}
+      style={{ display: "flex", alignItems: "center" }}
     >
       {NAV_ITEMS.map((navItem, ind) => (
         <MobileNavItem key={ind} {...navItem} />
