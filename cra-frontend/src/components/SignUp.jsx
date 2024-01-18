@@ -63,7 +63,7 @@ const Signup = () => {
   console.log(selected);
   return (
     <>
-      {!user ? (
+      {!auth?.currentUser ? (
         <Box
           bgImage={"/hand.jpg"}
           bgSize="cover"

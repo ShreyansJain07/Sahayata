@@ -111,7 +111,7 @@ function App() {
           },
         }}
       >
-        <UserContext.Provider value={user}>
+        <UserContext.Provider value={{user,setUser}}>
           <div className="App">
             <Navbar />
             <Stack gap={4} position="fixed" bottom="4" right="4" zIndex={1000}>
