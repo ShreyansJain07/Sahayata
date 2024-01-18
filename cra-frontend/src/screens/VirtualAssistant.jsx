@@ -207,6 +207,7 @@ const VirtualAssistant = () => {
               _hover={{ transform: "scale(1.02)" }}
               style={{
                 marginTop: "1rem",
+                padding: "1rem",
                 cursor: "pointer",
               }}
             >
@@ -217,23 +218,40 @@ const VirtualAssistant = () => {
               >
                 <div
                   style={{
-                    fontSize: "1.15rem",
-                    fontWeight: 625,
-                    marginBottom: "1rem",
-                  }}
-                >
-                  {meeting.companyName}
-                </div>
-                <div
-                  style={{
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    gap: "0.5rem",
-                    fontWeight: "520",
+                    justifyContent: "space-between",
+                    marginBottom: "1rem",
                   }}
                 >
-                  <div>{meeting.disability}</div>
+                  <div
+                    style={{
+                      fontSize: "1.15rem",
+                      fontWeight: 625,
+                    }}
+                  >
+                    {meeting.companyName}
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor: "#2234da",
+                      color: "white",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      fontWeight: "520",
+                      paddingLeft: "1.25rem",
+                      paddingRight: "1.25rem",
+                      paddingTop: "0.25rem",
+                      paddingBottom: "0.25rem",
+                      fontSize: "0.7rem",
+                      borderRadius: "1rem",
+                    }}
+                  >
+                    <div>{meeting.disability}</div>
+                  </div>
                 </div>
                 <div
                   style={{
@@ -288,7 +306,7 @@ const VirtualAssistant = () => {
                     fontWeight: "520",
                   }}
                 >
-                  <div>Salary: {meeting.salary}</div>
+                  <div>Salary: {meeting.salary} / month</div>
                 </div>
               </div>
             </Card>
