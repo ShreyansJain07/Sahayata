@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import {
   Card,
   CardHeader,
@@ -28,8 +28,13 @@ import {
 import { CiSearch } from "react-icons/ci";
 import { FaRegStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { getFirestore, doc, getDocs, collection, serverTimestamp } from "firebase/firestore";
+import { addJobs } from "../userFirestore";
+import { UserContext } from "../App";
 
 const VirtualAssistant = () => {
+  const { user, setUser } = useContext(UserContext);
+  console.log(user);
   const [Applicants, setApplicants] = useState([
     { name: "Rishab", skills: "Front-End Dev" },
     { name: "Shreyans", skills: "Front-End Dev" },
@@ -48,35 +53,7 @@ const VirtualAssistant = () => {
   ]);
 
   // Modal
-  const [meetings, setMeetings] = useState([
-    {
-      companyName: "Microsoft",
-      disability: "blind",
-      experience: "3",
-      posted: "18 January 2024 at 21:53:16 UTC+5:30",
-      rating: "5",
-      role: "Senior Developer",
-      salary: "1,00,000",
-    },
-    {
-      companyName: "Microsoft",
-      disability: "blind",
-      experience: "3",
-      posted: "18 January 2024 at 21:53:16 UTC+5:30",
-      rating: "5",
-      role: "Senior Developer",
-      salary: "1,00,000",
-    },
-    {
-      companyName: "Microsoft",
-      disability: "blind",
-      experience: "3",
-      posted: "18 January 2024 at 21:53:16 UTC+5:30",
-      rating: "5",
-      role: "Senior Developer",
-      salary: "1,00,000",
-    },
-  ]);
+  const [meetings, setMeetings] = useState([]);
   const {
     isOpen: isMeetModalOpen,
     onOpen: onMeetModalOpen,
@@ -93,6 +70,33 @@ const VirtualAssistant = () => {
     salary: "", // New field
   });
 
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const db = getFirestore();
+        const applicantsCollection = await getDocs(
+          collection(db, "applicants")
+        );
+        const applicantsData = applicantsCollection.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setApplicants(applicantsData);
+        const jobsCollection = await getDocs(collection(db, "jobs"));
+        const jobsData = jobsCollection.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log(jobsData);
+        setMeetings(jobsData);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewMeeting((prevMeeting) => ({
@@ -100,27 +104,20 @@ const VirtualAssistant = () => {
       [name]: value,
     }));
   };
-
   const handleAddMeeting = () => {
-    // Validate the input or perform any other checks if needed
-    // if (newMeeting.meetingName.trim() === "") {
-    //   alert("Please enter a meeting name");
-    //   return;
-    // }
-
-    // Add the new meeting to the meetings array
     setMeetings((prevMeetings) => [...prevMeetings, newMeeting]);
 
-    // Reset the newMeeting state for the next input
-    setNewMeeting({
-      companyName: "", // New field
-      disability: "", // New field
-      experience: "", // New field
-      posted: "", // New field
-      rating: "", // New field
-      role: "", // New field
-      salary: "", // New field
-    });
+    addJobs(
+      user.uid,
+      newMeeting.companyName,
+      newMeeting.disability,
+      newMeeting.experience,
+      serverTimestamp(),
+      newMeeting.rating,
+      newMeeting.role,
+      newMeeting.salary
+    );
+
     onMeetModalClose();
   };
   return (
@@ -135,7 +132,7 @@ const VirtualAssistant = () => {
         }}
       >
         <div style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
-          Virtual Assistant
+          Applicantions Manager
         </div>
         <div>
           <Button
@@ -201,6 +198,7 @@ const VirtualAssistant = () => {
           return (
             <Card
               overflow="hidden"
+              width="400px"
               variant="outline"
               boxShadow="xl"
               transition="transform 0.3s" // Add a smooth transition effect
@@ -227,11 +225,11 @@ const VirtualAssistant = () => {
                 >
                   <div
                     style={{
-                      fontSize: "1.15rem",
+                      fontSize: "1.25rem",
                       fontWeight: 625,
                     }}
                   >
-                    {meeting.companyName}
+                    {meeting.Role}
                   </div>
                   <div
                     style={{
@@ -250,7 +248,7 @@ const VirtualAssistant = () => {
                       borderRadius: "1rem",
                     }}
                   >
-                    <div>{meeting.disability}</div>
+                    <div>{meeting.Disability}</div>
                   </div>
                 </div>
                 <div
@@ -262,7 +260,7 @@ const VirtualAssistant = () => {
                     fontWeight: "520",
                   }}
                 >
-                  <div>Experience: {meeting.experience} years</div>
+                  <div>Experience: {meeting.Experience} years</div>
                 </div>
                 <div
                   style={{
@@ -284,7 +282,7 @@ const VirtualAssistant = () => {
                     fontWeight: "520",
                   }}
                 >
-                  <div>Rating: {meeting.rating}</div>
+                  <div>Rating: {meeting.Rating}</div>
                 </div>
                 <div
                   style={{
@@ -295,7 +293,7 @@ const VirtualAssistant = () => {
                     fontWeight: "520",
                   }}
                 >
-                  <div>Role: {meeting.role}</div>
+                  <div>Role: {meeting.Role}</div>
                 </div>
                 <div
                   style={{
@@ -306,7 +304,7 @@ const VirtualAssistant = () => {
                     fontWeight: "520",
                   }}
                 >
-                  <div>Salary: {meeting.salary} / month</div>
+                  <div>Salary: {meeting.Salary} Per Annum</div>
                 </div>
               </div>
             </Card>
@@ -382,7 +380,7 @@ const VirtualAssistant = () => {
                     borderRadius: "0.2rem",
                   }}
                 >
-                  10
+                  0{Applicants.length}
                 </div>
               </div>
             </CardBody>
@@ -401,16 +399,10 @@ const VirtualAssistant = () => {
                   <Link to={`/profile/${candidate.name}`}>
                     <Stack>
                       <CardBody style={{ textAlign: "left" }}>
-                        <Heading size="md">{candidate?.name}</Heading>
-                        <Text py="2">
-                          A forward-thinking front-end developer, I specialize
-                          in architecting innovative and intuitive user
-                          interfaces. My skill set encompasses cutting-edge
-                          technologies, allowing me to transform design visions
-                          into captivating and user-centric web experiences.
-                        </Text>
-                        <Text pb="2">Speaks: English, Hindi</Text>
-                        <Text pb="2">Skills: {candidate?.skills}</Text>
+                        <Heading size="md">{candidate?.Name}</Heading>
+                        <Text py="2">{candidate.Resume}</Text>
+                        <Text pb="2">Disability: {candidate.Disability}</Text>
+                        <Text pb="2">Skills: {candidate?.Role}</Text>
                         <hr />
                         <div
                           style={{
@@ -428,7 +420,9 @@ const VirtualAssistant = () => {
                               gap: "0.5rem",
                             }}
                           >
-                            <div>Rs 800/hr</div>
+                            <div>
+                              Experience : {candidate.WorkExperience} years
+                            </div>
                             <div
                               style={{
                                 display: "flex",
@@ -438,10 +432,17 @@ const VirtualAssistant = () => {
                               }}
                             >
                               <FaRegStar />
-                              4.5
+                              {candidate.Rating}
                             </div>
                           </div>
-                          <div style={{ color: "gray" }}>4 days ago</div>
+                          <div
+                            style={{
+                              color: "blue",
+                              textDecoration: "underline",
+                            }}
+                          >
+                            Accept
+                          </div>
                         </div>
                       </CardBody>
                     </Stack>

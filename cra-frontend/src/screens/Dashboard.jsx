@@ -30,7 +30,7 @@ import { MdEdit } from "react-icons/md";
 import { Badge, Calendar } from "antd";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
-import { updateUserProfile } from "../userFirestore";
+import { addApplicantProfile, updateUserProfile } from "../userFirestore";
 import { IoStarSharp } from "react-icons/io5";
 
 const getListData = (value) => {
@@ -125,6 +125,13 @@ const Dashboard = () => {
       return `${days} days ago`;
     }
   }
+
+  const addApplicant = () => {
+    const rating="4.7";
+    const resume="A forward-thinking front-end developer, I specialize in architecting innovative and intuitive user interfaces. My skill set encompasses cutting-edge technologies, allowing me to transform design visions into captivating and user-centric web experiences."
+    addApplicantProfile(user.uid, user.name,user.Role,rating,resume,selectedValues[0]);
+    alert("Application sent successfully");
+  };
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -742,7 +749,7 @@ const Dashboard = () => {
                         {job.Rating}
                       </div>
                     </div>
-                    <div style={{ color: "gray" }}>
+                    <div onClick={addApplicant} style={{ color: "gray" }}>
                       <button
                         style={{
                           color: "#ff5045",
