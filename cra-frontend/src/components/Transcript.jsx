@@ -11,7 +11,7 @@ const YoutubeSearch = ({ title }) => {
   const API_KEY = "AIzaSyBrdsClFkrQokGYbdXCVSbUTtcOanxUFBM"; // Replace with your actual YouTube API key
   const OPENAI_API_KEY =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY";
-  console.log(title);
+
   const handleSearch = async () => {
     try {
       const response = await axios.get(
@@ -76,28 +76,8 @@ const YoutubeSearch = ({ title }) => {
           },
           body: JSON.stringify({
             providers: "openai",
-            text: ` generate json of 5 ques on ${summary} with 4 options answers the answers options should not exceed the number the response should be in json format strictly \n\n exapmle reponse should be in format [
-            {
-              "question": "What is the main idea of the video?",
-              "options": ["Option A", "Option B", "Option C", "Option D"]
-            },
-            {
-              "question": "Who is the presenter of the video?",
-              "options": ["Option A", "Option B", "Option C", "Option D"]
-            },
-            {
-              "question": "What is the video's publication date?",
-              "options": ["Option A", "Option B", "Option C", "Option D"]
-            },
-            {
-              "question": "Where was the video filmed?",
-              "options": ["Option A", "Option B", "Option C", "Option D"]
-            },
-            {
-              "question": "What is the significance of the video?",
-              "options": ["Option A", "Option B", "Option C", "Option D"]
-            }
-          ]
+            text: ` generate 5 ques on ${videoSummary} with 4 options answers the answers options should not exceed the number the response  \n\n exapmle reponse should be in format of html with tags ,display 
+            
            `,
             temperature: 0.2,
             max_tokens: 500,
@@ -110,62 +90,16 @@ const YoutubeSearch = ({ title }) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      // const data = await response.json();
-      // // setques(data.openai.generated_text);
-
       const data = await response.json();
-      const generatedText = JSON.parse(data.openai.generated_text);
-
-      // Ensure generatedText is an array
-      const questionsArray = Array.isArray(generatedText)
-        ? generatedText
-        : [{ question: "Unable to fetch questions", options: [] }];
-
-      setques(questionsArray);
+      setques(data.openai.generated_text);
     } catch (error) {
       console.error("Error generating summary:", error);
       return "";
     }
   };
-
-  const [dummy, setDummy] = useState([
-    {
-      question: "What is the main idea of the video?",
-      options: [
-        "An introduction to React",
-        "A tutorial on web development",
-        "A review of JavaScript libraries",
-        "A guide to virtual DOM",
-      ],
-    },
-    {
-      question: "Who is the presenter of the video?",
-      options: ["John Smith", "Jane Doe", "React Guru", "None of the above"],
-    },
-    {
-      question: "What is the video's publication date?",
-      options: [
-        "January 1, 2020",
-        "March 15, 2019",
-        "June 30, 2021",
-        "Not mentioned",
-      ],
-    },
-    {
-      question: "Where was the video filmed?",
-      options: ["New York City", "San Francisco", "London", "Remote location"],
-    },
-    {
-      question: "What is the significance of the video?",
-      options: [
-        "To teach React fundamentals",
-        "To showcase advanced techniques",
-        "To promote a new library",
-        "To entertain viewers",
-      ],
-    },
-  ]);
-
+  if (videoSummary) {
+    generateQuestionsAndAnswers(videoSummary);
+  }
   return (
     <div>
       {/* <input
@@ -246,7 +180,7 @@ const YoutubeSearch = ({ title }) => {
               </div>
             );
           })} */}
-          {dummy?.map((question) => {
+          {/* {dummy?.map((question) => {
             return (
               <div style={{ paddingBottom: "1rem" }}>
                 <div style={{ fontWeight: 550 }}>{question.question}</div>
@@ -267,7 +201,7 @@ const YoutubeSearch = ({ title }) => {
                 </div>
               </div>
             );
-          })}
+          })} */}
         </div>
       </div>
     </div>
