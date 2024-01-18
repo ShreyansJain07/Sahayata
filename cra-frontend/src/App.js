@@ -18,6 +18,9 @@ import Navbar from "./components/Navbar";
 import DisabilityRightsInfo from "./screens/DisabilityRightsInfo";
 import Footer from "./components/Footer";
 import AiVideo from "./screens/AiVideo";
+import AccessibilityMenu from "./components/AccessibilityMenu";
+import VoiceButton from "./components/VoiceButton";
+import { Stack } from "@chakra-ui/react";
 
 
 export const UserContext = createContext(null);
@@ -109,6 +112,12 @@ function App() {
         <UserContext.Provider value={user}>
           <div className="App">
             <Navbar />
+            <Stack gap={4}  position="fixed" bottom="4" right="4" zIndex={1000}>
+      <VoiceButton />
+      <AccessibilityMenu/>
+      </Stack>
+
+
             <div style={{}}>
               <Routes>
                 <Route path="/" element={<RootLayout />} />
