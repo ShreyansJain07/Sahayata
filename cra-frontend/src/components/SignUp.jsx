@@ -36,6 +36,7 @@ const Signup = () => {
     signupEmail: "",
     signupPassword: "",
   });
+  const [selected, setSelected] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,12 +50,17 @@ const Signup = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const user = result?.user;
-        addUserToFirestore(user);
+        addUserToFirestore(user, selected);
       })
       .catch((error) => {
         throw new Error(error.message);
       });
   };
+  const handleSelectChange = (event) => {
+    const select = event.target.value === "option1" ? "Employer" : "Employee";
+    setSelected(select);
+  };
+  console.log(selected);
   return (
     <>
       {!user ? (
@@ -148,6 +154,8 @@ const Signup = () => {
                   <Select
                     placeholder="Select Option"
                     style={{ backgroundColor: "white", fontSize: "0.7rem" }}
+                    onChange={handleSelectChange}
+                    value={selected}
                   >
                     <option value="option1">Employer</option>
                     <option value="option2">Employee</option>
