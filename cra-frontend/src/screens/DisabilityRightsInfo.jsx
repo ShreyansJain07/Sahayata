@@ -119,7 +119,7 @@ const DisabilityRightsInfo = () => {
         >
           Legal Resources
         </div>
-        <div
+        {/* <div
           style={{
             textDecoration:
               currentPage === "Government Schemes" ? "underline" : "none",
@@ -127,7 +127,7 @@ const DisabilityRightsInfo = () => {
           onClick={() => setCurrentPage("Government Schemes")}
         >
           Government Schemes
-        </div>
+        </div> */}
       </div>
       {currentPage === "Flash Cards" && (
         <div

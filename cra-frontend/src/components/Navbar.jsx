@@ -315,6 +315,10 @@ const NAV_ITEMS = [
     to: "/community",
   },
   {
+    label: "Education",
+    to: "/disabilityrightsinfo",
+  },
+  {
     label: "Feedback",
     to: "/feedback",
   },
