@@ -81,13 +81,13 @@ function WithSubnavigation() {
           </Link>
           <Spacer />
           <Flex
-  display={{ base: "none", md: "flex" }}
-  ml={10}
-  align="center"  // Center vertically
-  justify="center" // Center horizontally
->
-  <DesktopNav />
-</Flex>
+            display={{ base: "none", md: "flex" }}
+            ml={10}
+            align="center" // Center vertically
+            justify="center" // Center horizontally
+          >
+            <DesktopNav />
+          </Flex>
 
           <Spacer />
         </Flex>
@@ -303,7 +303,7 @@ const NAV_ITEMS = [
   },
   {
     label: "Upskill",
-    to: "/upskill",
+    to: "/aicourse",
   },
 
   {
