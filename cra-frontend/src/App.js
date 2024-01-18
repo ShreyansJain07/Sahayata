@@ -22,8 +22,9 @@ import AiVideo from "./screens/AiVideo";
 import Community from "./screens/Community";
 import AccessibilityMenu from "./components/AccessibilityMenu";
 import VoiceButton from "./components/VoiceButton";
-import { Stack } from "@chakra-ui/react";
+import { HStack, Stack } from "@chakra-ui/react";
 import JobBoard from "./components/JobBoard";
+import TextReader from "./components/TextReader";
 
 export const UserContext = createContext(null);
 
@@ -32,6 +33,7 @@ function App() {
   let [answers, setAnswers] = useState([]);
   let [questionAnswer, setQuestionAnswer] = useState({});
   let [questionCompleted, setQuestionCompleted] = useState(false);
+  let [screenReader, setScreenReader] = useState(true);
 
   const auth = getAuth();
   const [user, setUser] = useState(null);
@@ -113,13 +115,15 @@ function App() {
       >
         <UserContext.Provider value={{user,setUser}}>
           <div className="App">
+          <TextReader isEnabled={screenReader}>
+
             <Navbar />
-            <Stack gap={4} position="fixed" bottom="4" right="4" zIndex={1000}>
+            <HStack gap={4} position="fixed" bottom="4" right="4" zIndex={1000}>
               <VoiceButton />
               <AccessibilityMenu />
-            </Stack>
+            </HStack>
 
-            <div style={{}}>
+            <div >
               <Routes>
                 <Route path="/" element={<RootLayout />} />
                 <Route path="/signup" element={<Signup />} />
@@ -137,13 +141,14 @@ function App() {
                 <Route
                   path="/disabilityrightsinfo"
                   element={<DisabilityRightsInfo />}
-                />
+                  />
                 <Route path="/aivideo" element={<AiVideo />} />
                 <Route path="/community" element={<Community />} />
                 <Route path="/jobs" element={<JobBoard />} />
               </Routes>
             </div>
             <Footer />
+                  </TextReader>
           </div>
         </UserContext.Provider>
       </AppContext.Provider>
