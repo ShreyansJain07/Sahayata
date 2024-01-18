@@ -12,7 +12,7 @@ const Testimonials = () => {
       <div
         style={{
           fontSize: "2rem",
-          fontWeight: 600,
+          fontWeight: 700,
           textAlign: "center",
           marginBottom: "1.9rem",
           display: "flex",
@@ -22,13 +22,14 @@ const Testimonials = () => {
           //   marginBottom: "0.5rem",
         }}
       >
-        <div style={{}}>People loving using </div>
+        <div>People loving using </div>
         <h1
           style={{
             color: "#ffcf36",
-            fontSize: "2.0rem",
+            // fontSize: "2.0rem",
             fontWeight: "bolder",
             marginLeft: "0.5rem",
+            paddingTop: "0.3rem",
           }}
         >
           सह<span style={{ color: "#3261ff" }}>AI</span>ता
