@@ -61,14 +61,22 @@ function WithSubnavigation() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Link to={"/"}>
-            <Text
+            {/* <Text
               textAlign={useBreakpointValue({ base: "center", md: "left" })}
               fontFamily={"heading"}
               fontWeight={"bold"}
               ml={[0, 12]}
             >
               सहAIता
-            </Text>
+            </Text> */}
+            <h1
+              style={{
+                color: "#ffcf36",
+                fontWeight: "bolder",
+              }}
+            >
+              सह<span style={{ color: "#3261ff" }}>AI</span>ता
+            </h1>
           </Link>
           <Spacer />
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -115,7 +123,7 @@ function WithSubnavigation() {
 }
 const DesktopNav = () => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
+  const linkHoverColor = useColorModeValue("#2234da", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
   return (

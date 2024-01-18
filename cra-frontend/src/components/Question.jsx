@@ -3,6 +3,7 @@ import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AppContext from "../AppContext";
 import { ArrowRight } from "@material-ui/icons";
+import { BsStars } from "react-icons/bs";
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -96,6 +97,7 @@ function Question() {
             className={classes.button}
           >
             Enhance with AI
+            <BsStars style={{ marginLeft: "0.35rem" }} />
           </Button>
         </div>
       </form>

@@ -86,7 +86,10 @@ const Signup = () => {
               shadow="lg"
               maxW="400px"
               w="100%"
-              style={{ fontSize: "0.7rem" }}
+              style={{
+                // opacity: "0.9",
+                fontSize: "0.7rem",
+              }}
             >
               <VStack spacing="4">
                 <FormControl id="signupName" isRequired>
@@ -144,7 +147,7 @@ const Signup = () => {
                   </FormLabel>
                   <Select
                     placeholder="Select Option"
-                    style={{ backgroundColor: "white", fontSize: "1.0rem" }}
+                    style={{ backgroundColor: "white", fontSize: "0.7rem" }}
                   >
                     <option value="option1">Employer</option>
                     <option value="option2">Employee</option>
@@ -205,7 +208,7 @@ const Signup = () => {
               )}
             </Flex>
           </Center>
-          <div className="left">
+          <div className="left" style={{ flex: 1 }}>
             <h1
               style={{
                 color: "#ffcf36",

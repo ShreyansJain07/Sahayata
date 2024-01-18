@@ -15,6 +15,8 @@ import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import AiCourse from "./screens/AiCourse";
 import Navbar from "./components/Navbar";
+import DisabilityRightsInfo from "./screens/DisabilityRightsInfo";
+import Footer from "./components/Footer";
 
 
 export const UserContext = createContext(null);
@@ -120,8 +122,10 @@ function App() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/speech" element={<SpeechtoText />} />
                 <Route path="/aicourse" element={<AiCourse />} />
+                <Route path="/disabilityrightsinfo" element={<DisabilityRightsInfo />} />
               </Routes>
             </div>
+            <Footer />
           </div>
         </UserContext.Provider>
       </AppContext.Provider>
