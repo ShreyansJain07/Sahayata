@@ -29,6 +29,7 @@ import { Badge, Calendar } from "antd";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { updateUserProfile } from "../userFirestore";
+import { IoStarSharp } from "react-icons/io5";
 
 const getListData = (value) => {
   let listData;
@@ -175,7 +176,7 @@ const Dashboard = () => {
       });
     }
     onClose();
-    window.location.reload(); 
+    window.location.reload();
   };
 
   const handleCheckboxChange = (values) => {
@@ -212,6 +213,7 @@ const Dashboard = () => {
             marginTop: "1rem",
             borderRadius: "1rem",
             // boxShadow: "1rem",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
           }}
         >
           <div
@@ -241,7 +243,32 @@ const Dashboard = () => {
                 }}
               />
               <div style={{ fontWeight: 625 }}>{user ? user.name : "User"}</div>
-              <div>214 rating</div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "1rem",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                  }}
+                >
+                  <IoStarSharp color="#ffcf36" />
+                  <IoStarSharp color="#ffcf36" />
+                  <IoStarSharp color="#ffcf36" />
+                  <IoStarSharp color="#ffcf36" />
+                  <IoStarSharp color="#ffcf36" />
+                </div>
+                <div>214 ratings</div>
+              </div>
               <div
                 style={{
                   marginBottom: "0.5rem",

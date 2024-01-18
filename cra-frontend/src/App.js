@@ -26,6 +26,7 @@ import { HStack, Stack } from "@chakra-ui/react";
 import JobBoard from "./components/JobBoard";
 import TextReader from "./components/TextReader";
 import LandingTop from "./components/LandingTop";
+import Feedback from "./screens/Feedback";
 
 export const UserContext = createContext(null);
 
@@ -152,6 +153,7 @@ function App() {
                   <Route path="/community" element={<Community />} />
                   <Route path="/jobs" element={<JobBoard />} />
                   <Route path="/landing2" element={<LandingTop/>}/>
+                  <Route path="/feedback" element={<Feedback />} />
                 </Routes>
               </div>
               <Footer />
