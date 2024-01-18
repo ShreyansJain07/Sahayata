@@ -4,34 +4,32 @@
 }
 
 @font-face {
-
-  font-family: 'sunflower';
-  src: url('sunflower.otf') format('opentype');
+  font-family: "sunflower";
+  src: url("sunflower.otf") format("opentype");
 }
-*{
+* {
   font-family: "poppins";
 }
-body    {
-      background-color: #e4e5ef;
-      
-    }
-    .home-container{
-      padding: 0 14vh;
-    }
-    .home-image{
-      height: 580px;
-      width: 580px;
-      margin: -100px 0 -150px 50px ;
-    }
-.home-content-top{
+body {
+  background-color: #e4e5ef;
+}
+.home-container {
+  padding: 0 14vh;
+}
+.home-image {
+  height: 580px;
+  width: 580px;
+  margin: -100px 0 -150px 50px;
+}
+.home-content-top {
   font-size: 8vh;
   font-weight: bolder;
   color: #0d0c6a;
   display: flex;
 }
-.home-content-top-title{
-  margin: 14vh 0 0 0 ;
-  font-family:"poppins";
+.home-content-top-title {
+  margin: 14vh 0 0 0;
+  font-family: "poppins";
   padding: 1vh 2vh;
   font-size: small;
   border-radius: 50px;
@@ -55,15 +53,14 @@ body    {
   white-space: nowrap;
   margin-right: 3vw;
   background-color: #0b75f6;
-  font-family:"poppins";
+  font-family: "poppins";
   color: aliceblue;
 }
-.btn1:hover{
+.btn1:hover {
   background-color: #b6d6fc;
-  font-family:"poppins";
+  font-family: "poppins";
   color: #0b75f6;
-  border:2px solid #0b75f6;
-
+  border: 2px solid #0b75f6;
 }
 .buttons {
   width: 20vw;
@@ -73,16 +70,15 @@ body    {
 }
 .btn2 {
   padding: 16px;
-  white-space:nowrap;
+  white-space: nowrap;
   background-color: #b6d6fc;
-  font-family:"poppins";
+  font-family: "poppins";
   color: #0b75f6;
   border: 2px solid #0b75f6;
-
 }
-.btn2:hover{
+.btn2:hover {
   background-color: #0b75f6;
-  font-family:"poppins";
+  font-family: "poppins";
   color: aliceblue;
 }
 .company {
@@ -149,12 +145,14 @@ body    {
   font-family: "poppins";
 }
 
-.btn3{
-  box-shadow: rgb(225, 199, 252) 0px 1px 1px 0px inset, rgb(225, 199, 252) 0px 50px 100px -20px, rgb(225, 199, 252) 0px 30px 60px -30px;
-  padding:0.8rem 2rem;
+.btn3 {
+  box-shadow: rgb(225, 199, 252) 0px 1px 1px 0px inset,
+    rgb(225, 199, 252) 0px 50px 100px -20px,
+    rgb(225, 199, 252) 0px 30px 60px -30px;
+  padding: 0.8rem 2rem;
   background-color: #b6d6fc;
   margin-bottom: 64px;
-  font-family: 'poppins';
+  font-family: "poppins";
   color: #0d0c6a;
   font-weight: bolder;
   font-size: 1.2rem;
@@ -162,7 +160,7 @@ body    {
   border-radius: 8px;
   margin-top: 5vh;
 }
-.btn3:hover{
+.btn3:hover {
   background-color: #3261ff;
   color: #e4e5ef;
 
@@ -180,10 +178,10 @@ body    {
   margin: auto;
   width: 60%;
 }
-.boxes-line{
-  border: solid 2px #b6d6fc ;
-  height:52vh;
-  width:25%;
+.boxes-line {
+  border: solid 2px #b6d6fc;
+  height: 52vh;
+  width: 25%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -203,14 +201,13 @@ body    {
   justify-content: space-around;
   padding-left: 164px;
 }
-.description-title{
-  font-family: 'poppins';
+.description-title {
+  font-family: "poppins";
   font-weight: bold;
   font-size: 2.5rem;
   letter-spacing: 1.2px;
   margin-top: 25vh;
   color: #0d0c6a;
-  
 }
 #description-heading {
   font-size: 1rem;
@@ -228,7 +225,6 @@ body    {
   margin-right: 100px;
   height: 400px;
   width: 400px;
-  
 }
 #s2 {
   height: auto;
@@ -297,7 +293,7 @@ body    {
   width: 300px;
 }
 
-.pie{
+.pie {
   height: 300px;
   width: 300px;
   top: 30px;

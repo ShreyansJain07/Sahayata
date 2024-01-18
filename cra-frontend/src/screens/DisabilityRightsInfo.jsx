@@ -87,19 +87,45 @@ const DisabilityRightsInfo = () => {
           display: "flex",
           flexDirection: "row",
           gap: "0.5rem",
-          border: "2px solid gray",
+          // border: "2px solid gray",
           marginBottom: "2rem",
+          // padding: "1rem",
         }}
       >
-        <div onClick={() => setCurrentPage("Flash Cards")}>Flash Cards</div>
-        <div onClick={() => setCurrentPage("Educational Content")}>
-          Educational Content
-        </div>
-        <div onClick={() => setCurrentPage("Legal Resources")}>
-          Legal Resources
-        </div>
-        <div onClick={() => setCurrentPage("Government Schemes")}>
-          Government Schemes
+        <div
+          style={{
+            textDecoration:
+              currentPage === "Flash Cards" ? "underline" : "none",
+          }}
+          onClick={() => setCurrentPage("Flash Cards")}
+        >
+          <div
+            style={{
+              textDecoration:
+                currentPage === "Flash Cards" ? "underline" : "none",
+            }}
+            onClick={() => setCurrentPage("Educational Content")}
+          >
+            Educational Content
+          </div>
+          <div
+            style={{
+              textDecoration:
+                currentPage === "Flash Cards" ? "underline" : "none",
+            }}
+            onClick={() => setCurrentPage("Legal Resources")}
+          >
+            Legal Resources
+          </div>
+          <div
+            style={{
+              textDecoration:
+                currentPage === "Flash Cards" ? "underline" : "none",
+            }}
+            onClick={() => setCurrentPage("Government Schemes")}
+          >
+            Government Schemes
+          </div>
         </div>
       </div>
       {currentPage === "Flash Cards" && (
