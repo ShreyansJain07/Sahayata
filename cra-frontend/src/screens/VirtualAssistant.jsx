@@ -396,7 +396,7 @@ const VirtualAssistant = () => {
                   _hover={{ transform: "scale(1.05)" }}
                   variant="outline"
                 >
-                  <Link to={`/profile/${candidate.name}`}>
+
                     <Stack>
                       <CardBody style={{ textAlign: "left" }}>
                         <Heading size="md">{candidate?.Name}</Heading>
@@ -446,7 +446,7 @@ const VirtualAssistant = () => {
                         </div>
                       </CardBody>
                     </Stack>
-                  </Link>
+
                 </Card>
               </div>
             );
