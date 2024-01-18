@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { auth } from "../Firebase";
 import {
   Card,
   CardHeader,
@@ -99,7 +100,7 @@ const getMonthData = (value) => {
 };
 
 const Dashboard = () => {
-  const user = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [Jobs, setJobs] = useState([
     {
       category: "Virtual assistant",
@@ -158,12 +159,26 @@ const Dashboard = () => {
   const [BloodGrp, setBloodGrp] = useState("-");
   const [Role, setRole] = useState("-");
   const [WorkExperience, setWorkExperience] = useState("-");
+  const [selectedValues, setSelectedValues] = useState([]);
 
   const addDetails = () => {
     if (!user) {
       alert("Sign in first");
-    } else updateUserProfile(user.uid, gender, BloodGrp, Role, WorkExperience);
-    onClose()
+    } else {
+      updateUserProfile(user.uid, gender, BloodGrp, Role, WorkExperience);
+      setUser({
+        ...user,
+        gender: gender,
+        bloodGrp: BloodGrp,
+        role: Role,
+        workExperience: WorkExperience,
+      });
+    }
+    onClose();
+  };
+
+  const handleCheckboxChange = (values) => {
+    setSelectedValues(values);
   };
 
   return (
@@ -211,17 +226,21 @@ const Dashboard = () => {
           >
             <div>
               <img
-                src="https://imgs.search.brave.com/wl_4_Dm0dj1T1xWJ2Evsc_12M3MuKTZCxQ7Q-zWY1Lk/rs:fit:560:320:1/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy90/aHVtYi8wLzBmL0dy/b3NzZXJfUGFuZGEu/SlBHLzUxMnB4LUdy/b3NzZXJfUGFuZGEu/SlBH"
+                src={
+                  user
+                    ? user.photo
+                    : "https://imgs.search.brave.com/wl_4_Dm0dj1T1xWJ2Evsc_12M3MuKTZCxQ7Q-zWY1Lk/rs:fit:560:320:1/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy90/aHVtYi8wLzBmL0dy/b3NzZXJfUGFuZGEu/SlBHLzUxMnB4LUdy/b3NzZXJfUGFuZGEu/SlBH"
+                }
                 alt=""
                 style={{
-                  width: "12rem",
+                  width: "120px",
                   margin: "auto",
                   borderRadius: "1rem",
                   marginBottom: "1rem",
                 }}
               />
-              <div style={{ fontWeight: 625 }}>Shreyans Jain</div>
-              <div>214 rates</div>
+              <div style={{ fontWeight: 625 }}>{user ? user.name : "User"}</div>
+              <div>214 rating</div>
               <div
                 style={{
                   marginBottom: "0.5rem",
@@ -271,7 +290,9 @@ const Dashboard = () => {
               >
                 <div>
                   Gender:{" "}
-                  <a style={{ color: "black", fontWeight: 600 }}>{gender}</a>
+                  <a style={{ color: "black", fontWeight: 600 }}>
+                    {user ? user.gender : "-"}
+                  </a>
                 </div>
                 <div>
                   Email:{" "}
@@ -304,12 +325,18 @@ const Dashboard = () => {
               >
                 <div>
                   Blood group:{" "}
-                  <a style={{ color: "black", fontWeight: 600 }}>{BloodGrp}</a>
+                  <a style={{ color: "black", fontWeight: 600 }}>
+                    {user ? user.BloodGrp : "-"}
+                  </a>
                 </div>
-                <CheckboxGroup colorScheme="orange">
-                  <Checkbox value="naruto">Blind</Checkbox>
-                  <Checkbox value="sasuke">Deaf</Checkbox>
-                  <Checkbox value="kakashi">Locomotor disability</Checkbox>
+                <CheckboxGroup
+                  value={selectedValues}
+                  onChange={handleCheckboxChange}
+                  colorScheme="orange"
+                >
+                  <Checkbox value="blind">Blind</Checkbox>
+                  <Checkbox value="deaf">Deaf</Checkbox>
+                  <Checkbox value="locomotor">Locomotor disability</Checkbox>
                   <Checkbox value="other">Other</Checkbox>
                 </CheckboxGroup>
               </div>
@@ -366,12 +393,14 @@ const Dashboard = () => {
               >
                 <div>
                   Role:{" "}
-                  <a style={{ color: "black", fontWeight: 600 }}>{Role}</a>
+                  <a style={{ color: "black", fontWeight: 600 }}>
+                    {user ? user.Role : "-"}
+                  </a>
                 </div>
                 <div>
                   Work experience:{" "}
                   <a style={{ color: "black", fontWeight: 600 }}>
-                    {WorkExperience} years
+                    {user ? user.WorkExperience + " years" : "-"}
                   </a>
                 </div>
                 <div>
