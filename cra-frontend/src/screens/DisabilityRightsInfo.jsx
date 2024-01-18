@@ -86,7 +86,7 @@ const DisabilityRightsInfo = () => {
         style={{
           display: "flex",
           flexDirection: "row",
-          gap: "0.5rem",
+          gap: "1.15rem",
           // border: "2px solid gray",
           marginBottom: "2rem",
           // padding: "1rem",
@@ -99,33 +99,34 @@ const DisabilityRightsInfo = () => {
           }}
           onClick={() => setCurrentPage("Flash Cards")}
         >
-          <div
-            style={{
-              textDecoration:
-                currentPage === "Flash Cards" ? "underline" : "none",
-            }}
-            onClick={() => setCurrentPage("Educational Content")}
-          >
-            Educational Content
-          </div>
-          <div
-            style={{
-              textDecoration:
-                currentPage === "Flash Cards" ? "underline" : "none",
-            }}
-            onClick={() => setCurrentPage("Legal Resources")}
-          >
-            Legal Resources
-          </div>
-          <div
-            style={{
-              textDecoration:
-                currentPage === "Flash Cards" ? "underline" : "none",
-            }}
-            onClick={() => setCurrentPage("Government Schemes")}
-          >
-            Government Schemes
-          </div>
+          Flash Cards
+        </div>
+        <div
+          style={{
+            textDecoration:
+              currentPage === "Educational Content" ? "underline" : "none",
+          }}
+          onClick={() => setCurrentPage("Educational Content")}
+        >
+          Educational Content
+        </div>
+        <div
+          style={{
+            textDecoration:
+              currentPage === "Legal Resources" ? "underline" : "none",
+          }}
+          onClick={() => setCurrentPage("Legal Resources")}
+        >
+          Legal Resources
+        </div>
+        <div
+          style={{
+            textDecoration:
+              currentPage === "Government Schemes" ? "underline" : "none",
+          }}
+          onClick={() => setCurrentPage("Government Schemes")}
+        >
+          Government Schemes
         </div>
       </div>
       {currentPage === "Flash Cards" && (
@@ -182,7 +183,9 @@ const DisabilityRightsInfo = () => {
               </a>
               A Guide for Individuals with Disabilities
             </div>
-            <div style={{ fontSize: "1.5rem", fontWeight: 550 }}>
+            <div
+              style={{ fontSize: "1.5rem", fontWeight: 550, marginTop: "1rem" }}
+            >
               Introduction:
             </div>
             Understanding Your Rights: Overview of Disability Rights:
@@ -193,7 +196,9 @@ const DisabilityRightsInfo = () => {
             reasonable accommodations in the workplace and how to request them.
             Include examples and emphasize the employer's obligation to provide
             accommodations that enable equal opportunities.
-            <div style={{ fontSize: "1.5rem", fontWeight: 550 }}>
+            <div
+              style={{ fontSize: "1.5rem", fontWeight: 550, marginTop: "1rem" }}
+            >
               Section 1: Preparing for Job Hunting{" "}
             </div>
             1. Self-Assessment: Identifying Strengths and Skills: Guidance on
@@ -212,26 +217,32 @@ const DisabilityRightsInfo = () => {
             be utilized in job hunting, from resume creation to online job
             searches. Accessible Job Platforms: Recommendations for using job
             platforms that prioritize accessibility and provide features
-            beneficial to individuals with disabilities. Section 2: Navigating
-            the Job Market 1. Disclosing Disability: Deciding When to Disclose:
-            Guidance on making informed decisions about disclosing a disability
-            during the job application process, taking into account individual
-            preferences and legal considerations. Communicating Accommodation
-            Needs: Tips on effectively communicating accommodation needs during
-            the interview process and negotiating accommodations with potential
-            employers. 2. Interview Preparation: Researching Employers:
-            Strategies for researching potential employers to assess their
-            commitment to diversity and inclusivity. Practicing Common Interview
-            Questions: Interactive exercises and sample answers to common
-            interview questions, tailored to address disability-related
-            concerns. 3. Legal Protections in the Workplace: Understanding ADA
-            Protections: A detailed overview of ADA protections in the
-            workplace, including protection against discrimination and
-            provisions for reasonable accommodations. Rights During Employment:
-            Explanation of ongoing rights and protections during employment,
-            emphasizing the importance of an inclusive and accessible work
-            environment.
-            <div style={{ fontSize: "1.5rem", fontWeight: 550 }}>
+            beneficial to individuals with disabilities.
+            <div
+              style={{ fontSize: "1.5rem", fontWeight: 550, marginTop: "1rem" }}
+            >
+              Section 2: Navigating the Job Market
+            </div>
+            1. Disclosing Disability: Deciding When to Disclose: Guidance on
+            making informed decisions about disclosing a disability during the
+            job application process, taking into account individual preferences
+            and legal considerations. Communicating Accommodation Needs: Tips on
+            effectively communicating accommodation needs during the interview
+            process and negotiating accommodations with potential employers. 2.
+            Interview Preparation: Researching Employers: Strategies for
+            researching potential employers to assess their commitment to
+            diversity and inclusivity. Practicing Common Interview Questions:
+            Interactive exercises and sample answers to common interview
+            questions, tailored to address disability-related concerns. 3. Legal
+            Protections in the Workplace: Understanding ADA Protections: A
+            detailed overview of ADA protections in the workplace, including
+            protection against discrimination and provisions for reasonable
+            accommodations. Rights During Employment: Explanation of ongoing
+            rights and protections during employment, emphasizing the importance
+            of an inclusive and accessible work environment.
+            <div
+              style={{ fontSize: "1.5rem", fontWeight: 550, marginTop: "1rem" }}
+            >
               Conclusion:
             </div>
             Empowering Success: Building a Support Network: Encouragement to
