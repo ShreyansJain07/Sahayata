@@ -12,7 +12,6 @@ export default function RootLayout() {
       <VoiceButton />
       <Box>
         <VoiceButton />
-        <JobBoard />
       </Box>
     </>
   );
