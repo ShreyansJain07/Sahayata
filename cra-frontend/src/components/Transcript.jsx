@@ -5,8 +5,9 @@ const YoutubeSearch = ({ title }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [videos, setVideos] = useState([]);
   const [videoSummary, setVideoSummary] = useState("");
+  const [lines, setLines] = useState();
 
-  const [ques, setques] = useState("");
+  const [ques, setques] = useState([]);
 
   const API_KEY = "AIzaSyBrdsClFkrQokGYbdXCVSbUTtcOanxUFBM"; // Replace with your actual YouTube API key
   const OPENAI_API_KEY =
@@ -76,9 +77,9 @@ const YoutubeSearch = ({ title }) => {
           },
           body: JSON.stringify({
             providers: "openai",
-            text: ` generate 5 ques on ${videoSummary} with 4 options answers the answers options should not exceed the number the response  \n\n exapmle reponse should be in format of html with tags ,display 
-            
-           `,
+            //   text: ` generate 5 ques on ${videoSummary}
+            //  `,
+            text: `Based on the video summary provided, generate 5 interview level questions with answers related to the content. Each question should have four possible answers. The output should be structured Video Summary: '${summary}'`,
             temperature: 0.2,
             max_tokens: 500,
             fallback_providers: "",
@@ -89,17 +90,17 @@ const YoutubeSearch = ({ title }) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
       const data = await response.json();
-      setques(data.openai.generated_text);
+      const linesArray = data.openai.generated_text
+        .split("\n")
+        .filter((line) => line.trim() !== "");
+      setques(linesArray);
     } catch (error) {
       console.error("Error generating summary:", error);
       return "";
     }
   };
-  if (videoSummary) {
-    generateQuestionsAndAnswers(videoSummary);
-  }
+
   return (
     <div>
       {/* <input
@@ -172,7 +173,9 @@ const YoutubeSearch = ({ title }) => {
           >
             Questions and Answers
           </h2>
-          {ques}
+          {ques.map((line, index) => (
+            <p key={index}>{line.trim()}</p>
+          ))}
           {/* {ques?.map((question) => {
             return (
               <div>
@@ -180,28 +183,28 @@ const YoutubeSearch = ({ title }) => {
               </div>
             );
           })} */}
-          {/* {dummy?.map((question) => {
-            return (
-              <div style={{ paddingBottom: "1rem" }}>
+          {/* {Array.isArray(ques) ? (
+            ques.map((question) => (
+              <div key={question.id}>
                 <div style={{ fontWeight: 550 }}>{question.question}</div>
                 <div>
-                  {question.options.map((option, index) => {
-                    return (
-                      <div>
-                        <input
-                          type="checkbox"
-                          name=""
-                          style={{ marginRight: "0.5rem" }}
-                          id=""
-                        />
-                        {option}
-                      </div>
-                    );
-                  })}
+                  {question.answer.map((option, index) => (
+                    <div key={index}>
+                      <input
+                        type="checkbox"
+                        name=""
+                        style={{ marginRight: "0.5rem" }}
+                        id=""
+                      />
+                      {option}
+                    </div>
+                  ))}
                 </div>
               </div>
-            );
-          })} */}
+            ))
+          ) : (
+            <p>Invalid data structure for ques</p>
+          )} */}
         </div>
       </div>
     </div>
