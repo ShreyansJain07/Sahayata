@@ -69,14 +69,15 @@ function WithSubnavigation() {
             >
               सहAIता
             </Text> */}
-            <h1
+            <span
               style={{
                 color: "#ffcf36",
                 fontWeight: "bolder",
+                fontSize:"40px"
               }}
             >
               सह<span style={{ color: "#3261ff" }}>AI</span>ता
-            </h1>
+            </span>
           </Link>
           <Spacer />
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -214,6 +215,7 @@ const MobileNav = () => {
       bg={useColorModeValue("white", "gray.800")}
       p={4}
       display={{ md: "none" }}
+      style={{display:"flex",alignItems:"center"}}
     >
       {NAV_ITEMS.map((navItem, ind) => (
         <MobileNavItem key={ind} {...navItem} />
