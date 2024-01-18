@@ -25,6 +25,7 @@ import VoiceButton from "./components/VoiceButton";
 import { HStack, Stack } from "@chakra-ui/react";
 import JobBoard from "./components/JobBoard";
 import TextReader from "./components/TextReader";
+import LandingTop from "./components/LandingTop";
 import Feedback from "./screens/Feedback";
 import EmployeeProfilePage from "./screens/EmployeeProfilePage";
 
@@ -152,6 +153,7 @@ function App() {
                   <Route path="/aivideo" element={<AiVideo />} />
                   <Route path="/community" element={<Community />} />
                   <Route path="/jobs" element={<JobBoard />} />
+                  <Route path="/landing2" element={<LandingTop/>}/>
                   <Route path="/feedback" element={<Feedback />} />
                   <Route
                     path="/profile/:name"
