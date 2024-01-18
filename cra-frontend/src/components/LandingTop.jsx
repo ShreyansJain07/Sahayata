@@ -141,11 +141,12 @@ export default function LandingTop() {
               <FaDollarSign style={{ color: "#50c5a3" }} />
             </div>
             <span className="lowerhead" style={{ color: "white" }}>
-              GST
+              Easy Money
             </span>
             <div className="subheading">
               <p>
-                Goods and Services Tax (GST) consulting and compliance services.
+                Disability Inclusive Employment Solutions - Consulting and
+                Compliance Services
               </p>
             </div>
           </div>
@@ -154,11 +155,12 @@ export default function LandingTop() {
               <HiOutlineReceiptTax style={{ color: "#fa3daf" }} />
             </div>
             <span className="lowerhead" style={{ color: "white" }}>
-              Income Tax
+              Employment{" "}
             </span>
             <div className="subheading">
               <p>
-                Expertise in income tax planning, filing, and advisory services.
+                Comprehensive services in accessible employment planning,
+                recruitment, and advisory for diverse abilities.
               </p>
             </div>
           </div>
@@ -167,12 +169,12 @@ export default function LandingTop() {
               <GoLaw style={{ color: "yellow" }} />
             </div>
             <span className="lowerhead" style={{ color: "white" }}>
-              Company Law
+              Legal Assistance
             </span>
             <div className="subheading">
               <p>
-                Legal consultation and compliance services related to company
-                laws.
+                Providing legal consultation and compliance services with a
+                focus on accessibility and inclusivity in law practice.
               </p>
             </div>
           </div>
@@ -181,12 +183,109 @@ export default function LandingTop() {
               <CiCalendar style={{ color: "#04a8e1" }} />
             </div>
             <span className="lowerhead" style={{ color: "white" }}>
-              Finance & Consultancy
+              Effortless Interview
             </span>
             <div className="subheading">
               <p>
-                Comprehensive financial services tailored to your business
-                needs.
+                Simplify your scheduling with user-friendly and accessible
+                appointment booking solutions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfNcTB41jQPWYFckTmcPfo7LNhTWmh7BrNU54vgDaD_BJ3Q4Q/viewform?usp=sf_link"
+          className="btn3 "
+          style={{ textDecoration: "none" }}
+        >
+          Join Us Now
+        </a>
+      </div>
+      <div className="section1" style={{ position: "relative" }}>
+        <img
+          className="pie"
+          src={pie}
+          alt=""
+          style={{ position: "absolute", left: "-60px", opacity: "55%" }}
+        />
+        <img
+          className="pie2"
+          src={pie2}
+          alt=""
+          style={{ position: "absolute", opacity: "55%", zIndex: "1" }}
+        />
+
+        <p className="section-title">
+          Unlock Your Potential. Excel in Your Career <br />
+          Journey with Inclusive Employment!
+        </p>
+        <p className="subheading">
+          Discover Your Path. Navigate Your Career Journey with Confidence.
+          Personalized Job Matching.
+        </p>
+        <p className="subheading" id="2" style={{ marginTop: "-15px" }}>
+          Empowering Solutions. Accessibility Advocacy. Inclusive Employment
+          Opportunities.
+        </p>
+
+        <div
+          className="box-container"
+          style={{ zIndex: "2", fontFamily: "sunflower" }}
+        >
+          <div className="boxes-line" id="b1">
+            <div className="box" style={{ backgroundColor: "#2c4c4b" }}>
+              <FaDollarSign style={{ color: "#50c5a3" }} />
+            </div>
+            <span className="lowerhead" style={{ color: "white" }}>
+              Easy Money
+            </span>
+            <div className="subheading">
+              <p>
+                Disability Inclusive Employment Solutions - Consulting and
+                Compliance Services
+              </p>
+            </div>
+          </div>
+          <div className="boxes-line" id="b2">
+            <div className="box" style={{ backgroundColor: "#4f2e4d" }}>
+              <HiOutlineReceiptTax style={{ color: "#fa3daf" }} />
+            </div>
+            <span className="lowerhead" style={{ color: "white" }}>
+              Employment{" "}
+            </span>
+            <div className="subheading">
+              <p>
+                Comprehensive services in accessible employment planning,
+                recruitment, and advisory for diverse abilities.
+              </p>
+            </div>
+          </div>
+          <div className="boxes-line" id="b3">
+            <div className="box" style={{ backgroundColor: "#4e483c" }}>
+              <GoLaw style={{ color: "yellow" }} />
+            </div>
+            <span className="lowerhead" style={{ color: "white" }}>
+              Legal Assistance
+            </span>
+            <div className="subheading">
+              <p>
+                Providing legal consultation and compliance services with a
+                focus on accessibility and inclusivity in law practice.
+              </p>
+            </div>
+          </div>
+          <div className="boxes-line" id="b4">
+            <div className="box" style={{ backgroundColor: "#1c495c" }}>
+              <CiCalendar style={{ color: "#04a8e1" }} />
+            </div>
+            <span className="lowerhead" style={{ color: "white" }}>
+              Effortless Interview
+            </span>
+            <div className="subheading">
+              <p>
+                Simplify your scheduling with user-friendly and accessible
+                appointment booking solutions.
               </p>
             </div>
           </div>
