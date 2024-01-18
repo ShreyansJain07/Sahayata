@@ -1,15 +1,13 @@
 import React from "react";
 import VoiceButton from "../components/VoiceButton";
-import LandingPage from "../screens/LandingPage";
-import Carousel  from "../components/Carousel";
-import FeatureList from "../components/FeatureList";
 import SpeechSynthesizer from "../components/SpeechSynthesizer";
+import LandingTop from "../components/LandingTop";
 export default function RootLayout() {
   return (
     <>
-      <LandingPage />
-      <Carousel/>
-      <FeatureList/>
+      <LandingTop />
+      {/* <Carousel/>
+      <FeatureList/> */}
       <SpeechSynthesizer/>
     </>
   );

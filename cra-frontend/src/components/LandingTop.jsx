@@ -60,7 +60,7 @@ export default function LandingTop() {
         <div className="buttons">
           <a
             href="https://calendly.com/varun-jajoo18"
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", backgroundColor: "#2234da" }}
             className="btn btn1"
           >
             Make an Appointment
@@ -83,24 +83,24 @@ export default function LandingTop() {
       <div className="company">
         <p className="p2">
           Helped People to get into{" "}
-          <span style={{ color: "#6c76f2" }}> 100 + </span>Great Companies
+          <span style={{ color: "#2234da" }}> 100 + </span>Great Companies
           Worldwide
         </p>
         <div className="block-companies">
           <div className="comapanies">Lyra</div>{" "}
-          <span className="slash" style={{ color: "#6c76f2" }}>
+          <span className="slash" style={{ color: "#2234da" }}>
             |
           </span>
           <div className="comapanies">CM Securities</div>
-          <span className="slash" style={{ color: "#6c76f2" }}>
+          <span className="slash" style={{ color: "#2234da" }}>
             |
           </span>
           <div className="comapanies">Balaji Tanks & Vessels</div>
-          <span className="slash" style={{ color: "#6c76f2" }}>
+          <span className="slash" style={{ color: "#2234da" }}>
             |
           </span>
           <div className="comapanies">SBI</div>
-          <span className="slash" style={{ color: "#6c76f2" }}>
+          <span className="slash" style={{ color: "#2234da" }}>
             |
           </span>
           <div className="comapanies">Status Airvision</div>
@@ -395,7 +395,7 @@ export default function LandingTop() {
 
         <div
           className="questions"
-          style={{ color: click1 ? "white" : "#6c76f2" }}
+          style={{ color: click1 ? "white" : "#2234da" }}
         >
           <h5
             onClick={() => {
@@ -431,7 +431,7 @@ export default function LandingTop() {
         </span>
         <div
           className="questions"
-          style={{ color: click2 ? "white" : "#6c76f2" }}
+          style={{ color: click2 ? "white" : "#2234da" }}
         >
           <h5
             onClick={() => {
@@ -439,8 +439,8 @@ export default function LandingTop() {
             }}
           >
             {" "}
-            How can I benefit from hiring a Chartered Accountant for my business
-            ?{" "}
+            How can my organization benefit from using your job portal for
+            disabled employees?{" "}
             <span
               style={{
                 fontWeight: "bolder",
@@ -461,9 +461,11 @@ export default function LandingTop() {
               transition: "opacity 0.3s ease-in-out, height 0.3s ease-in-out",
             }}
           >
-            Hiring a Chartered Accountant can help ensure compliance with tax
-            regulations, provide strategic financial advice, optimize tax
-            returns, and enhance overall financial management for your business.
+            Using our job portal for disabled employees can facilitate inclusive
+            hiring practices, ensuring that your organization benefits from a
+            diverse and talented workforce. Our platform is designed to
+            streamline the recruitment process, making it more accessible and
+            accommodating for both employers and job seekers with disabilities.
           </p>
         </div>
         <span className="dots" style={{ color: "#82888d" }}>
@@ -472,7 +474,7 @@ export default function LandingTop() {
 
         <div
           className="questions"
-          style={{ color: click3 ? "white" : "#6c76f2" }}
+          style={{ color: click3 ? "white" : "#2234da" }}
         >
           <h5
             onClick={() => {
@@ -480,7 +482,7 @@ export default function LandingTop() {
             }}
           >
             {" "}
-            What industries do you specialize in ?{" "}
+            In which industries does your job portal specialize?{" "}
             <span
               style={{
                 fontWeight: "bolder",
@@ -501,10 +503,11 @@ export default function LandingTop() {
               transition: "opacity 0.3s ease-in-out, height 0.3s ease-in-out",
             }}
           >
-            We have expertise across various industries, including but not
-            limited to manufacturing, IT, healthcare, retail, and services. Our
-            Chartered Accountants are equipped to cater to the diverse needs of
-            different sectors.
+            Our job portal specializes in catering to disabled job seekers
+            across various industries, ensuring that opportunities are available
+            in sectors such as IT, healthcare, retail, and services. We are
+            committed to supporting inclusivity in the workplace for individuals
+            with diverse abilities.
           </p>
         </div>
         <span className="dots" style={{ color: "#82888d" }}>
@@ -513,7 +516,7 @@ export default function LandingTop() {
 
         <div
           className="questions"
-          style={{ color: click4 ? "white" : "#6c76f2" }}
+          style={{ color: click4 ? "white" : "#2234da" }}
         >
           <h5
             onClick={() => {
@@ -521,7 +524,8 @@ export default function LandingTop() {
             }}
           >
             {" "}
-            How do I get started with your Chartered Accountant services ?{" "}
+            How can organizations get started with your disabled employees' job
+            portal?{" "}
             <span
               style={{
                 fontWeight: "bolder",
@@ -542,10 +546,11 @@ export default function LandingTop() {
               transition: "opacity 0.3s ease-in-out, height 0.3s ease-in-out",
             }}
           >
-            Getting started is easy! Simply reach out to our team via phone or
-            email to schedule an initial consultation. During this meeting, we
-            will discuss your specific needs and tailor our services to meet
-            your requirements.
+            Getting started is easy! Organizations can reach out to our team
+            through the contact details provided on our portal. We will guide
+            you through the onboarding process, helping you tailor your job
+            listings and recruitment strategies to create an inclusive and
+            accessible hiring environment for disabled individuals.
           </p>
         </div>
       </div>
