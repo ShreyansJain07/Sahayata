@@ -5,7 +5,6 @@ const YoutubeSearch = ({ title }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [videos, setVideos] = useState([]);
   const [videoSummary, setVideoSummary] = useState("");
-  const [lines, setLines] = useState();
 
   const [ques, setques] = useState([]);
 
@@ -77,9 +76,26 @@ const YoutubeSearch = ({ title }) => {
           },
           body: JSON.stringify({
             providers: "openai",
-            //   text: ` generate 5 ques on ${videoSummary}
+            //   text: ` generate 5 ques on ${videoSummary} with 4 options answers the answers options should not exceed the number the response  \n\n exapmle reponse should be in format of html with tags ,display
             //  `,
-            text: `Based on the video summary provided, generate 5 interview level questions with answers related to the content. Each question should have four possible answers. The output should be structured Video Summary: '${summary}'`,
+            text: `Based on the video summary provided, generate 5 multiple-choice questions related to the content. Each question should have four possible answers. The output should be structured in JSON format, similar to the example provided. 
+
+          Video Summary: '${summary}'
+          Examle JSON :-
+          [
+            {
+              "id": 1,
+              "question": "What is the role of React components in web development?",
+              "answer": ["Option A", "Option B", "Option C", "Option D"],
+              "correctAns": "Correct Answer"
+            },
+            {
+              "id": 2,
+              "question": "What are the fundamental building blocks of React components?",
+              "answer": ["Option A", "Option B", "Option C", "Option D"],
+              "correctAns": "Correct Answer"
+            }
+          ]`,
             temperature: 0.2,
             max_tokens: 500,
             fallback_providers: "",
@@ -90,11 +106,10 @@ const YoutubeSearch = ({ title }) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+
       const data = await response.json();
-      const linesArray = data.openai.generated_text
-        .split("\n")
-        .filter((line) => line.trim() !== "");
-      setques(linesArray);
+      const jsonObject = JSON.parse(data.openai.generated_text);
+      setques(jsonObject);
     } catch (error) {
       console.error("Error generating summary:", error);
       return "";
@@ -173,9 +188,7 @@ const YoutubeSearch = ({ title }) => {
           >
             Questions and Answers
           </h2>
-          {ques.map((line, index) => (
-            <p key={index}>{line.trim()}</p>
-          ))}
+          {console.log(typeof ques)}
           {/* {ques?.map((question) => {
             return (
               <div>
@@ -183,7 +196,7 @@ const YoutubeSearch = ({ title }) => {
               </div>
             );
           })} */}
-          {/* {Array.isArray(ques) ? (
+          {Array.isArray(ques) ? (
             ques.map((question) => (
               <div key={question.id}>
                 <div style={{ fontWeight: 550 }}>{question.question}</div>
@@ -204,7 +217,7 @@ const YoutubeSearch = ({ title }) => {
             ))
           ) : (
             <p>Invalid data structure for ques</p>
-          )} */}
+          )}
         </div>
       </div>
     </div>
