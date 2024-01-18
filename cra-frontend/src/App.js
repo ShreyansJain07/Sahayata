@@ -33,7 +33,7 @@ function App() {
   let [answers, setAnswers] = useState([]);
   let [questionAnswer, setQuestionAnswer] = useState({});
   let [questionCompleted, setQuestionCompleted] = useState(false);
-  let [screenReader, setScreenReader] = useState(true);
+  let [screenReader, setScreenReader] = useState(false);
 
   const auth = getAuth();
   const [user, setUser] = useState(null);
@@ -113,42 +113,47 @@ function App() {
           },
         }}
       >
-        <UserContext.Provider value={{user,setUser}}>
+        <UserContext.Provider value={{ user, setUser }}>
           <div className="App">
-          <TextReader isEnabled={screenReader}>
+            <TextReader isEnabled={screenReader}>
+              <Navbar />
+              <HStack
+                gap={4}
+                position="fixed"
+                bottom="4"
+                right="4"
+                zIndex={1000}
+              >
+                <VoiceButton />
+                <AccessibilityMenu />
+              </HStack>
 
-            <Navbar />
-            <HStack gap={4} position="fixed" bottom="4" right="4" zIndex={1000}>
-              <VoiceButton />
-              <AccessibilityMenu />
-            </HStack>
-
-            <div >
-              <Routes>
-                <Route path="/" element={<RootLayout />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/browse" element={<BrowseTalent />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route
-                  path="/virtualassistant"
-                  element={<VirtualAssistant />}
-                />
-                <Route path="/resumebuilder" element={<ResumeBuilder />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/speech" element={<SpeechtoText />} />
-                <Route path="/aicourse" element={<AiCourse />} />
-                <Route path="/web" element={<YoutubeSearch />} />
-                <Route
-                  path="/disabilityrightsinfo"
-                  element={<DisabilityRightsInfo />}
+              <div>
+                <Routes>
+                  <Route path="/" element={<RootLayout />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/browse" element={<BrowseTalent />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route
+                    path="/virtualassistant"
+                    element={<VirtualAssistant />}
                   />
-                <Route path="/aivideo" element={<AiVideo />} />
-                <Route path="/community" element={<Community />} />
-                <Route path="/jobs" element={<JobBoard />} />
-              </Routes>
-            </div>
-            <Footer />
-                  </TextReader>
+                  <Route path="/resumebuilder" element={<ResumeBuilder />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/speech" element={<SpeechtoText />} />
+                  <Route path="/aicourse" element={<AiCourse />} />
+                  <Route path="/web" element={<YoutubeSearch />} />
+                  <Route
+                    path="/disabilityrightsinfo"
+                    element={<DisabilityRightsInfo />}
+                  />
+                  <Route path="/aivideo" element={<AiVideo />} />
+                  <Route path="/community" element={<Community />} />
+                  <Route path="/jobs" element={<JobBoard />} />
+                </Routes>
+              </div>
+              <Footer />
+            </TextReader>
           </div>
         </UserContext.Provider>
       </AppContext.Provider>
