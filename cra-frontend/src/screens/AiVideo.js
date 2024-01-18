@@ -30,7 +30,14 @@ const AiVideo = () => {
 
   return (
     <div className="aivideo-main">
-      <div className="aivideo-contents">
+      <div
+        className="aivideo-contents"
+        style={{
+          overflowY: "scroll",
+          maxHeight: "90vh",
+          marginRight: "1rem",
+        }}
+      >
         {data.map((item) => (
           <div
             style={{
@@ -69,9 +76,9 @@ const AiVideo = () => {
           Unit {selected.unit} · Chapter {selected.chapter}
         </div>
         {selected.title}
-        <YoutubeSearch title={selected.title}/>
+        <YoutubeSearch title={selected.title} />
       </div>
-      <div className="aivideo-ques"></div>
+      {/* <div className="aivideo-ques"></div> */}
     </div>
   );
 };

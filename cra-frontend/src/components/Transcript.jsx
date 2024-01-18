@@ -128,34 +128,62 @@ const YoutubeSearch = ({ title }) => {
       /> */}
       <button onClick={handleSearch}>Search</button>
 
-      {videos.length > 0 && (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "1rem",
+          justifyContent: "space-between",
+        }}
+      >
         <div>
-          <h2>Details for the First Video</h2>
-          {videos[0].id.videoId && (
-            <iframe
-              title={
-                videos[0].snippet && videos[0].snippet.title
-                  ? videos[0].snippet.title
-                  : "Video"
-              }
-              width="560"
-              height="315"
-              src={`https://www.youtube.com/embed/${videos[0].id.videoId}`}
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
+          {videos.length > 0 && (
+            <div>
+              <h2>Details for the First Video</h2>
+              {videos[0].id.videoId && (
+                <iframe
+                  title={
+                    videos[0].snippet && videos[0].snippet.title
+                      ? videos[0].snippet.title
+                      : "Video"
+                  }
+                  width="560"
+                  height="315"
+                  style={{
+                    margin: "1rem",
+                    marginLeft: 0,
+                    borderRadius: "1rem",
+                  }}
+                  src={`https://www.youtube.com/embed/${videos[0].id.videoId}`}
+                  frameBorder="0"
+                  allowFullScreen
+                ></iframe>
+              )}
+            </div>
           )}
+
+          <div
+            style={{
+              marginTop: "1rem",
+            }}
+          >
+            <h2
+              style={{
+                marginBottom: "0.5rem",
+                fontSize: "1.25rem",
+                fontWeight: 590,
+              }}
+            >
+              Summary for the First Video
+            </h2>
+            <p>{videoSummary}</p>
+          </div>
         </div>
-      )}
 
-      <div>
-        <h2>Summary for the First Video</h2>
-        <p>{videoSummary}</p>
-      </div>
-
-      <div>
-        <h2>Questions and Answers</h2>
-        {ques}
+        <div>
+          <h2>Questions and Answers</h2>
+          {ques}
+        </div>
       </div>
     </div>
   );

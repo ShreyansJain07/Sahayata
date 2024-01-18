@@ -1,10 +1,10 @@
-.aicourse-main{
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-align: center;
+.aicourse-main {
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  text-align: center;
 }
-
+/*
 .aicourse-info{
     background-color: lightgray;
     width: 30%;
@@ -25,16 +25,18 @@
 
 }
 
-.aicourse-input-title{
-    text-align: left;
-    padding-left: 5px;
-    font-size: 20px;
-    font-weight: 600;
+*/
+.aicourse-input-title {
+  margin-top: 1rem;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 600;
 }
 
-.aicourse-button{
-    width: 130px;
-    margin: 10px 20px;
-    height: auto;
-    
+.aicourse-button {
+  width: 130px;
+  margin: 0.5rem 1.25rem;
+  height: auto;
+  color: white;
+  font-weight: 500;
 }

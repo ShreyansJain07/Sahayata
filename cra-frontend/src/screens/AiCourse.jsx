@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AiCourse.css";
 import { Input, Button } from "antd";
+import { BsStars } from "react-icons/bs";
+import svg from "../assests/aicourse.svg";
 
 const AiCourse = () => {
   const navigate = useNavigate();
@@ -67,54 +69,103 @@ const AiCourse = () => {
 
   return (
     <>
-      <div className="aicourse-main">AI Course Maker</div>
-      <div className="aicourse-info">
-        Enter in a course title, or what you want to learn about. Then enter a
-        list of units, which are the specifics you want to learn. and our AI
-        will generate a course for you!
-      </div>
-      <div className="aicourse-inputarea">
-        <div className="aicourse-input-title">Title</div>
-        <div>
-          <Input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="aicourse-input"
-            placeholder="Enter the main topic of the course (e.g. 'Calculus')"
-          />
-        </div>
-      </div>
-      {inputFields.map((input, id) => (
-        <div className="aicourse-inputarea" key={id}>
-          <div className="aicourse-input-title">Unit {id + 1}</div>
-          <div>
-            <Input
-              value={input.value}
-              onChange={(e) => handleInputChange(e, id)}
-              className="aicourse-input"
-              placeholder="Enter the subtopic topic of the course"
-            />
-          </div>
-        </div>
-      ))}
       <div
         style={{
           display: "flex",
+          flexDirection: "row",
           alignItems: "center",
-          justifyContent: "center",
-          paddingTop:"20px"
+          padding: "2rem",
+          justifyContent: "space-evenly",
+          minHeight: "90vh",
         }}
       >
-        <Button className="aicourse-button" onClick={handleAddUnit}>
-          Add Unit <span style={{ color: "green", fontSize: "20px" }}>+</span>
-        </Button>
-        <Button className="aicourse-button" onClick={handleDeleteLastUnit}>
-          Delete Unit <span style={{ color: "red", fontSize: "20px" }}>-</span>
-        </Button>
-        <Button onClick={handleGenerate} className="aicourse-button">
-          Generate{" "}
-          <span style={{ color: "lightblue", fontSize: "20px" }}>↓</span>
-        </Button>
+        <div style={{ width: "50%" }}>
+          <div className="aicourse-main">AI Course Maker</div>
+          <div className="aicourse-info">
+            Enter in a course title, or what you want to learn about. Then enter
+            a list of units, which are the specifics you want to learn. and our
+            AI will generate a course for you!
+          </div>
+          <div className="aicourse-inputarea">
+            <div className="aicourse-input-title">Title</div>
+            <div>
+              <Input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="aicourse-input"
+                placeholder="Enter the main topic of the course (e.g. 'Calculus')"
+              />
+            </div>
+          </div>
+          {inputFields.map((input, id) => (
+            <div className="aicourse-inputarea" key={id}>
+              <div className="aicourse-input-title">Unit {id + 1}</div>
+              <div>
+                <Input
+                  value={input.value}
+                  onChange={(e) => handleInputChange(e, id)}
+                  className="aicourse-input"
+                  placeholder="Enter the subtopic topic of the course"
+                />
+              </div>
+            </div>
+          ))}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              paddingTop: "20px",
+            }}
+          >
+            <Button
+              className="aicourse-button"
+              style={{ backgroundColor: "green", paddingTop: "0" }}
+              onClick={handleAddUnit}
+            >
+              Add Unit{" "}
+              <span
+                style={{ color: "", fontSize: "1.15rem", marginLeft: "0.5rem" }}
+              >
+                +
+              </span>
+            </Button>
+            <Button
+              className="aicourse-button"
+              style={{ backgroundColor: "red", paddingTop: "0" }}
+              onClick={handleDeleteLastUnit}
+            >
+              Delete Unit{" "}
+              <span
+                style={{ color: "", fontSize: "1.15rem", marginLeft: "0.5rem" }}
+              >
+                -
+              </span>
+            </Button>
+            <Button
+              onClick={handleGenerate}
+              className="aicourse-button"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#2234da",
+                padding: "0.35rem",
+              }}
+            >
+              <div>Generate </div>
+              <span
+                style={{ color: "", fontSize: "1.15rem", marginLeft: "0.5rem" }}
+              >
+                <BsStars />
+              </span>
+            </Button>
+          </div>
+        </div>
+        <div>
+          <img src={svg} style={{ height: "100%", width: "100%" }} alt="" />
+        </div>
       </div>
     </>
   );
