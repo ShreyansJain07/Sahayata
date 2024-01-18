@@ -22,7 +22,7 @@ const Testimonials = () => {
           //   marginBottom: "0.5rem",
         }}
       >
-        People loving using{" "}
+        <div style={{}}>People loving using </div>
         <h1
           style={{
             color: "#ffcf36",

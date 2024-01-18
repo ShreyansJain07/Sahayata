@@ -18,6 +18,7 @@ import { CiCalendar } from "react-icons/ci";
 import { FaDollarSign } from "react-icons/fa";
 import { HiOutlineReceiptTax } from "react-icons/hi";
 import { GoLaw } from "react-icons/go";
+import Testimonials from "../screens/Testimonials";
 export default function LandingTop() {
   const [click1, Setclick1] = useState(false);
   const [click2, Setclick2] = useState(false);
@@ -353,6 +354,7 @@ export default function LandingTop() {
           <img id="image3" src={accounting} alt="" />
         </div>
       </div>
+      <Testimonials />
       <div
         className="section1"
         id="s2"
