@@ -1,30 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const YoutubeSearch = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+const YoutubeSearch = ({ title }) => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [videos, setVideos] = useState([]);
-  const [videoSummary, setVideoSummary] = useState('');
- 
-  const [ques,setques] = useState('');
+  const [videoSummary, setVideoSummary] = useState("");
 
+  const [ques, setques] = useState("");
 
-
-  const API_KEY = 'AIzaSyBK_eq1iTPXDI2IDA11AO6h3_7r3FEb3Uw'; // Replace with your actual YouTube API key
-  const OPENAI_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY';
-
- 
-  useEffect(() => {
-    // Call generateQuestionsAndAnswers when videoSummary is updated
-    if (videoSummary) {
-      generateQuestionsAndAnswers(videoSummary);
-    }
-  }, [videoSummary]);
-
+  const API_KEY = "AIzaSyBrdsClFkrQokGYbdXCVSbUTtcOanxUFBM"; // Replace with your actual YouTube API key
+  const OPENAI_API_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY";
+  console.log(title);
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${searchQuery}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`
+        `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${title}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`
       );
 
       setVideos(response.data.items);
@@ -35,53 +26,57 @@ const YoutubeSearch = () => {
         setVideoSummary(summary);
       }
     } catch (error) {
-      console.error('Error fetching YouTube data:', error);
+      console.error("Error fetching YouTube data:", error);
     }
   };
 
   const summarizeVideo = async (videoId) => {
     try {
-      // const videoUrl = `https://www.youtube.com/embed/${videoId}`;
-      const response = await fetch("https://api.edenai.run/v2/text/generation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify({
-          providers: "google",
-          text: `Write a random paragraph about the YouTube video related to ${searchQuery}.`,
-          temperature: 0.2,
-          max_tokens: 500,
-          fallback_providers: "",
-        }),
-      });
+      // const videoUrl = https://www.youtube.com/embed/${videoId};
+      const response = await fetch(
+        "https://api.edenai.run/v2/text/generation",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${OPENAI_API_KEY}`,
+          },
+          body: JSON.stringify({
+            providers: "google",
+            text: `Write a random paragraph about the YouTube video related to ${title}.`,
+            temperature: 0.2,
+            max_tokens: 500,
+            fallback_providers: "",
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
+      generateQuestionsAndAnswers(data.google.generated_text);
       return data.google.generated_text;
     } catch (error) {
-      console.error('Error generating summary:', error);
-      return '';
+      console.error("Error generating summary:", error);
+      return "";
     }
   };
 
   const generateQuestionsAndAnswers = async (summary) => {
-    
-      try {
-      // const videoUrl = `https://www.youtube.com/embed/${videoId}`;
-      const response = await fetch("https://api.edenai.run/v2/text/generation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify({
-          providers: "openai",
-          text: ` generate json of 5 ques on ${videoSummary} with 4 options answers the answers options should not exceed the number the response should be in json format strictly \n\n exapmle reponse should be in format [
+    try {
+      const response = await fetch(
+        "https://api.edenai.run/v2/text/generation",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${OPENAI_API_KEY}`,
+          },
+          body: JSON.stringify({
+            providers: "openai",
+            text: ` generate json of 5 ques on ${summary} with 4 options answers the answers options should not exceed the number the response should be in json format strictly \n\n exapmle reponse should be in format [
             {
               "question": "What is the main idea of the video?",
               "options": ["Option A", "Option B", "Option C", "Option D"]
@@ -104,11 +99,12 @@ const YoutubeSearch = () => {
             }
           ]
            `,
-          temperature: 0.2,
-          max_tokens: 500,
-          fallback_providers: "",
-        }),
-      });
+            temperature: 0.2,
+            max_tokens: 500,
+            fallback_providers: "",
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -116,21 +112,20 @@ const YoutubeSearch = () => {
 
       const data = await response.json();
       setques(data.openai.generated_text);
-      
     } catch (error) {
-      console.error('Error generating summary:', error);
-      return '';
+      console.error("Error generating summary:", error);
+      return "";
     }
   };
-  
+
   return (
     <div>
-      <input
+      {/* <input
         type="text"
         placeholder="Enter your search query"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+        value={title}
+        // onChange={(e) => setSearchQuery(e.target.value)}
+      /> */}
       <button onClick={handleSearch}>Search</button>
 
       {videos.length > 0 && (
@@ -138,7 +133,11 @@ const YoutubeSearch = () => {
           <h2>Details for the First Video</h2>
           {videos[0].id.videoId && (
             <iframe
-              title={videos[0].snippet && videos[0].snippet.title ? videos[0].snippet.title : 'Video'}
+              title={
+                videos[0].snippet && videos[0].snippet.title
+                  ? videos[0].snippet.title
+                  : "Video"
+              }
               width="560"
               height="315"
               src={`https://www.youtube.com/embed/${videos[0].id.videoId}`}
@@ -157,7 +156,6 @@ const YoutubeSearch = () => {
       <div>
         <h2>Questions and Answers</h2>
         {ques}
-        
       </div>
     </div>
   );
