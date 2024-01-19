@@ -101,7 +101,7 @@ const DisabilityRightsInfo = () => {
           style={{
             textDecoration:
               currentPage === "Flash Cards" ? "underline" : "none",
-            color: currentPage === "Flash Cards" ? "#ffcf36" : "#2234da",
+            color: currentPage === "Flash Cards" ? "#e38a43" : "#2234da",
           }}
           onClick={() => setCurrentPage("Flash Cards")}
         >
@@ -112,7 +112,7 @@ const DisabilityRightsInfo = () => {
             textDecoration:
               currentPage === "Educational Content" ? "underline" : "none",
             color:
-              currentPage === "Educational Content" ? "#ffcf36" : "#2234da",
+              currentPage === "Educational Content" ? "#e38a43" : "#2234da",
           }}
           onClick={() => setCurrentPage("Educational Content")}
         >
@@ -122,7 +122,7 @@ const DisabilityRightsInfo = () => {
           style={{
             textDecoration:
               currentPage === "Legal Resources" ? "underline" : "none",
-            color: currentPage === "Legal Resources" ? "#ffcf36" : "#2234da",
+            color: currentPage === "Legal Resources" ? "#e38a43" : "#2234da",
           }}
           onClick={() => setCurrentPage("Legal Resources")}
         >
@@ -132,7 +132,7 @@ const DisabilityRightsInfo = () => {
           style={{
             textDecoration:
               currentPage === "Legal Aid Chatbot" ? "underline" : "none",
-            color: currentPage === "Legal Aid Chatbot" ? "#ffcf36" : "#2234da",
+            color: currentPage === "Legal Aid Chatbot" ? "#e38a43" : "#2234da",
           }}
           onClick={() => setCurrentPage("Legal Aid Chatbot")}
         >

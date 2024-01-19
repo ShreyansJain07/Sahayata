@@ -35,6 +35,7 @@ import {
   IoTextOutline,
   IoContrastSharp,
   IoPaperPlane,
+  IoEyeOutline,
 } from "react-icons/io5";
 import { FaQuestion, FaTrash } from "react-icons/fa";
 import { Divider } from "antd";
@@ -44,17 +45,14 @@ const AccessibilityGrid = (props) => {
   const { toggleColorMode } = useColorMode();
   const [zoomLevel, setZoomLevel] = useState(100);
   const [paused, isPaused] = useState(false);
-
+  const [hidden, setHidden] = useState(false);
+  const [animation, setAnimation] = useState(true);
   const zoomIn = () => {
     setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200));
   };
   
   const zoomOut = () => {
     setZoomLevel((prevZoom) => Math.max(prevZoom - 10, 50));
-  };
-
-  const adjustZoom = () => {
-    document.body.style.zoom = `${zoomLevel}%`;
   };
 
   const features = [
@@ -69,7 +67,7 @@ const AccessibilityGrid = (props) => {
     {
       icon: <ZoomInSharp />,
       label: "Increase Font Size",
-      func: () => {
+      func: () => { 
         zoomIn();
       },
     },
@@ -80,14 +78,32 @@ const AccessibilityGrid = (props) => {
         zoomOut();
       },
     },
-    { icon: <IoText />, label: "Text Spacing" },
+    { icon: <IoText />, label: "Text Spacing +" ,func:()=>{
+      document.body.style.letterSpacing = '3px';
+    } },
+    { icon: <IoText />, label: "Text Spacing -" ,func:()=>{
+      document.body.style.letterSpacing = 'normal';
+    } },
     {
       icon: paused ? <IoPaperPlane /> : <IoPauseOutline />,
       label: paused ? "Resume Animations" : "Pause Animations",
       func: () => {
-        isPaused(!paused);
-      }},
-    { icon: <IoEyeOffOutline />, label: "Hide Images" },
+        var elements = document.querySelectorAll('.animated-element');        
+          elements.forEach(function(element) {
+            // Toggle the class to pause or resume animations
+            element.classList.toggle('paused-animation');
+          });
+          setAnimation(!animation);
+    
+        }
+      },
+    { icon: hidden ? <IoEyeOutline /> : <IoEyeOffOutline />, label: hidden ? "Show Images" : "Hide Images",func:()=>{
+      let images = document.querySelectorAll('img');
+      images.forEach((img)=> {
+        img.classList.toggle('hidden');
+      });
+    setHidden(!hidden);
+    } },
     { icon: <IoReaderOutline />, label: "Dyslexia Friendly" },
     { icon: <IoResizeOutline />, label: "Line Height" },
     { icon: <IoTextOutline />, label: "Text Align" },
