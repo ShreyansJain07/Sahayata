@@ -28,6 +28,8 @@ import {
 import { CiSearch } from "react-icons/ci";
 import { FaRegStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { getDoc } from "firebase/firestore";
+import { setDoc, deleteDoc } from 'firebase/firestore';
 import {
   getFirestore,
   doc,
@@ -45,16 +47,8 @@ const VirtualAssistant = () => {
     { name: "Rishab", skills: "Front-End Dev" },
     { name: "Shreyans", skills: "Front-End Dev" },
   ]);
-  const [Interviewers, setInterviewers] = useState([
-    { name: "Shreyans", skills: "Front-End Dev" },
-    { name: "Varun", skills: "Front-End Dev" },
-    { name: "Ritnonjan", skills: "Front-End Dev" },
-  ]);
-  const [Offered, setOffered] = useState([
-    { name: "Ritnonjan", skills: "Front-End Dev" },
-    { name: "Varun", skills: "Front-End Dev" },
-    { name: "Rishab", skills: "Front-End Dev" },
-  ]);
+  const [Interviewers, setInterviewers] = useState([]);
+  const [Offered, setOffered] = useState([]);
 
   // Modal
   const [meetings, setMeetings] = useState([]);
@@ -74,18 +68,67 @@ const VirtualAssistant = () => {
     salary: "", // New field
   });
 
+  // useEffect(() => {
+  //   const fetchJobs = async () => {
+  //     try {
+  //       const db = getFirestore();
+  //       const applicantsCollection = await getDocs(
+  //         collection(db, "applicants")
+  //       );
+  //       const applicantsData = applicantsCollection.docs.map((doc) => ({
+  //         id: doc.id,
+  //         ...doc.data(),
+  //       }));
+  //       setApplicants(applicantsData);
+  //       const jobsCollection = await getDocs(collection(db, "jobs"));
+  //       const jobsData = jobsCollection.docs.map((doc) => ({
+  //         id: doc.id,
+  //         ...doc.data(),
+  //       }));
+  //       console.log(jobsData);
+  //       setMeetings(jobsData);
+
+        
+  //     } catch (error) {
+  //       console.error("Error fetching jobs:", error);
+  //     }
+  //   };
+
+  //   fetchJobs();
+  // }, []);
+
+  // const acceptApplicant = async (uid) => {
+  //   console.log(uid);
+  //   const db = getFirestore();
+  //   const userDocRef = doc(db, "applicants", uid);
+  //   let data = [];
+  //   try {
+  //     const userDocSnapshot = await getDoc(userDocRef);
+  //     if (userDocSnapshot.exists()) {
+  //       data = [...data, userDocSnapshot.data()];
+  //       console.log(data);
+  //       setInterviewers(data);
+  //     } else {
+  //       console.error("User data not found in Firestore");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching user data:", error);
+  //   }
+  // };
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const db = getFirestore();
-        const applicantsCollection = await getDocs(
-          collection(db, "applicants")
-        );
+
+        // Fetch applicants data
+        const applicantsCollection = await getDocs(collection(db, "applicants"));
         const applicantsData = applicantsCollection.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         setApplicants(applicantsData);
+
+        // Fetch jobs data
         const jobsCollection = await getDocs(collection(db, "jobs"));
         const jobsData = jobsCollection.docs.map((doc) => ({
           id: doc.id,
@@ -93,13 +136,50 @@ const VirtualAssistant = () => {
         }));
         console.log(jobsData);
         setMeetings(jobsData);
+
+        // Fetch data from the "interview" collection
+        const interviewCollection = await getDocs(collection(db, "interview"));
+        const interviewData = interviewCollection.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setInterviewers(interviewData);
       } catch (error) {
-        console.error("Error fetching jobs:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchJobs();
   }, []);
+
+  const acceptApplicant = async (uid) => {
+    console.log(uid);
+    const db = getFirestore();
+    const applicantsDocRef = doc(db, "applicants", uid);
+    const interviewersCollection = collection(db, "interview");
+  
+    try {
+      const applicantsDocSnapshot = await getDoc(applicantsDocRef);
+  
+      if (applicantsDocSnapshot.exists()) {
+        const applicantData = applicantsDocSnapshot.data();
+        await setDoc(doc(interviewersCollection, uid), applicantData);
+        await deleteDoc(applicantsDocRef);
+        const interviewsCollectionData = await getDocs(interviewersCollection);
+        const interviewsData = interviewsCollectionData.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+  
+        setInterviewers(interviewsData);
+      } else {
+        console.error("User data not found in Firestore");
+      }
+    } catch (error) {
+      console.error("Error handling the applicant:", error);
+    }
+  };
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -440,6 +520,7 @@ const VirtualAssistant = () => {
                           </div>
                         </div>
                         <div
+                          onClick={() => acceptApplicant(candidate.uid)}
                           style={{
                             color: "blue",
                             textDecoration: "underline",
@@ -480,7 +561,7 @@ const VirtualAssistant = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <div>Interviewers</div>
+                <div>Interviewees</div>
                 <div
                   style={{
                     marginLeft: "auto",
@@ -491,7 +572,7 @@ const VirtualAssistant = () => {
                     borderRadius: "0.2rem",
                   }}
                 >
-                  10
+                  0{Interviewers.length}
                 </div>
               </div>
             </CardBody>
@@ -509,16 +590,10 @@ const VirtualAssistant = () => {
                 >
                   <Stack>
                     <CardBody style={{ textAlign: "left" }}>
-                      <Heading size="md">{candidate?.name}</Heading>
-                      <Text py="2">
-                        With a passion for interactivity, I excel in crafting
-                        web interfaces that go beyond static presentations.
-                        Proficient in JavaScript and popular frameworks, I bring
-                        websites to life with dynamic elements, enhancing user
-                        engagement and overall satisfaction.
-                      </Text>
-                      <Text pb="2">Speaks: English, Hindi</Text>
-                      <Text pb="2">Skills: {candidate?.skills}</Text>
+                      <Heading size="md">{candidate?.Name}</Heading>
+                      <Text py="2">{candidate.Resume}</Text>
+                      <Text pb="2">Disability: {candidate.Disability}</Text>
+                      <Text pb="2">Skills: {candidate.Role}</Text>
                       <hr />
                       <div
                         style={{
@@ -536,7 +611,7 @@ const VirtualAssistant = () => {
                             gap: "0.5rem",
                           }}
                         >
-                          <div>Rs 800/hr</div>
+                          <div>Expirience : {candidate.Experience}</div>
                           <div
                             style={{
                               display: "flex",
@@ -546,10 +621,14 @@ const VirtualAssistant = () => {
                             }}
                           >
                             <FaRegStar />
-                            4.5
+                            {candidate.Rating}
                           </div>
                         </div>
-                        <div style={{ color: "gray" }}>4 days ago</div>
+                        <div
+                          style={{ color: "blue", textDecoration: "underline" }}
+                        >
+                          <a href="https://ritojnan.github.io/streamworks/">Meet</a>
+                        </div>
                       </div>
                     </CardBody>
                   </Stack>
@@ -594,7 +673,7 @@ const VirtualAssistant = () => {
                     borderRadius: "0.2rem",
                   }}
                 >
-                  10
+                  0
                 </div>
               </div>
             </CardBody>

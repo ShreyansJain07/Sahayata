@@ -51,12 +51,26 @@ export default function LargeWithLogoLeft() {
           templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr 1fr 1fr" }}
           spacing={8}
         >
-          <Stack spacing={6}>
+          <Stack spacing={3}>
             <Box>
               <Text fontWeight="bold">सहAIता</Text>
               {/* <Logo color={useColorModeValue('gray.700', 'white')} /> */}
             </Box>
             <Text fontSize={"sm"}>© 2024 All rights reserved</Text>
+            <div style={{}}>
+              Need assistance with our website? Feel free to reach out to us at
+              <a
+                style={{
+                  color: "#2234da",
+                  paddingLeft: "0.35rem",
+                  paddingRight: "0.35rem",
+                  fontWeight: 500,
+                }}
+              >
+                123-456-7890
+              </a>
+              for expert help and support!
+            </div>
           </Stack>
           <Stack align={"flex-start"}>
             <ListHeader>Product</ListHeader>
