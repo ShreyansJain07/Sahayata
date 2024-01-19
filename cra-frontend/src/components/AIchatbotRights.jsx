@@ -38,39 +38,46 @@ const AIchatbotRights = () => {
         style={{
           display: "flex",
           flexDirection: "row",
+          marginBottom: "1.3rem",
           justifyContent: "center",
           alignItems: "center",
           fontSize: "1.25rem",
           maxWidth: "80vw",
+          width: "80vw",
+          margin: "auto",
         }}
       >
-        <label>
-          {/* Enter prompt string: */}
-          <input
-            type="text"
-            value={promptString}
-            onChange={(e) => setPromptString(e.target.value)}
-            placeholder="Enter "
-            style={{
-              border: "4px solid #2234da",
-              padding: "0.7rem",
-              borderRadius: "1rem",
-              width: "100%",
-            }}
-          />
-        </label>
+        {/* <label> */}
+        {/* Enter prompt string: */}
+        <input
+          type="text"
+          value={promptString}
+          onChange={(e) => setPromptString(e.target.value)}
+          placeholder="Enter "
+          style={{
+            border: "4px solid #2234da",
+            padding: "0.7rem",
+            borderRadius: "1rem",
+            width: "100%",
+            flex: 1,
+          }}
+        />
+        {/* </label> */}
         <Button
           onClick={handleGenerateText}
           className="aicourse-button"
           style={{
             display: "flex",
+            borderRadius: "1rem",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
             backgroundColor: "#2234da",
-            padding: "0.35rem",
+            padding: "1rem",
             color: "white",
+            height: "3.5rem",
           }}
+          padding="2rem"
         >
           <div>Ask with AI </div>
           <span
@@ -80,8 +87,8 @@ const AIchatbotRights = () => {
           </span>
         </Button>
       </div>
-      <div>
-        <strong>Generated Text:</strong>
+      <div style={{ width: "80vw", margin: "auto" }}>
+        <strong>Generated Text Ouput:</strong>
         <p>{generatedText}</p>
       </div>
     </div>
