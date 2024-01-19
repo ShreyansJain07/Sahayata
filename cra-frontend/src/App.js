@@ -123,7 +123,6 @@ function App() {
               <Navbar />
               <HStack
                 gap={4}
-                justif
                 position="fixed"
                 bottom="4"
                 right={"4"}
@@ -132,7 +131,7 @@ function App() {
                 zIndex={1000}
               >
                 <ReadAloud value={screenReader} handleChangeInput={setScreenReader}/>
-                <VoiceButton />
+                <VoiceButton/>
                 <AccessibilityMenu />
               </HStack>
 
