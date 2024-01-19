@@ -25,6 +25,7 @@ import {
   Checkbox,
   CheckboxGroup,
   useDisclosure,
+  //   Badge,
 } from "@chakra-ui/react";
 import { FaFileContract } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
@@ -32,7 +33,7 @@ import { Badge, Calendar } from "antd";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { addApplicantProfile, updateUserProfile } from "../userFirestore";
-import { IoStarSharp } from "react-icons/io5";
+import { IoNotificationsCircleOutline, IoStarSharp } from "react-icons/io5";
 import { FcAcceptDatabase } from "react-icons/fc";
 
 const getListData = (value) => {
@@ -266,6 +267,8 @@ const Dashboard = () => {
     }
   };
 
+  const [notificationNumber, setNotificationNumber] = useState(0);
+
   return (
     <>
       <div
@@ -279,13 +282,45 @@ const Dashboard = () => {
       >
         <div
           style={{
-            // marginTop: "1rem",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
             marginBottom: "0.7rem",
             fontSize: "1.75rem",
-            fontWeight: 725,
           }}
         >
-          Good morning, {user ? user.name : "User"}
+          <div
+            style={{
+              // marginTop: "1rem",
+              fontWeight: 725,
+            }}
+          >
+            Good morning, {user ? user.name : "User"}
+          </div>
+          <div style={{ position: "relative", display: "inline-block" }}>
+            <IoNotificationsCircleOutline size="2.45rem" color="#2234da" />
+            {notificationNumber >= 0 && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  right: "0",
+                  background: "#ff0000",
+                  color: "#ffffff",
+                  borderRadius: "50%",
+                  width: "1rem",
+                  height: "1rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "0.75rem",
+                }}
+              >
+                {notificationNumber}
+              </div>
+            )}
+          </div>
         </div>
         <div style={{ fontWeight: 625 }}>User Profile</div>
         <div
