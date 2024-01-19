@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Disabilityrights.css";
+import AIchatbotRights from "../components/AIchatbotRights";
 
 const DisabilityRightsInfo = () => {
   const [currentPage, setCurrentPage] = useState("Flash Cards");
@@ -126,6 +127,16 @@ const DisabilityRightsInfo = () => {
           onClick={() => setCurrentPage("Legal Resources")}
         >
           Legal Resources
+        </div>
+        <div
+          style={{
+            textDecoration:
+              currentPage === "Legal Aid Chatbot" ? "underline" : "none",
+            color: currentPage === "Legal Aid Chatbot" ? "#ffcf36" : "#2234da",
+          }}
+          onClick={() => setCurrentPage("Legal Aid Chatbot")}
+        >
+          Legal Aid Chatbot
         </div>
         {/* <div
           style={{
@@ -425,6 +436,31 @@ const DisabilityRightsInfo = () => {
             Many employers offer EAPs, which can provide confidential counseling
             and assistance for employees facing challenges, including
             disability-related issues.
+          </div>
+        </div>
+      )}
+      {currentPage === "Legal Aid Chatbot" && (
+        <div>
+          <div
+            style={{
+              fontSize: "1.75rem",
+              fontWeight: 625,
+              marginBottom: "1.3rem",
+            }}
+          >
+            <a
+              style={{
+                fontWeight: 600,
+                marginRight: "0.5rem",
+                color: "#2234da",
+              }}
+            >
+              "Empowering Conversations, One Message at a Time: Unlocking
+              Answers, Solving Queries, and Bringing Ease to Your Experience
+              with our Intelligent Chatbot!"
+            </a>
+            {/* A Comprehensive Guide to Rights, Laws, and Legal Support Services */}
+            <AIchatbotRights />
           </div>
         </div>
       )}
