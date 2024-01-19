@@ -27,7 +27,7 @@ import React, { useState, useContext } from "react";
 
 function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
-  
+
   return (
     <Box
       position="sticky"
@@ -105,7 +105,7 @@ function WithSubnavigation() {
             fontSize={"sm"}
             fontWeight={400}
             variant={"link"}
-            to={"/login"}
+            to={"/signup"}
           >
             Login
           </Button>
@@ -236,14 +236,13 @@ const MobileNav = () => {
         <MobileNavItem key={ind} {...navItem} />
       ))} */}
       {NAV_ITEMS.map((navItem, ind) => {
-  if (navItem.label == "Employers" && user?.role == "Employee") {
-    console.log("hello");
-    return null; // Hide "Employers" for users with role "Employee"
-  } else {
-    return <MobileNavItem key={ind} {...navItem} />;
-  }
-})}
-
+        if (navItem.label == "Employers" && user?.role == "Employee") {
+          console.log("hello");
+          return null; // Hide "Employers" for users with role "Employee"
+        } else {
+          return <MobileNavItem key={ind} {...navItem} />;
+        }
+      })}
     </Stack>
   );
 };
