@@ -35,6 +35,7 @@ import {
   IoTextOutline,
   IoContrastSharp,
   IoPaperPlane,
+  IoEyeOutline,
 } from "react-icons/io5";
 import { FaQuestion, FaTrash } from "react-icons/fa";
 import { Divider } from "antd";
@@ -44,17 +45,13 @@ const AccessibilityGrid = (props) => {
   const { toggleColorMode } = useColorMode();
   const [zoomLevel, setZoomLevel] = useState(100);
   const [paused, isPaused] = useState(false);
-
+  const [hidden, setHidden] = useState(false);
   const zoomIn = () => {
     setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200));
   };
   
   const zoomOut = () => {
     setZoomLevel((prevZoom) => Math.max(prevZoom - 10, 50));
-  };
-
-  const adjustZoom = () => {
-    document.body.style.zoom = `${zoomLevel}%`;
   };
 
   const features = [
@@ -87,7 +84,13 @@ const AccessibilityGrid = (props) => {
       func: () => {
         isPaused(!paused);
       }},
-    { icon: <IoEyeOffOutline />, label: "Hide Images" },
+    { icon: hidden ? <IoEyeOutline /> : <IoEyeOffOutline />, label: hidden ? "Show Images" : "Hide Images",func:()=>{
+      let images = document.querySelectorAll('img');
+      images.forEach((img)=> {
+        img.classList.toggle('hidden');
+      });
+    setHidden(!hidden);
+    } },
     { icon: <IoReaderOutline />, label: "Dyslexia Friendly" },
     { icon: <IoResizeOutline />, label: "Line Height" },
     { icon: <IoTextOutline />, label: "Text Align" },
