@@ -123,10 +123,10 @@ function App() {
             <TextReader isEnabled={screenReader}>
               <Navbar />
               <HStack
+                mx={1}
                 gap={4}
                 position="fixed"
                 bottom="4"
-                right={"4"}
                 width={"full"}
                 justifyContent={["space-between", "flex-end"]}
                 zIndex={1000}
