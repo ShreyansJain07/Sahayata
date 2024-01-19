@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./AiVideo.css";
 import YoutubeSearch from "../components/Transcript";
-import { Box, Text, ListItem, OrderedList } from "@chakra-ui/react";
 
 const AiVideo = () => {
   const location = useLocation();
