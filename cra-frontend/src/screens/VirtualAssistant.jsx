@@ -163,7 +163,11 @@ const VirtualAssistant = () => {
   
       if (applicantsDocSnapshot.exists()) {
         const applicantData = applicantsDocSnapshot.data();
-        await setDoc(doc(interviewersCollection, uid), applicantData);
+        const interviewData = {
+          ...applicantData,
+          Company: user ? user.name : null,
+        };
+        await setDoc(doc(interviewersCollection, uid), interviewData);
         await deleteDoc(applicantsDocRef);
         const interviewsCollectionData = await getDocs(interviewersCollection);
         const interviewsData = interviewsCollectionData.docs.map((doc) => ({
