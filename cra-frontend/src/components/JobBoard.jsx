@@ -389,50 +389,64 @@ const JobBoard = () => {
     },
   ]);
   const [filteredJobs, setFilteredJobs] = useState(dummyJobData);
+
+  const query="data scientist"
+
+  const fetchData = async (query) => {
+    try {
+    
+     
+      
+
+      const response = await fetch(`http://localhost:8000/jobs?query=${query}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers if needed
+        },
+        // You can add a request body if your server expects it
+      });
+  
+
+      // Use await to get the actual data from the response
+      const responseData = await response.json();
+      console.log(responseData);
+     
+
+      const jobDataFromAPI = responseData.jobs_results.map((job, index) => {
+        const postedAt =
+          job.extensions.find((ext) => ext.includes("ago")) || "";
+        const yearlySalary =
+          job.extensions.find((ext) => ext.includes("year")) || "";
+
+        return {
+          id: index + 1,
+          position: job.title || "",
+          company: job.company_name || "",
+          ctc: yearlySalary,
+          modeOfWork: job.detected_extensions?.schedule_type || "",
+          place: job.location?.trim() || "",
+          startDate: job.posted_at || postedAt,
+          experience: job.experience || "",
+          description: job.description || "",
+          postDate: job.posted_at || "",
+          thumbnail: job.thumbnail || "",
+          via: job.via || "",
+        };
+      });
+
+      console.log(jobDataFromAPI);
+      // Use jobDataFromAPI in your setDummyJobData function
+      setDummyJobData(jobDataFromAPI);
+      setFilteredJobs(jobDataFromAPI);
+    } catch (error) {
+      console.error("Error fetching job data:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:8000/jobs"
-        );
   
-        // Use await to get the actual data from the response
-        const responseData = await response.json();
-        console.log(responseData);
-       
-  
-        const jobDataFromAPI = responseData.jobs_results.map((job, index) => {
-          const postedAt =
-            job.extensions.find((ext) => ext.includes("ago")) || "";
-          const yearlySalary =
-            job.extensions.find((ext) => ext.includes("year")) || "";
-  
-          return {
-            id: index + 1,
-            position: job.title || "",
-            company: job.company_name || "",
-            ctc: yearlySalary,
-            modeOfWork: job.detected_extensions?.schedule_type || "",
-            place: job.location?.trim() || "",
-            startDate: job.posted_at || postedAt,
-            experience: job.experience || "",
-            description: job.description || "",
-            postDate: job.posted_at || "",
-            thumbnail: job.thumbnail || "",
-            via: job.via || "",
-          };
-        });
-  
-        console.log(jobDataFromAPI);
-        // Use jobDataFromAPI in your setDummyJobData function
-        setDummyJobData(jobDataFromAPI);
-        setFilteredJobs(jobDataFromAPI);
-      } catch (error) {
-        console.error("Error fetching job data:", error);
-      }
-    };
-  
-    fetchData();
+    fetchData(query);
   }, []);
   
 

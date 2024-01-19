@@ -15,7 +15,9 @@ app.get('/', (req, res) => {
 app.get('/jobs', async (req, res) => {
   try {
     console.log("hitting server")
-    const { query} = req.body.toString();
+    // const { query} = req.body.toString();
+    const query = "full stack developer mumbai"
+    
     console.log(query)
 
     const serpApiUrl = 'https://serpapi.com/search';
