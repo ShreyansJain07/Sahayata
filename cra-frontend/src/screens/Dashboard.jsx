@@ -268,6 +268,26 @@ const Dashboard = () => {
   };
 
   const [notificationNumber, setNotificationNumber] = useState(0);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [notificationDetails, setNotificationDetails] = useState([
+    { id: 1, text: "New message received from John Doe" },
+  ]);
+
+  const handleIconClick = () => {
+    setShowDropdown(!showDropdown);
+    // Assuming you fetch or update notification details here
+    // Replace the following line with your actual logic
+    setNotificationDetails(fetchNotificationDetails());
+  };
+
+  const fetchNotificationDetails = () => {
+    // Replace this with your logic to fetch notification details from the server
+    return [
+      { id: 1, text: "Notification 1" },
+      { id: 2, text: "Notification 2" },
+      // Add more notification details as needed
+    ];
+  };
 
   return (
     <>
@@ -299,25 +319,46 @@ const Dashboard = () => {
             Good morning, {user ? user.name : "User"}
           </div>
           <div style={{ position: "relative", display: "inline-block" }}>
-            <IoNotificationsCircleOutline size="2.45rem" color="#2234da" />
-            {notificationNumber >= 0 && (
+            <div onClick={handleIconClick}>
+              <IoNotificationsCircleOutline size="2.45rem" color="#2234da" />
+              {notificationDetails?.length >= 0 && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    right: "0",
+                    background: "#ff0000",
+                    color: "#ffffff",
+                    borderRadius: "50%",
+                    width: "1rem",
+                    height: "1rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    fontSize: "0.75rem",
+                  }}
+                >
+                  {notificationDetails?.length}
+                </div>
+              )}
+            </div>
+            {showDropdown && (
               <div
                 style={{
                   position: "absolute",
-                  top: "0",
+                  top: "2rem", // Adjust the distance from the icon as needed
                   right: "0",
-                  background: "#ff0000",
-                  color: "#ffffff",
-                  borderRadius: "50%",
-                  width: "1rem",
-                  height: "1rem",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontSize: "0.75rem",
+                  background: "#ffffff",
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                  borderRadius: "0.25rem",
+                  padding: "0.5rem",
+                  fontSize: "0.9rem",
+                  zIndex: "1",
                 }}
               >
-                {notificationNumber}
+                {notificationDetails.map((notification) => (
+                  <div key={notification.id}>{notification.text}</div>
+                ))}
               </div>
             )}
           </div>
