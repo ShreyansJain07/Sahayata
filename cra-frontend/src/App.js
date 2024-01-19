@@ -29,6 +29,7 @@ import TextReader from "./components/TextReader";
 import LandingTop from "./components/LandingTop";
 import Feedback from "./screens/Feedback";
 import EmployeeProfilePage from "./screens/EmployeeProfilePage";
+import OCRComponent from "./components/UDID";
 
 export const UserContext = createContext(null);
 
@@ -160,6 +161,7 @@ function App() {
                   <Route path="/jobs" element={<JobBoard />} />
                   <Route path="/landing2" element={<LandingTop />} />
                   <Route path="/feedback" element={<Feedback />} />
+                  <Route path="/ocr" element={<OCRComponent/>}/>
                   <Route
                     path="/profile/:name"
                     element={<EmployeeProfilePage />}

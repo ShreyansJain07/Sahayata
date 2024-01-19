@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { auth } from "../Firebase";
+import axios from 'axios'
 import { FaRegStar } from "react-icons/fa";
 import { getFirestore, doc, getDocs, collection } from "firebase/firestore";
 import {
@@ -215,6 +216,44 @@ const Dashboard = () => {
     onClose();
     // window.location.reload();
   };
+  const [imageFile, setImageFile] = useState(null);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setImageFile(file);
+  };
+
+  const handleOCRRequest = async () => {
+    const apiUrl = "https://api.edenai.run/v2/ocr/identity_parser";
+    const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY"; // Replace with your actual API key
+
+    const form = new FormData();
+    form.append("providers", "affinda");
+    form.append("file", imageFile);
+    form.append("fallback_providers", "");
+
+    const headers = {
+      Authorization: `Bearer ${apiKey}`,
+    };
+
+    try {
+      const response = await axios.post(apiUrl, form, { headers });
+      setResult(response.data.affinda.extracted_data[0].mrz.value);
+    } catch (error) {
+      console.error("Error during OCR request:", error);
+
+      // Log the detailed error response
+      if (error.response) {
+        console.error("Error response data:", error.response.data);
+        setError(error.response.data.error.message);
+      } else {
+        setError("An unknown error occurred.");
+      }
+    }
+  };
+
 
   return (
     <>
@@ -444,20 +483,37 @@ const Dashboard = () => {
                 }}
               >
                 <div>
-                  UIUD:{" "}
+                  UDID:{" "}
                   <a style={{ color: "black", fontWeight: 600 }}>
-                    {user ? "8326732" : "-"}
+                  {result && (
+        <div>
+          <h3></h3>
+          {JSON.stringify(result, null, 2)}
+        </div>
+      )}
                   </a>
                 </div>
                 <div>
                   Disability PDF:{" "}
-                  <button
+                  {/* <button
                     style={{
                       color: "#3261ff",
                     }}
                     onClick={() => navigate("/")}
+                  > */}
+                     <input type="file" onChange={handleFileChange} />
+                    
+                  {/* </button> */}
+                </div>
+                <div>
+                  
+                  <button
+                    style={{
+                      color: "#3261ff",
+                    }}
+                    onClick={handleOCRRequest}
                   >
-                    Click to upload a PDF {">"}
+                  Run OCR
                   </button>
                 </div>
               </div>
