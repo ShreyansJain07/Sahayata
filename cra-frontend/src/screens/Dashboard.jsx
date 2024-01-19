@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { auth } from "../Firebase";
-import axios from 'axios'
-import { FaRegStar } from "react-icons/fa";
+import axios from "axios";
+import { FaRegCalendarCheck, FaRegStar, FaTable } from "react-icons/fa";
 import { getFirestore, doc, getDocs, collection } from "firebase/firestore";
 import {
   Card,
@@ -33,6 +33,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { addApplicantProfile, updateUserProfile } from "../userFirestore";
 import { IoStarSharp } from "react-icons/io5";
+import { FcAcceptDatabase } from "react-icons/fc";
 
 const getListData = (value) => {
   let listData;
@@ -237,7 +238,8 @@ const Dashboard = () => {
 
   const handleOCRRequest = async () => {
     const apiUrl = "https://api.edenai.run/v2/ocr/identity_parser";
-    const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY"; // Replace with your actual API key
+    const apiKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY"; // Replace with your actual API key
 
     const form = new FormData();
     form.append("providers", "affinda");
@@ -263,7 +265,6 @@ const Dashboard = () => {
       }
     }
   };
-
 
   return (
     <>
@@ -499,12 +500,12 @@ const Dashboard = () => {
                 <div>
                   UDID:{" "}
                   <a style={{ color: "black", fontWeight: 600 }}>
-                  {result && (
-        <div>
-          <h3></h3>
-          {JSON.stringify(result, null, 2)}
-        </div>
-      )}
+                    {result && (
+                      <div>
+                        <h3></h3>
+                        {JSON.stringify(result, null, 2)}
+                      </div>
+                    )}
                   </a>
                 </div>
                 <div>
@@ -515,19 +516,17 @@ const Dashboard = () => {
                     }}
                     onClick={() => navigate("/")}
                   > */}
-                     <input type="file" onChange={handleFileChange} />
-                    
+                  <input type="file" onChange={handleFileChange} />
                   {/* </button> */}
                 </div>
                 <div>
-                  
                   <button
                     style={{
                       color: "#3261ff",
                     }}
                     onClick={handleOCRRequest}
                   >
-                  Run OCR
+                    Run OCR
                   </button>
                 </div>
               </div>
@@ -614,6 +613,10 @@ const Dashboard = () => {
                   textAlign: "left",
                   marginTop: "-0.5rem",
                   marginBottom: "-0.5rem",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <div
@@ -661,6 +664,10 @@ const Dashboard = () => {
                   textAlign: "left",
                   marginTop: "-0.5rem",
                   marginBottom: "-0.5rem",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <div
@@ -672,7 +679,7 @@ const Dashboard = () => {
                     gap: "0.5rem",
                   }}
                 >
-                  <FaFileContract
+                  <FaTable
                     style={{ margin: "auto" }}
                     size="2rem"
                     color="#2234da"
@@ -685,7 +692,7 @@ const Dashboard = () => {
                       fontWeight: 650,
                     }}
                   >
-                    <div style={{ color: "#2234da" }}>Active Contracts</div>
+                    <div style={{ color: "#2234da" }}>Interviews</div>
                     <div>2</div>
                   </div>
                 </div>
@@ -708,6 +715,10 @@ const Dashboard = () => {
                   textAlign: "left",
                   marginTop: "-0.5rem",
                   marginBottom: "-0.5rem",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <div
@@ -719,7 +730,12 @@ const Dashboard = () => {
                     gap: "0.5rem",
                   }}
                 >
-                  <FaFileContract
+                  {/* <FaFileContract
+                    style={{ margin: "auto" }}
+                    size="2rem"
+                    color="#2234da"
+                  /> */}
+                  <FaRegCalendarCheck
                     style={{ margin: "auto" }}
                     size="2rem"
                     color="#2234da"
@@ -732,7 +748,7 @@ const Dashboard = () => {
                       fontWeight: 650,
                     }}
                   >
-                    <div style={{ color: "#2234da" }}>Active Contracts</div>
+                    <div style={{ color: "#2234da" }}>Accepted</div>
                     <div>2</div>
                   </div>
                 </div>
