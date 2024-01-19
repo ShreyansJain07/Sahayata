@@ -102,35 +102,49 @@ const VoiceButton = () => {
     console.log(transcript, parsingText);
     if (parsingText.includes("dashboard") && !confirmation) {
       setCurrentLink("dashboard");
+          stopListening();
+
     }
     else if (parsingText.includes("job") && !confirmation) {
       setCurrentLink("jobs");
+          stopListening();
+
     }
     else if (parsingText.includes("virtual assistant") && !confirmation) {
       setCurrentLink("virtualassistant");
     }
     else if (parsingText.includes("ai course") && !confirmation) {
       setCurrentLink("aicourse");
+          stopListening();
+
     }
     else if (parsingText.includes("community") && !confirmation) {
       setCurrentLink("community");
+          stopListening();
+
     }
     else if (parsingText.includes("feedback") && !confirmation) {
       setCurrentLink("feedback");
+          stopListening();
+
     }
     else if (
       (parsingText.includes("yes") || parsingText.includes("yeah")) &&
       !confirmation
     ) {
       handleConfirmation(true);
+      console.log("yesxxxx");
+          stopListening();
+
     }
     else if (
       (parsingText.includes("no") || parsingText.includes("nah")) &&
       !confirmation
     ) {
       handleConfirmation(false);
+          stopListening();
+
     }
-    stopListening();
 
     if (currentLink != "" && !said) {
       const initialSpeech =

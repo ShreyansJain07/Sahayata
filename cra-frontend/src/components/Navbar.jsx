@@ -22,9 +22,12 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
+import React, { useState, useContext } from "react";
 
 function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
+
   return (
     <Box
       position="sticky"
@@ -102,7 +105,7 @@ function WithSubnavigation() {
             fontSize={"sm"}
             fontWeight={400}
             variant={"link"}
-            to={"/login"}
+            to={"/signup"}
           >
             Login
           </Button>
@@ -220,6 +223,8 @@ const DesktopSubNav = ({ label, to, subLabel }) => {
 };
 
 const MobileNav = () => {
+  const user = useContext(UserContext);
+  console.log(user);
   return (
     <Stack
       bg={useColorModeValue("white", "gray.800")}
@@ -227,15 +232,24 @@ const MobileNav = () => {
       display={{ md: "none" }}
       style={{ display: "flex", alignItems: "center" }}
     >
-      {NAV_ITEMS.map((navItem, ind) => (
+      {/* {NAV_ITEMS.map((navItem, ind) => (
         <MobileNavItem key={ind} {...navItem} />
-      ))}
+      ))} */}
+      {NAV_ITEMS.map((navItem, ind) => {
+        if (navItem.label == "Employers" && user?.role == "Employee") {
+          console.log("hello");
+          return null; // Hide "Employers" for users with role "Employee"
+        } else {
+          return <MobileNavItem key={ind} {...navItem} />;
+        }
+      })}
     </Stack>
   );
 };
 
 const MobileNavItem = ({ label, children, to }) => {
   const { isOpen, onToggle } = useDisclosure();
+  const user = useContext(UserContext);
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -296,11 +310,6 @@ const NAV_ITEMS = [
     label: "Job Seekers",
     to: "/jobs",
   },
-
-  // {
-  //   label: "Career Fair",
-  //   to: "/career",
-  // },
   {
     label: "Upskill",
     to: "/aicourse",
@@ -322,22 +331,6 @@ const NAV_ITEMS = [
     label: "Feedback",
     to: "/feedback",
   },
-  // {
-  //   label: '',
-  //   to:'/resources',
-  //   children: [
-  //     {
-  //       label: 'Learn and Study',
-  //       subLabel: 'Take a quiz and get Study material required',
-  //       to: '#',
-  //     },
-  //     {
-  //       label: 'Video Explanations',
-  //       subLabel: 'Elaborate videos tailored to your learning',
-  //       to: '#',
-  //     },
-  //   ],
-  // },
 ];
 
 export default WithSubnavigation;
