@@ -46,6 +46,7 @@ const AccessibilityGrid = (props) => {
   const [zoomLevel, setZoomLevel] = useState(100);
   const [paused, isPaused] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [animation, setAnimation] = useState(true);
   const zoomIn = () => {
     setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200));
   };
@@ -66,7 +67,7 @@ const AccessibilityGrid = (props) => {
     {
       icon: <ZoomInSharp />,
       label: "Increase Font Size",
-      func: () => {
+      func: () => { 
         zoomIn();
       },
     },
@@ -77,13 +78,25 @@ const AccessibilityGrid = (props) => {
         zoomOut();
       },
     },
-    { icon: <IoText />, label: "Text Spacing" },
+    { icon: <IoText />, label: "Text Spacing +" ,func:()=>{
+      document.body.style.letterSpacing = '3px';
+    } },
+    { icon: <IoText />, label: "Text Spacing -" ,func:()=>{
+      document.body.style.letterSpacing = 'normal';
+    } },
     {
       icon: paused ? <IoPaperPlane /> : <IoPauseOutline />,
       label: paused ? "Resume Animations" : "Pause Animations",
       func: () => {
-        isPaused(!paused);
-      }},
+        var elements = document.querySelectorAll('.animated-element');        
+          elements.forEach(function(element) {
+            // Toggle the class to pause or resume animations
+            element.classList.toggle('paused-animation');
+          });
+          setAnimation(!animation);
+    
+        }
+      },
     { icon: hidden ? <IoEyeOutline /> : <IoEyeOffOutline />, label: hidden ? "Show Images" : "Hide Images",func:()=>{
       let images = document.querySelectorAll('img');
       images.forEach((img)=> {

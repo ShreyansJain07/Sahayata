@@ -7,6 +7,11 @@
   display: none;
 }
 
+.paused-animation {
+  animation-play-state: paused;
+}
+
+
 
 body {
   margin: 0;
