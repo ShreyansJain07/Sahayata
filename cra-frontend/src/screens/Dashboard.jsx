@@ -127,9 +127,19 @@ const Dashboard = () => {
   }
 
   const addApplicant = () => {
-    const rating="4.7";
-    const resume="A forward-thinking front-end developer, I specialize in architecting innovative and intuitive user interfaces. My skill set encompasses cutting-edge technologies, allowing me to transform design visions into captivating and user-centric web experiences."
-    addApplicantProfile(user.uid, user.name,user.Role,rating,resume,selectedValues[0]);
+    const rating = "4.7";
+    const disability = selectedValues[0] ? selectedValues[0] : "Blind";
+    const resume = user.resume[0]
+      ? user.resume[0]
+      : "A forward-thinking front-end developer, I specialize in architecting innovative and intuitive user interfaces. My skill set encompasses cutting-edge technologies, allowing me to transform design visions into captivating and user-centric web experiences.";
+    addApplicantProfile(
+      user.uid,
+      user.name,
+      user.Role,
+      rating,
+      resume,
+      disability
+    );
     alert("Application sent successfully");
   };
 
@@ -398,7 +408,9 @@ const Dashboard = () => {
                         setSelectedValues((prev) => [...prev, e.target.value]);
                     }}
                   >
-                    <Checkbox value="blind">Blind</Checkbox>
+                    <Checkbox value="visual impairments">
+                      Visual Impairments
+                    </Checkbox>
                   </div>
                   <div
                     onClick={(e) => {
@@ -406,7 +418,9 @@ const Dashboard = () => {
                         setSelectedValues((prev) => [...prev, e.target.value]);
                     }}
                   >
-                    <Checkbox value="deaf">Deaf</Checkbox>
+                    <Checkbox value="hearing impairments">
+                      Hearing Impairments
+                    </Checkbox>
                   </div>
                   <div
                     onClick={(e) => {

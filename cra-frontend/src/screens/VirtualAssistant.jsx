@@ -38,8 +38,6 @@ const VirtualAssistant = () => {
   const [Applicants, setApplicants] = useState([
     { name: "Rishab", skills: "Front-End Dev" },
     { name: "Shreyans", skills: "Front-End Dev" },
-    { name: "Varun", skills: "Front-End Dev" },
-    { name: "Ritnonjan", skills: "Front-End Dev" },
   ]);
   const [Interviewers, setInterviewers] = useState([
     { name: "Shreyans", skills: "Front-End Dev" },
@@ -354,6 +352,7 @@ const VirtualAssistant = () => {
               marginLeft: "1rem",
               marginRight: "1rem",
               borderTop: "4px solid #2234da",
+              flex:1
             }}
           >
             <CardBody
@@ -461,6 +460,7 @@ const VirtualAssistant = () => {
               marginLeft: "1rem",
               marginRight: "1rem",
               borderTop: "4px solid #ff5045",
+              flex:1
             }}
           >
             <CardBody
@@ -563,6 +563,7 @@ const VirtualAssistant = () => {
               marginLeft: "1rem",
               marginRight: "1rem",
               borderTop: "4px solid yellow",
+              flex:1
             }}
           >
             <CardBody
