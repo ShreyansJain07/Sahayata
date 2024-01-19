@@ -1,310 +1,117 @@
 import React from "react";
+import { Box, Text, Flex, Image } from "@chakra-ui/react";
+
+
+
+
+const testimonialsData = [
+  {
+    content:"Finding a job that values my skills and accommodates my visualimpairment used to be a challenge. Thanks to this platform, I landed a fulfilling job in software development. The inclusive job listings and supportive community made all the difference!",
+        author: "James",
+    image:
+    "https://topmate.io/_next/image?url=%2Fimages%2Fhomepage%2Ftestimonials%2Fdr_joerg_storm.webp&w=48&q=75",
+  },
+  {
+    content:
+      "I always felt my hearing impairment was a barrier to finding the right job. This website not only connected me with inclusive employers but also provided resources for effective communication. Now, I'm thriving in my marketing career!",
+    author: "Hannah",
+    image:
+      "https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.webp?b=1&s=170667a&w=0&k=20&c=YQ_j83pg9fB-HWOd1Qur3_kBmG_ot_hZty8pvoFkr6A=",
+  },
+  
+  {
+    content:
+    "As a wheelchair user, I faced obstacles in my job search. This   platform not only offered accessible job listings but also empoweredme with resources on workplace accessibility. I am now managing projects and making a difference!",    author: "Simran",
+    image:
+      "https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.webp?b=1&s=170667a&w=0&k=20&c=YQ_j83pg9fB-HWOd1Qur3_kBmG_ot_hZty8pvoFkr6A=",
+  },
+  
+  {
+    content:
+    "As a wheelchair user, I faced obstacles in my job search. This   platform not only offered accessible job listings but also empoweredme with resources on workplace accessibility. I am now managing projects and making a difference!",    author: "Aisha",
+    image:
+      "https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.webp?b=1&s=170667a&w=0&k=20&c=YQ_j83pg9fB-HWOd1Qur3_kBmG_ot_hZty8pvoFkr6A=",
+  },
+  {
+    content:
+      "Being neurodivergent made job hunting daunting. This website not only celebrated neurodiversity but also connected me with employers who value diverse perspectives. I'm now expressing my creativity as a graphic designer!",
+    author: "Maya",
+    image:
+      "https://media.istockphoto.com/id/1398385367/photo/happy-millennial-business-woman-in-glasses-posing-with-hands-folded.jpg?s=612x612&w=0&k=20&c=Wd2vTDd6tJ5SeEY-aw0WL0bew8TAkyUGVvNQRj3oJFw=",
+  },
+  {
+    content:
+      "Transitioning from the military with PTSD posed challenges. This platform understood my unique situation and connected me with employers who prioritize mental health support. Now, I'm excelling in IT support with a supportive team.",
+    author: "Tarun",
+    image:
+      "https://media.istockphoto.com/id/1300972574/photo/millennial-male-team-leader-organize-virtual-workshop-with-employees-online.jpg?s=612x612&w=0&k=20&c=uP9rKidKETywVil0dbvg_vAKyv2wjXMwWJDNPHzc_Ug=",
+  },
+  {
+    content:
+      "Mobility impairment made traditional job search frustrating. This website not only listed accessible job opportunities but also provided guidance on workplace accommodations. I'm now thriving as an administrative assistant!",
+    author: "Nikhil",
+    image:
+      "https://media.istockphoto.com/id/1476170969/photo/portrait-of-young-man-ready-for-job-business-concept.jpg?s=612x612&w=0&k=20&c=w8SlKv-4u6xYyU07CXeBRvfW6F0iYx-a7HR2ChM8ZbU=",
+  },
+];
 
 const Testimonials = () => {
   return (
-    <div
-      style={{
-        backgroundColor: "#f3f4f6",
-        padding: "2rem",
-        // marginLeft: "-2rem",
-      }}
+    <Box
+      bg="#f3f4f6"
+      padding="2rem"
     >
-      <div
-        style={{
-          fontSize: "2rem",
-          fontWeight: 700,
-          textAlign: "center",
-          marginBottom: "1.9rem",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          //   marginBottom: "0.5rem",
-        }}
+      <Flex
+        fontSize="2rem"
+        fontWeight={700}
+        textAlign="center"
+        mb="1.9rem"
+        justify="center"
+        align="center"
       >
         <div>People loving using </div>
-        <h1
-          style={{
-            color: "#ffcf36",
-            // fontSize: "2.0rem",
-            fontWeight: "bolder",
-            marginLeft: "0.5rem",
-            paddingTop: "0.3rem",
-          }}
-        >
+        <h1 color="#ffcf36" fontWeight="bolder" ml="0.5rem" pt="0.3rem">
           सह<span style={{ color: "#3261ff" }}>AI</span>ता
         </h1>
-      </div>
-      <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "1rem",
-            padding: "1rem",
-            fontWeight: 500,
-            display: "flex",
-            flex: 1,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div>
-            "Finding a job that values my skills and accommodates my visual
-            impairment used to be a challenge. Thanks to this platform, I landed
-            a fulfilling job in software development. The inclusive job listings
-            and supportive community made all the difference!"
-          </div>
-          <div
-            style={{
-              fontWeight: 500,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1rem",
-              marginTop: "1rem",
-            }}
+      </Flex>
+      <Flex direction={{ base: "column", md: "row" }} gap="1rem">
+        {testimonialsData.map((testimonial, index) => (
+          <Box
+            key={index}
+            bg="white"
+            borderRadius="1rem"
+            padding="1rem"
+            fontWeight={500}
+            flex={1}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            mt={index === 0 ? 0 : { base: "1rem", md: 0 }}
           >
-            <img
-              src="https://topmate.io/_next/image?url=%2Fimages%2Fhomepage%2Ftestimonials%2Fdr_joerg_storm.webp&w=48&q=75"
-              alt="Profile photo"
-              style={{
-                borderRadius: "3rem",
-                height: "3rem",
-                width: "3rem",
-                objectFit: "cover",
-              }}
-            />
-            <div>Varun Jajoo</div>
-          </div>
-        </div>
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "1rem",
-            padding: "1rem",
-            fontWeight: 500,
-            display: "flex",
-            flex: 1,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div>
-            "I always felt my hearing impairment was a barrier to finding the
-            right job. This website not only connected me with inclusive
-            employers but also provided resources for effective communication.
-            Now, I'm thriving in my marketing career!"
-          </div>
-          <div
-            style={{
-              fontWeight: 500,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1rem",
-              marginTop: "1rem",
-            }}
-          >
-            <img
-              src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.webp?b=1&s=170667a&w=0&k=20&c=YQ_j83pg9fB-HWOd1Qur3_kBmG_ot_hZty8pvoFkr6A="
-              alt="Profile photo"
-              style={{
-                borderRadius: "3rem",
-                height: "3rem",
-                width: "3rem",
-                objectFit: "cover",
-              }}
-            />
-            <div>Varun Jajoo</div>
-          </div>
-        </div>
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "1rem",
-            padding: "1rem",
-            fontWeight: 500,
-            display: "flex",
-            flex: 1,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div>
-            "As a wheelchair user, I faced obstacles in my job search. This
-            platform not only offered accessible job listings but also empowered
-            me with resources on workplace accessibility. I am now managing
-            projects and making a difference!"
-          </div>
-          <div
-            style={{
-              fontWeight: 500,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1rem",
-              marginTop: "1rem",
-            }}
-          >
-            <img
-              src="https://media.istockphoto.com/id/1386479313/photo/happy-millennial-afro-american-business-woman-posing-isolated-on-white.jpg?s=612x612&w=0&k=20&c=8ssXDNTp1XAPan8Bg6mJRwG7EXHshFO5o0v9SIj96nY="
-              alt="Profile photo"
-              style={{
-                borderRadius: "3rem",
-                height: "3rem",
-                width: "3rem",
-                objectFit: "cover",
-              }}
-            />
-            <div>Varun Jajoo</div>
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "1rem",
-          marginTop: "1rem",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "1rem",
-            padding: "1rem",
-            fontWeight: 500,
-            display: "flex",
-            flex: 1,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div>
-            "Being neurodivergent made job hunting daunting. This website not
-            only celebrated neurodiversity but also connected me with employers
-            who value diverse perspectives. I'm now expressing my creativity as
-            a graphic designer!"
-          </div>
-          <div
-            style={{
-              fontWeight: 500,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1rem",
-              marginTop: "1rem",
-            }}
-          >
-            <img
-              src="https://media.istockphoto.com/id/1398385367/photo/happy-millennial-business-woman-in-glasses-posing-with-hands-folded.jpg?s=612x612&w=0&k=20&c=Wd2vTDd6tJ5SeEY-aw0WL0bew8TAkyUGVvNQRj3oJFw="
-              alt="Profile photo"
-              style={{
-                borderRadius: "3rem",
-                height: "3rem",
-                width: "3rem",
-                objectFit: "cover",
-              }}
-            />
-            <div>Varun Jajoo</div>
-          </div>
-        </div>
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "1rem",
-            padding: "1rem",
-            fontWeight: 500,
-            display: "flex",
-            flex: 1,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div>
-            "Transitioning from the military with PTSD posed challenges. This
-            platform understood my unique situation and connected me with
-            employers who prioritize mental health support. Now, I'm excelling
-            in IT support with a supportive team."
-          </div>
-          <div
-            style={{
-              fontWeight: 500,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1rem",
-              marginTop: "1rem",
-            }}
-          >
-            <img
-              src="https://media.istockphoto.com/id/1300972574/photo/millennial-male-team-leader-organize-virtual-workshop-with-employees-online.jpg?s=612x612&w=0&k=20&c=uP9rKidKETywVil0dbvg_vAKyv2wjXMwWJDNPHzc_Ug="
-              alt="Profile photo"
-              style={{
-                borderRadius: "3rem",
-                height: "3rem",
-                width: "3rem",
-                objectFit: "cover",
-              }}
-            />
-            <div>Varun Jajoo</div>
-          </div>
-        </div>
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "1rem",
-            padding: "1rem",
-            fontWeight: 500,
-            display: "flex",
-            flex: 1,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div>
-            "Mobility impairment made traditional job search frustrating. This
-            website not only listed accessible job opportunities but also
-            provided guidance on workplace accommodations. I'm now thriving as
-            an administrative assistant!"
-          </div>
-          <div
-            style={{
-              fontWeight: 500,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1rem",
-              marginTop: "1rem",
-            }}
-          >
-            <img
-              src="https://media.istockphoto.com/id/1476170969/photo/portrait-of-young-man-ready-for-job-business-concept.jpg?s=612x612&w=0&k=20&c=w8SlKv-4u6xYyU07CXeBRvfW6F0iYx-a7HR2ChM8ZbU="
-              alt="Profile photo"
-              style={{
-                borderRadius: "3rem",
-                height: "3rem",
-                width: "3rem",
-                objectFit: "cover",
-              }}
-            />
-            <div>Varun Jajoo</div>
-          </div>
-        </div>
-      </div>
-    </div>
+            <Text>{testimonial.content}</Text>
+            <Flex
+              fontWeight={500}
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="center"
+              gap="1rem"
+              mt="1rem"
+            >
+              <Image
+                src={testimonial.image}
+                alt="Profile photo"
+                borderRadius="3rem"
+                height="3rem"
+                width="3rem"
+                objectFit="cover"
+              />
+              <div>{testimonial.author}</div>
+            </Flex>
+          </Box>
+        ))}
+      </Flex>
+    </Box>
   );
 };
 
