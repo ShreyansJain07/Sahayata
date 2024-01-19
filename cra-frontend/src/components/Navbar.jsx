@@ -71,7 +71,7 @@ function WithSubnavigation() {
             </Text> */}
             <span
               style={{
-                color: "#ffcf36",
+                color: "#e38a43",
                 fontWeight: "bolder",
                 fontSize: "40px",
               }}

@@ -345,11 +345,11 @@ const Dashboard = () => {
                     gap: "0.3rem",
                   }}
                 >
-                  <IoStarSharp color="#ffcf36" />
-                  <IoStarSharp color="#ffcf36" />
-                  <IoStarSharp color="#ffcf36" />
-                  <IoStarSharp color="#ffcf36" />
-                  <IoStarSharp color="#ffcf36" />
+                  <IoStarSharp color="#e38a43" />
+                  <IoStarSharp color="#e38a43" />
+                  <IoStarSharp color="#e38a43" />
+                  <IoStarSharp color="#e38a43" />
+                  <IoStarSharp color="#e38a43" />
                 </div>
                 <div>214 ratings</div>
               </div>

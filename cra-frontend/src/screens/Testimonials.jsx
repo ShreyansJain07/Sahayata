@@ -25,7 +25,7 @@ const Testimonials = () => {
         <div>People loving using </div>
         <h1
           style={{
-            color: "#ffcf36",
+            color: "#e38a43",
             // fontSize: "2.0rem",
             fontWeight: "bolder",
             marginLeft: "0.5rem",

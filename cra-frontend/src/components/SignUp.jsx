@@ -219,7 +219,7 @@ const Signup = () => {
           <div className="left" style={{ flex: 0.6 }}>
             <h1
               style={{
-                color: "#ffcf36",
+                color: "#e38a43",
                 fontSize: "5.5rem",
                 fontWeight: "bolder",
               }}
