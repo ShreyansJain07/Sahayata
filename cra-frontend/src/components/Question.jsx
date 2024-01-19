@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppContext from "../AppContext";
 import { ArrowRight } from "@material-ui/icons";
 import { BsStars } from "react-icons/bs";
+import { UserContext } from "../App";
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 function Question() {
   const classes = useStyles();
   const value = useContext(AppContext);
+  const { user, setUser } = useContext(UserContext);
 
   let { questionAnswer } = value.state;
   let { handleChangeInput, nextQuestion } = value.function;
@@ -54,11 +56,20 @@ function Question() {
         handleChangeInput({ target: { value: enhancedAnswer } });
         return enhancedAnswer;
       });
+      setUser((prev) => {
+        const now = prev;
+        now.resume = [...now.resume, enhancedText.replace(/\*/g, " ")];
+        return now;
+      });
       console.log(enhancedText);
     } catch (error) {
       console.error("Fetch Error:", error);
     }
   };
+
+  React.useEffect(() => {
+    setUser((prev) => ({ ...prev, resume: [] }));
+  }, []);
 
   React.useEffect(() => {
     // Whenever the questionAnswer.answer changes, reset enhancedAnswer

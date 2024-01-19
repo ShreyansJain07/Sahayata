@@ -34,6 +34,7 @@ import {
   IoResizeOutline,
   IoTextOutline,
   IoContrastSharp,
+  IoPaperPlane,
 } from "react-icons/io5";
 import { FaQuestion, FaTrash } from "react-icons/fa";
 import { Divider } from "antd";
@@ -42,6 +43,7 @@ import { ZoomIn, ZoomInSharp, ZoomOutSharp } from "@material-ui/icons";
 const AccessibilityGrid = (props) => {
  const { toggleColorMode } = useColorMode();
  const [zoomLevel, setZoomLevel] = useState(100);
+ const [paused,isPaused]=useState(false)
 
  const zoomIn = () => {
    setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200));
@@ -73,7 +75,10 @@ const AccessibilityGrid = (props) => {
           zoomOut();
      }},
     { icon: <IoText />, label: "Text Spacing" },
-    { icon: <IoPauseOutline />, label: "Pause Animations" },
+    { icon: paused?<IoPaperPlane/>:<IoPauseOutline />, label: paused ? "Resume Animations" : "Pause Animations",func: () => {
+      document.body.style.animationPlayState = paused ? "running" : "paused";
+      isPaused(!paused)
+    }},
     { icon: <IoEyeOffOutline />, label: "Hide Images" },
     { icon: <IoReaderOutline />, label: "Dyslexia Friendly" },
     { icon: <IoResizeOutline />, label: "Line Height" },
@@ -113,10 +118,16 @@ const AccessibilityMenu = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onToggle = () => {
+    const initialSpeech = `Accessibility Menu ${isOpen ? "Closed" : "Opened"} `;
+    const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
+    
     if (isOpen) {
       onClose();
+      window.speechSynthesis.speak(initialUtterance);
     } else {
+      
       onOpen();
+      window.speechSynthesis.speak(initialUtterance);
     }
   };
   const handlePress = (event) => {
@@ -152,7 +163,7 @@ const AccessibilityMenu = (props) => {
       <Drawer
         isOpen={isOpen}
         placement="right"
-        onClose={onClose}
+        onClose={()=>{onToggle()}}
         size={{ base: "full", md: "md" }} // Responsive width based on screen size
       >
         <DrawerOverlay />

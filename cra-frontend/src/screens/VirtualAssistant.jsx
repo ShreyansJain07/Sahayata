@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Card,
   CardHeader,
@@ -28,7 +28,13 @@ import {
 import { CiSearch } from "react-icons/ci";
 import { FaRegStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { getFirestore, doc, getDocs, collection, serverTimestamp } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDocs,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
 import { addJobs } from "../userFirestore";
 import { UserContext } from "../App";
 
@@ -38,8 +44,6 @@ const VirtualAssistant = () => {
   const [Applicants, setApplicants] = useState([
     { name: "Rishab", skills: "Front-End Dev" },
     { name: "Shreyans", skills: "Front-End Dev" },
-    { name: "Varun", skills: "Front-End Dev" },
-    { name: "Ritnonjan", skills: "Front-End Dev" },
   ]);
   const [Interviewers, setInterviewers] = useState([
     { name: "Shreyans", skills: "Front-End Dev" },
@@ -344,8 +348,8 @@ const VirtualAssistant = () => {
         </InputGroup>
       </div>
       <hr />
-      <div style={{ display: "flex", marginTop: "1rem" }}>
-        <div>
+      <div style={{ display: "flex", marginTop: "1rem", flexDirection: "row" }}>
+        <div style={{ flex: 1 }}>
           <Card
             direction={{ base: "column", sm: "row" }}
             overflow="hidden"
@@ -354,6 +358,7 @@ const VirtualAssistant = () => {
               marginLeft: "1rem",
               marginRight: "1rem",
               borderTop: "4px solid #2234da",
+              flex: 1,
             }}
           >
             <CardBody
@@ -396,63 +401,61 @@ const VirtualAssistant = () => {
                   _hover={{ transform: "scale(1.05)" }}
                   variant="outline"
                 >
-                  <Link to={`/profile/${candidate.name}`}>
-                    <Stack>
-                      <CardBody style={{ textAlign: "left" }}>
-                        <Heading size="md">{candidate?.Name}</Heading>
-                        <Text py="2">{candidate.Resume}</Text>
-                        <Text pb="2">Disability: {candidate.Disability}</Text>
-                        <Text pb="2">Skills: {candidate?.Role}</Text>
-                        <hr />
+                  <Stack>
+                    <CardBody style={{ textAlign: "left" }}>
+                      <Heading size="md">{candidate?.Name}</Heading>
+                      <Text py="2">{candidate.Resume}</Text>
+                      <Text pb="2">Disability: {candidate.Disability}</Text>
+                      <Text pb="2">Skills: {candidate?.Role}</Text>
+                      <hr />
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          paddingTop: "0.5rem",
+                        }}
+                      >
                         <div
                           style={{
                             display: "flex",
                             flexDirection: "row",
-                            justifyContent: "space-between",
-                            paddingTop: "0.5rem",
+                            justifyContent: "left",
+                            gap: "0.5rem",
                           }}
                         >
+                          <div>
+                            Experience : {candidate.WorkExperience} years
+                          </div>
                           <div
                             style={{
                               display: "flex",
                               flexDirection: "row",
-                              justifyContent: "left",
-                              gap: "0.5rem",
+                              alignItems: "center",
+                              gap: "0.25rem",
                             }}
                           >
-                            <div>
-                              Experience : {candidate.WorkExperience} years
-                            </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                gap: "0.25rem",
-                              }}
-                            >
-                              <FaRegStar />
-                              {candidate.Rating}
-                            </div>
-                          </div>
-                          <div
-                            style={{
-                              color: "blue",
-                              textDecoration: "underline",
-                            }}
-                          >
-                            Accept
+                            <FaRegStar />
+                            {candidate.Rating}
                           </div>
                         </div>
-                      </CardBody>
-                    </Stack>
-                  </Link>
+                        <div
+                          style={{
+                            color: "blue",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Accept
+                        </div>
+                      </div>
+                    </CardBody>
+                  </Stack>
                 </Card>
               </div>
             );
           })}
         </div>
-        <div>
+        <div style={{ flex: 1 }}>
           <Card
             direction={{ base: "column", sm: "row" }}
             overflow="hidden"
@@ -461,6 +464,7 @@ const VirtualAssistant = () => {
               marginLeft: "1rem",
               marginRight: "1rem",
               borderTop: "4px solid #ff5045",
+              flex: 1,
             }}
           >
             <CardBody
@@ -554,7 +558,7 @@ const VirtualAssistant = () => {
             );
           })}
         </div>
-        <div>
+        <div style={{ flex: 1 }}>
           <Card
             direction={{ base: "column", sm: "row" }}
             overflow="hidden"
@@ -563,6 +567,7 @@ const VirtualAssistant = () => {
               marginLeft: "1rem",
               marginRight: "1rem",
               borderTop: "4px solid yellow",
+              flex: 1,
             }}
           >
             <CardBody

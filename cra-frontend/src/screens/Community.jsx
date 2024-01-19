@@ -41,8 +41,9 @@ const Community = () => {
       forums: ["#TechJobs", "#AccessibleTech"],
     },
     {
-      name: "Deaf and Hard of Hearing Hub",
-      description: "Supporting the deaf and hard of hearing community.",
+      name: "Hearing Impairments and Hard of Hearing Hub",
+      description:
+        "Supporting the hearing impairments and hard of hearing community.",
       posts: 90,
       messages: 600,
       forums: ["#InclusiveWorkplaces", "#CommunicationTips"],
@@ -198,9 +199,15 @@ const Community = () => {
                 variant="flushed"
                 // style={{ width: "fit-content" }}
               >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
+                <option value="option1" style={{ padding: "0.5rem" }}>
+                  Visually Impaired
+                </option>
+                <option value="option2" style={{ padding: "0.5rem" }}>
+                  Differently Abled
+                </option>
+                <option value="option3" style={{ padding: "0.5rem" }}>
+                  Others
+                </option>
               </Select>
             </div>
             <div>
