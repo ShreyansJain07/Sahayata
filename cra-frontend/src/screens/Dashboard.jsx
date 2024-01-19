@@ -398,7 +398,7 @@ const Dashboard = () => {
                         setSelectedValues((prev) => [...prev, e.target.value]);
                     }}
                   >
-                    <Checkbox value="blind">Blind</Checkbox>
+                    <Checkbox value="visual impairments">Visual Impairments</Checkbox>
                   </div>
                   <div
                     onClick={(e) => {
@@ -406,7 +406,7 @@ const Dashboard = () => {
                         setSelectedValues((prev) => [...prev, e.target.value]);
                     }}
                   >
-                    <Checkbox value="deaf">Deaf</Checkbox>
+                    <Checkbox value="hearing impairments">Hearing Impairments</Checkbox>
                   </div>
                   <div
                     onClick={(e) => {

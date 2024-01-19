@@ -78,7 +78,7 @@ export default function Footer() {
               <Text fontWeight={'bold'}>Financy</Text>
               {/* <Logo color={useColorModeValue('gray.700', 'white')} /> */}
             </Box>
-            <Text fontSize={'sm'}>Made by <Badge color={'blue.500'} ml={1}><a href="https://github.com/ritojnan" target='_blank'>Ritojnan</a></Badge> using Chakra UI</Text>
+            <Text fontSize={'sm'}>Made by <Badge color={'blue.500'} ml={1}><a href="https://github.com/ritojnan" target='_blank'> jnan</a></Badge> using Chakra UI</Text>
             <Stack direction={'row'} spacing={6}>
               <SocialButton label={'Twitter'} href={'#'}>
                 <FaTwitter />

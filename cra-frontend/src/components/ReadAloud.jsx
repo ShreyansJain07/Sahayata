@@ -25,9 +25,6 @@ const ReadAloud = ({value,handleChangeInput}) => {
 
   // useEffect to trigger speech synthesis when the component mounts
 
-  if (!browserSupportsSpeechRecognition) {
-    return null;
-  }
 
   return (
     <Box color={ value ? "red.800" : "teal.800"} aria-label="Read Aloud">

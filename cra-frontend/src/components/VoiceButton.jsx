@@ -18,7 +18,11 @@ import { useNavigate } from "react-router-dom";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { FaMicrophoneAlt, FaMicrophoneSlash, FaMicrophone } from "react-icons/fa";
+import {
+  FaMicrophoneAlt,
+  FaMicrophoneSlash,
+  FaMicrophone,
+} from "react-icons/fa";
 
 const LanguageButtons = () => {
   const languages = [
@@ -52,8 +56,10 @@ const VoiceButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isListening, setIsListening] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
-  const [currentLink,setCurrentLink] = useState("");
-  const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const [currentLink, setCurrentLink] = useState("");
+  const [said, setSaid] = useState(0);
+  const { transcript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
   const navigate = useNavigate();
 
   const startListening = () => {
@@ -69,45 +75,66 @@ const VoiceButton = () => {
   const handleConfirmation = (confirmed) => {
     setConfirmation(confirmed);
 
-    if (confirmed && currentLink !== null) {
+    if (confirmed && currentLink != "") {
       navigate(`/${currentLink}`);
+      const initialSpeech =
+      "Navigation to " + currentLink + "Completed";
+    const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
+    window.speechSynthesis.speak(initialUtterance);
+
     }
-setConfirmation(false)
-    setCurrentLink("")    
+    setConfirmation(false);
+    setCurrentLink("");
+    setSaid(0);
+  
   };
 
   useEffect(() => {
-    let parsingText=transcript.toLowerCase()
+    let parsingText = transcript.toLowerCase();
     // remove punctuation
     parsingText = parsingText.replace(/[^\w\s]/gi, "");
-    console.log(transcript,parsingText)
-    if(parsingText.includes("dashboard") && !confirmation) {setCurrentLink("dashboard")}
-    if(parsingText.includes("job") && !confirmation) {setCurrentLink("jobs")}
-    if(parsingText.includes("virtual assistant") && !confirmation) {setCurrentLink("virtualassistant")}
-    if(parsingText.includes("ai course") && !confirmation) {setCurrentLink("aicourse")}
-    if(parsingText.includes("community") && !confirmation) {setCurrentLink("community")}
-    if(parsingText.includes("feedback") && !confirmation) {setCurrentLink("feedback")}
-    if(parsingText.includes("yes") && !confirmation) {handleConfirmation(true)}
-      stopListening();
+    console.log(transcript, parsingText);
+    if (parsingText.includes("dashboard") && !confirmation) {
+      setCurrentLink("dashboard");
+    }
+    if (parsingText.includes("job") && !confirmation) {
+      setCurrentLink("jobs");
+    }
+    if (parsingText.includes("virtual assistant") && !confirmation) {
+      setCurrentLink("virtualassistant");
+    }
+    if (parsingText.includes("ai course") && !confirmation) {
+      setCurrentLink("aicourse");
+    }
+    if (parsingText.includes("community") && !confirmation) {
+      setCurrentLink("community");
+    }
+    if (parsingText.includes("feedback") && !confirmation) {
+      setCurrentLink("feedback");
+    }
+    if (
+      (parsingText.includes("yes") || parsingText.includes("yeah")) &&
+      !confirmation
+    ) {
+      handleConfirmation(true);
+    }
+    stopListening();
 
-      if(currentLink!=""){
+    if (currentLink != "" && !said) {
       const initialSpeech =
         "Do you want to navigate to " + currentLink + "? Please say yes or no.";
       const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
 
       initialUtterance.onend = () => {
+        setSaid(1);
         // Speech synthesis has ended, set isListening to true
-        // startListening();
+        startListening();
         // setIsListening(true);
       };
 
       window.speechSynthesis.speak(initialUtterance);
-  }
+    }
   }, [transcript, confirmation]);
-
-  if (!browserSupportsSpeechRecognition) {
-    return null;
-  }
 
   return (
     <Box color={"teal.800"} aria-label="Voice Assistant">
@@ -115,12 +142,12 @@ setConfirmation(false)
         icon={<FaMicrophone />}
         aria-label="Voice Button"
         onClick={() => {
-          const initialSpeech =
-            "Voice Assistant How may I help you today?";
+          const initialSpeech = "Voice Assistant How may I help you today?";
           const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
           window.speechSynthesis.speak(initialUtterance);
 
           onOpen();
+          startListening();
         }}
         size="lg"
         colorScheme="teal"

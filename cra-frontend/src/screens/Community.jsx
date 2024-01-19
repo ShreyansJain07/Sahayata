@@ -41,8 +41,8 @@ const Community = () => {
       forums: ["#TechJobs", "#AccessibleTech"],
     },
     {
-      name: "Deaf and Hard of Hearing Hub",
-      description: "Supporting the deaf and hard of hearing community.",
+      name: "Hearing Impairments and Hard of Hearing Hub",
+      description: "Supporting the hearing impairments and hard of hearing community.",
       posts: 90,
       messages: 600,
       forums: ["#InclusiveWorkplaces", "#CommunicationTips"],
