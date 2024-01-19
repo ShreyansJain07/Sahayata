@@ -273,11 +273,39 @@ const Dashboard = () => {
     { id: 1, text: "New message received from John Doe" },
   ]);
 
+  useEffect(() => {
+    const fetchInterviewData = async () => {
+      try {
+        const db = getFirestore();
+        const interviewCollection = collection(db, "interview");
+        const interviewSnapshot = await getDocs(interviewCollection);
+
+        const interviewData = interviewSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        const userUid = user ? user.uid : null;
+
+        if (userUid) {
+          const userInterviewData = interviewData.filter(
+            (item) => item.uid === userUid
+          );
+          console.log(userInterviewData);
+          setNotificationDetails(userInterviewData);
+        }
+      } catch (error) {
+        console.error("Error fetching interview data:", error);
+      }
+    };
+
+    fetchInterviewData();
+  }, []);
+
   const handleIconClick = () => {
     setShowDropdown(!showDropdown);
-    // Assuming you fetch or update notification details here
-    // Replace the following line with your actual logic
-    setNotificationDetails(fetchNotificationDetails());
+
+    // setNotificationDetails(fetchNotificationDetails());
   };
 
   const fetchNotificationDetails = () => {
@@ -357,7 +385,12 @@ const Dashboard = () => {
                 }}
               >
                 {notificationDetails.map((notification) => (
-                  <div key={notification.id}>{notification.text}</div>
+                  <div key={notification.uid}>
+                    <a href="https://ritojnan.github.io/streamworks/" style={{color:"blue"}}>Meet </a>
+                    {notification.Role} Role
+                    Comapany:{notification.Company}
+                     Meeting ID:{3}
+                  </div>
                 ))}
               </div>
             )}
