@@ -13,6 +13,7 @@ import {
   DrawerHeader,
   DrawerBody,
   useDisclosure,
+  Heading,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import SpeechRecognition, {
@@ -23,6 +24,7 @@ import {
   FaMicrophoneSlash,
   FaMicrophone,
 } from "react-icons/fa";
+import { Card, Flex } from "antd";
 
 const LanguageButtons = () => {
   const languages = [
@@ -57,6 +59,7 @@ const VoiceButton = () => {
   const [isListening, setIsListening] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
   const [currentLink, setCurrentLink] = useState("");
+  const [status, setStatus] = useState("Not Listening");
   const [said, setSaid] = useState(0);
   const { transcript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
@@ -65,11 +68,14 @@ const VoiceButton = () => {
   const startListening = () => {
     SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
     setIsListening(true);
+    setStatus("Listening...")
   };
 
   const stopListening = () => {
     SpeechRecognition.stopListening();
     setIsListening(false);
+    setStatus("")
+
   };
 
   const handleConfirmation = (confirmed) => {
@@ -97,26 +103,32 @@ const VoiceButton = () => {
     if (parsingText.includes("dashboard") && !confirmation) {
       setCurrentLink("dashboard");
     }
-    if (parsingText.includes("job") && !confirmation) {
+    else if (parsingText.includes("job") && !confirmation) {
       setCurrentLink("jobs");
     }
-    if (parsingText.includes("virtual assistant") && !confirmation) {
+    else if (parsingText.includes("virtual assistant") && !confirmation) {
       setCurrentLink("virtualassistant");
     }
-    if (parsingText.includes("ai course") && !confirmation) {
+    else if (parsingText.includes("ai course") && !confirmation) {
       setCurrentLink("aicourse");
     }
-    if (parsingText.includes("community") && !confirmation) {
+    else if (parsingText.includes("community") && !confirmation) {
       setCurrentLink("community");
     }
-    if (parsingText.includes("feedback") && !confirmation) {
+    else if (parsingText.includes("feedback") && !confirmation) {
       setCurrentLink("feedback");
     }
-    if (
+    else if (
       (parsingText.includes("yes") || parsingText.includes("yeah")) &&
       !confirmation
     ) {
       handleConfirmation(true);
+    }
+    else if (
+      (parsingText.includes("no") || parsingText.includes("nah")) &&
+      !confirmation
+    ) {
+      handleConfirmation(false);
     }
     stopListening();
 
@@ -136,9 +148,13 @@ const VoiceButton = () => {
     }
   }, [transcript, confirmation]);
 
+  if (!browserSupportsSpeechRecognition) {
+    setStatus("Your browser does not support speech recognition.");
+  }
   return (
     <Box color={"teal.800"} aria-label="Voice Assistant">
       <IconButton
+      width="full"
         icon={<FaMicrophone />}
         aria-label="Voice Button"
         onClick={() => {
@@ -161,7 +177,14 @@ const VoiceButton = () => {
           <DrawerBody>
             {/* Your content here */}
             <LanguageButtons />
-            <Text>{transcript}</Text>
+            <Card>
+              <Flex direction="column" align="center" justify="center">
+                <Text>{status}</Text>
+
+            <Text size={"3xl"} mt={4}>{transcript}</Text>
+              </Flex>
+
+            </Card>
           </DrawerBody>
           <ModalFooter>
             {isListening ? (
