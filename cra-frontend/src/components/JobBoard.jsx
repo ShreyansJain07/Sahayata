@@ -311,7 +311,7 @@ const JobList = ({ jobs }) => {
               View Details
             </Button>
 
-            <Modal isOpen={isOpen} onClose={onClose} size="full">
+            <Modal isOpen={isOpen} onClose={onClose} size="xl">
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>{job.position}</ModalHeader>
@@ -390,13 +390,10 @@ const JobBoard = () => {
   ]);
   const [filteredJobs, setFilteredJobs] = useState(dummyJobData);
 
-  const query="data scientist"
+  // const query="data scientist"
 
   const fetchData = async (query) => {
     try {
-    
-     
-      
 
       const response = await fetch(`http://localhost:8000/jobs?query=${query}`, {
         method: 'GET',
@@ -444,11 +441,7 @@ const JobBoard = () => {
     }
   };
 
-  useEffect(() => {
-  
-    fetchData(query);
-  }, []);
-  
+
 
   const handleFilter = (filter) => {
     const filtered = dummyJobData.filter((job) =>
@@ -456,6 +449,16 @@ const JobBoard = () => {
     );
     setFilteredJobs(filtered);
   };
+
+
+  const [query, setQuery] = useState('');
+  const [responseData, setResponseData] = useState(null);
+
+
+  
+  // useEffect(() => {
+  
+  // }, []);
 
   return (
     <Container maxW="container.xl">
@@ -465,6 +468,20 @@ const JobBoard = () => {
           <FilterBox filterFunction={handleFilter} />
         </GridItem>
         <GridItem>
+        <Container maxW="xl">
+        <Box p={6} boxShadow="lg" rounded="lg">
+          <Input
+            placeholder="Enter search query"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            mb={4}
+          />
+          <Button colorScheme="teal" onClick={()=>{    fetchData(query)}}>
+            Fetch Data
+          </Button>
+        </Box>
+      </Container>
+
           <JobList jobs={filteredJobs} />
         </GridItem>
       </Grid>
