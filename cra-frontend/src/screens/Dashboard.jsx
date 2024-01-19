@@ -762,6 +762,7 @@ const Dashboard = () => {
               paddingRight: "1rem",
               backgroundColor: "white",
               borderRadius: "0.5rem",
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
             }}
           >
             <Calendar cellRender={cellRender} />

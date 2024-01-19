@@ -673,7 +673,7 @@ const VirtualAssistant = () => {
                     borderRadius: "0.2rem",
                   }}
                 >
-                  10
+                  0
                 </div>
               </div>
             </CardBody>
