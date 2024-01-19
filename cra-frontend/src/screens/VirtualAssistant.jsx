@@ -627,7 +627,7 @@ const VirtualAssistant = () => {
                         <div
                           style={{ color: "blue", textDecoration: "underline" }}
                         >
-                          Meet
+                          <a href="https://ritojnan.github.io/streamworks/">Meet</a>
                         </div>
                       </div>
                     </CardBody>
