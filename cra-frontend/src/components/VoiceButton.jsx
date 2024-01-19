@@ -68,14 +68,13 @@ const VoiceButton = () => {
   const startListening = () => {
     SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
     setIsListening(true);
-    setStatus("Listening...")
+    setStatus("Listening...");
   };
 
   const stopListening = () => {
     SpeechRecognition.stopListening();
     setIsListening(false);
-    setStatus("")
-
+    setStatus("");
   };
 
   const handleConfirmation = (confirmed) => {
@@ -83,16 +82,13 @@ const VoiceButton = () => {
 
     if (confirmed && currentLink != "") {
       navigate(`/${currentLink}`);
-      const initialSpeech =
-      "Navigation to " + currentLink + "Completed";
-    const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
-    window.speechSynthesis.speak(initialUtterance);
-
+      const initialSpeech = "Navigation to " + currentLink + "Completed";
+      const initialUtterance = new SpeechSynthesisUtterance(initialSpeech);
+      window.speechSynthesis.speak(initialUtterance);
     }
     setConfirmation(false);
     setCurrentLink("");
     setSaid(0);
-  
   };
 
   useEffect(() => {
@@ -102,48 +98,72 @@ const VoiceButton = () => {
     console.log(transcript, parsingText);
     if (parsingText.includes("dashboard") && !confirmation) {
       setCurrentLink("dashboard");
-          stopListening();
-
-    }
-    else if (parsingText.includes("job") && !confirmation) {
+      stopListening();
+    } else if (parsingText.includes("job") && !confirmation) {
       setCurrentLink("jobs");
-          stopListening();
-
-    }
-    else if (parsingText.includes("virtual assistant") && !confirmation) {
+      stopListening();
+    } else if (parsingText.includes("home") && !confirmation) {
+      setCurrentLink("");
+      stopListening();
+    } else if (
+      parsingText.includes("" || parsingText.includes("employee")) &&
+      !confirmation
+    ) {
+      setCurrentLink("profile/:name");
+      stopListening();
+    } else if (parsingText.includes("virtual assistant") && !confirmation) {
       setCurrentLink("virtualassistant");
-    }
-    else if (parsingText.includes("ai course") && !confirmation) {
+    } else if (parsingText.includes("ai course") && !confirmation) {
       setCurrentLink("aicourse");
-          stopListening();
-
-    }
-    else if (parsingText.includes("community") && !confirmation) {
+      stopListening();
+    } else if (parsingText.includes("resume") && !confirmation) {
+      setCurrentLink("resumebuilder");
+      stopListening();
+    } else if (parsingText.includes("blog") && !confirmation) {
+      setCurrentLink("blog");
+      stopListening();
+    } else if (parsingText.includes("speech") && !confirmation) {
+      setCurrentLink("speech");
+      stopListening();
+    } else if (parsingText.includes("web") && !confirmation) {
+      setCurrentLink("web");
+      stopListening();
+    } else if (parsingText.includes("rights") && !confirmation) {
+      setCurrentLink("disabilityrightsinfo");
+      stopListening();
+    } else if (parsingText.includes("video") && !confirmation) {
+      setCurrentLink("aivideo");
+      stopListening();
+    } else if (parsingText.includes("ocr") && !confirmation) {
+      setCurrentLink("ocr");
+      stopListening();
+    } else if (parsingText.includes("community") && !confirmation) {
       setCurrentLink("community");
-          stopListening();
-
-    }
-    else if (parsingText.includes("feedback") && !confirmation) {
+      stopListening();
+    } else if (parsingText.includes("feedback") && !confirmation) {
       setCurrentLink("feedback");
-          stopListening();
-
-    }
-    else if (
+      stopListening();
+    } else if (parsingText.includes("browse") && !confirmation) {
+      setCurrentLink("browse");
+      stopListening();
+    } else if (parsingText.includes("community") && !confirmation) {
+      setCurrentLink("community");
+      stopListening();
+    } else if (parsingText.includes("feedback") && !confirmation) {
+      setCurrentLink("feedback");
+      stopListening();
+    } else if (
       (parsingText.includes("yes") || parsingText.includes("yeah")) &&
       !confirmation
     ) {
       handleConfirmation(true);
-      console.log("yesxxxx");
-          stopListening();
-
-    }
-    else if (
+      stopListening();
+    } else if (
       (parsingText.includes("no") || parsingText.includes("nah")) &&
       !confirmation
     ) {
       handleConfirmation(false);
-          stopListening();
-
+      stopListening();
     }
 
     if (currentLink != "" && !said) {
@@ -168,7 +188,7 @@ const VoiceButton = () => {
   return (
     <Box color={"teal.800"} aria-label="Voice Assistant">
       <IconButton
-      width="full"
+        width="full"
         icon={<FaMicrophone />}
         aria-label="Voice Button"
         onClick={() => {
@@ -195,9 +215,10 @@ const VoiceButton = () => {
               <Flex direction="column" align="center" justify="center">
                 <Text>{status}</Text>
 
-            <Text size={"3xl"} mt={4}>{transcript}</Text>
+                <Text size={"3xl"} mt={4}>
+                  {transcript}
+                </Text>
               </Flex>
-
             </Card>
           </DrawerBody>
           <ModalFooter>

@@ -15,7 +15,10 @@ app.get('/', (req, res) => {
 app.get('/jobs', async (req, res) => {
   try {
     console.log("hitting server")
-    const { apiKey, engine, googleDomain, query, gl, lrad } = req.body;
+    // const { query} = req.body.toString();
+    const query = "full stack developer mumbai"
+    
+    console.log(query)
 
     const serpApiUrl = 'https://serpapi.com/search';
     const response = await axios.get(serpApiUrl, {
@@ -23,7 +26,7 @@ app.get('/jobs', async (req, res) => {
   api_key: "98a1671d5b1c1efae84bf3516820fab33875cb7a4e541c9fa4ddc6523eadeb98",
   engine: "google_jobs",
   lrad: "0",
-  q: "Frontend Developer mumbai",
+  q: query,
   google_domain: "google.com",
   gl: "in"
 }

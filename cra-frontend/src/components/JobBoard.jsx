@@ -311,7 +311,7 @@ const JobList = ({ jobs }) => {
               View Details
             </Button>
 
-            <Modal isOpen={isOpen} onClose={onClose} size="full">
+            <Modal isOpen={isOpen} onClose={onClose} size="xl">
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>{job.position}</ModalHeader>
@@ -389,52 +389,59 @@ const JobBoard = () => {
     },
   ]);
   const [filteredJobs, setFilteredJobs] = useState(dummyJobData);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:8000/jobs"
-        );
+
+  // const query="data scientist"
+
+  const fetchData = async (query) => {
+    try {
+
+      const response = await fetch(`http://localhost:8000/jobs?query=${query}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers if needed
+        },
+        // You can add a request body if your server expects it
+      });
   
-        // Use await to get the actual data from the response
-        const responseData = await response.json();
-        console.log(responseData);
-       
-  
-        const jobDataFromAPI = responseData.jobs_results.map((job, index) => {
-          const postedAt =
-            job.extensions.find((ext) => ext.includes("ago")) || "";
-          const yearlySalary =
-            job.extensions.find((ext) => ext.includes("year")) || "";
-  
-          return {
-            id: index + 1,
-            position: job.title || "",
-            company: job.company_name || "",
-            ctc: yearlySalary,
-            modeOfWork: job.detected_extensions?.schedule_type || "",
-            place: job.location?.trim() || "",
-            startDate: job.posted_at || postedAt,
-            experience: job.experience || "",
-            description: job.description || "",
-            postDate: job.posted_at || "",
-            thumbnail: job.thumbnail || "",
-            via: job.via || "",
-          };
-        });
-  
-        console.log(jobDataFromAPI);
-        // Use jobDataFromAPI in your setDummyJobData function
-        setDummyJobData(jobDataFromAPI);
-        setFilteredJobs(jobDataFromAPI);
-      } catch (error) {
-        console.error("Error fetching job data:", error);
-      }
-    };
-  
-    fetchData();
-  }, []);
-  
+
+      // Use await to get the actual data from the response
+      const responseData = await response.json();
+      console.log(responseData);
+     
+
+      const jobDataFromAPI = responseData.jobs_results.map((job, index) => {
+        const postedAt =
+          job.extensions.find((ext) => ext.includes("ago")) || "";
+        const yearlySalary =
+          job.extensions.find((ext) => ext.includes("year")) || "";
+
+        return {
+          id: index + 1,
+          position: job.title || "",
+          company: job.company_name || "",
+          ctc: yearlySalary,
+          modeOfWork: job.detected_extensions?.schedule_type || "",
+          place: job.location?.trim() || "",
+          startDate: job.posted_at || postedAt,
+          experience: job.experience || "",
+          description: job.description || "",
+          postDate: job.posted_at || "",
+          thumbnail: job.thumbnail || "",
+          via: job.via || "",
+        };
+      });
+
+      console.log(jobDataFromAPI);
+      // Use jobDataFromAPI in your setDummyJobData function
+      setDummyJobData(jobDataFromAPI);
+      setFilteredJobs(jobDataFromAPI);
+    } catch (error) {
+      console.error("Error fetching job data:", error);
+    }
+  };
+
+
 
   const handleFilter = (filter) => {
     const filtered = dummyJobData.filter((job) =>
@@ -442,6 +449,16 @@ const JobBoard = () => {
     );
     setFilteredJobs(filtered);
   };
+
+
+  const [query, setQuery] = useState('');
+  const [responseData, setResponseData] = useState(null);
+
+
+  
+  // useEffect(() => {
+  
+  // }, []);
 
   return (
     <Container maxW="container.xl">
@@ -451,6 +468,20 @@ const JobBoard = () => {
           <FilterBox filterFunction={handleFilter} />
         </GridItem>
         <GridItem>
+        <Container maxW="xl">
+        <Box p={6} boxShadow="lg" rounded="lg">
+          <Input
+            placeholder="Enter search query"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            mb={4}
+          />
+          <Button colorScheme="teal" onClick={()=>{    fetchData(query)}}>
+            Fetch Data
+          </Button>
+        </Box>
+      </Container>
+
           <JobList jobs={filteredJobs} />
         </GridItem>
       </Grid>
