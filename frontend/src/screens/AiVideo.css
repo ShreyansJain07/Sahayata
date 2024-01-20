@@ -9,21 +9,23 @@
 
 .aivideo-contents {
   /* width: 350px;
-  padding: 25px; */
+  */
+  padding-right: 25px;
   flex: 0.3;
 }
 
 .li-selected {
-  color: green;
+  color: #2234da;
   cursor: pointer;
 }
 
 .aivideo-video {
   /* padding: 25px; */
-  padding-top: 1rem;
+  padding-top: 0.7rem;
   flex: 1;
+  /* border: 1px solid red; */
 }
 .aivideo-ques {
   /* padding: 25px; */
-  flex: 1;
+  /* flex: 1; */
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Box, Heading, Text, Checkbox, Stack, Center } from "@chakra-ui/react";
 
 const YoutubeSearch = ({ title }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -126,7 +127,7 @@ const YoutubeSearch = ({ title }) => {
       /> */}
       <button onClick={handleSearch}>Search</button>
 
-      <div
+      {/* <div
         style={{
           display: "flex",
           flexDirection: "row",
@@ -134,10 +135,9 @@ const YoutubeSearch = ({ title }) => {
           justifyContent: "space-between",
         }}
       >
-        <div style={{ width: "fit-content" }}>
+        <div style={{ flex: 1 }}>
           {videos.length > 0 && (
             <div>
-              {/* <h2>Details for the First Video</h2> */}
               {videos[0].id.videoId && (
                 <iframe
                   title={
@@ -145,7 +145,7 @@ const YoutubeSearch = ({ title }) => {
                       ? videos[0].snippet.title
                       : "Video"
                   }
-                  width="560"
+                  width="500"
                   height="315"
                   style={{
                     margin: "1rem",
@@ -162,13 +162,13 @@ const YoutubeSearch = ({ title }) => {
 
           <div
             style={{
-              marginTop: "1rem",
+              marginTop: "1.5rem",
             }}
           >
             <h2
               style={{
-                marginBottom: "0.5rem",
-                fontSize: "1.25rem",
+                marginBottom: "1rem",
+                fontSize: "1.35rem",
                 fontWeight: 590,
               }}
             >
@@ -178,11 +178,11 @@ const YoutubeSearch = ({ title }) => {
           </div>
         </div>
 
-        <div>
+        <div style={{ flex: 1 }}>
           <h2
             style={{
               marginBottom: "0.5rem",
-              fontSize: "1.25rem",
+              fontSize: "1.35rem",
               fontWeight: 590,
               minWidth: "33%",
               flex: 1,
@@ -191,16 +191,9 @@ const YoutubeSearch = ({ title }) => {
             Questions and Answers
           </h2>
           {console.log(typeof ques)}
-          {/* {ques?.map((question) => {
-            return (
-              <div>
-                <div>{question.question}</div>
-              </div>
-            );
-          })} */}
           {Array.isArray(ques) ? (
             ques.map((question) => (
-              <div key={question.id} style={{ marginTop: "0.7rem" }}>
+              <div key={question.id} style={{ marginTop: "1rem" }}>
                 <div style={{ fontWeight: 550 }}>{question.question}</div>
                 <div>
                   {question.answer.map((option, index) => (
@@ -208,8 +201,9 @@ const YoutubeSearch = ({ title }) => {
                       <input
                         type="checkbox"
                         name=""
-                        style={{ marginRight: "0.5rem" }}
+                        style={{ marginRight: "0.5rem", color: "#ff5045" }}
                         id=""
+                        color="#ff5045"
                       />
                       {option}
                     </div>
@@ -221,7 +215,175 @@ const YoutubeSearch = ({ title }) => {
             <p>Invalid data structure for ques</p>
           )}
         </div>
-      </div>
+      </div> */}
+      {/* <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "1rem",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
+          style={{
+            flex: 1,
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            borderRadius: "1rem",
+            overflow: "hidden",
+          }}
+        >
+          {videos.length > 0 && (
+            <div>
+              {videos[0].id.videoId && (
+                <iframe
+                  title={
+                    videos[0].snippet && videos[0].snippet.title
+                      ? videos[0].snippet.title
+                      : "Video"
+                  }
+                  width="100%"
+                  height="315"
+                  style={{ borderRadius: "1rem" }}
+                  src={`https://www.youtube.com/embed/${videos[0].id.videoId}`}
+                  frameBorder="0"
+                  allowFullScreen
+                ></iframe>
+              )}
+            </div>
+          )}
+
+          <div style={{ marginTop: "1.5rem", padding: "1rem" }}>
+            <h2
+              style={{
+                marginBottom: "1rem",
+                fontSize: "1.5rem",
+                fontWeight: 600,
+              }}
+            >
+              Summary for the First Video
+            </h2>
+            <p>{videoSummary}</p>
+          </div>
+        </div>
+
+        <div
+          style={{
+            flex: 1,
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            borderRadius: "1rem",
+            overflow: "hidden",
+          }}
+        >
+          <h2
+            style={{
+              marginBottom: "1rem",
+              fontSize: "1.5rem",
+              fontWeight: 600,
+              minWidth: "33%",
+              flex: 1,
+              padding: "1rem",
+            }}
+          >
+            Questions and Answers
+          </h2>
+
+          {Array.isArray(ques) ? (
+            ques.map((question) => (
+              <div
+                key={question.id}
+                style={{ marginTop: "1rem", padding: "1rem" }}
+              >
+                <div style={{ fontWeight: 600 }}>{question.question}</div>
+                <div style={{ marginTop: "0.5rem" }}>
+                  {question.answer.map((option, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        name=""
+                        style={{ marginRight: "0.5rem", color: "#ff5045" }}
+                        id=""
+                      />
+                      <label htmlFor="">{option}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p style={{ padding: "1rem" }}>Invalid data structure for ques</p>
+          )}
+        </div>
+      </div> */}
+      <Stack direction="row" spacing="1rem" justifyContent="space-between">
+        <Box flex="1" boxShadow="xl" borderRadius="xl" overflow="hidden">
+          {videos.length > 0 && (
+            <Box>
+              {videos[0].id.videoId && (
+                <Center>
+                  <iframe
+                    title={
+                      videos[0].snippet && videos[0].snippet.title
+                        ? videos[0].snippet.title
+                        : "Video"
+                    }
+                    width="500"
+                    height="315"
+                    style={{ borderRadius: "1rem" }}
+                    src={`https://www.youtube.com/embed/${videos[0].id.videoId}`}
+                    frameBorder="0"
+                    allowFullScreen
+                  ></iframe>
+                </Center>
+              )}
+            </Box>
+          )}
+
+          <Box mt="1rem" p="1rem">
+            <Heading mb="1rem" fontSize="xl" fontWeight="bold">
+              Summary for the First Video
+            </Heading>
+            <Text>{videoSummary}</Text>
+          </Box>
+        </Box>
+
+        <Box flex="1" boxShadow="xl" borderRadius="xl" overflow="hidden">
+          <Box p="1rem">
+            <Heading mb="0.5rem" fontSize="xl" fontWeight="bold">
+              Questions and Answers
+            </Heading>
+
+            {Array.isArray(ques) ? (
+              ques.map((question) => (
+                <Box
+                  key={question.id}
+                  mt="1rem"
+                  p="1rem"
+                  borderBottom="1px solid #ccc"
+                >
+                  <Text fontWeight="bold">{question.question}</Text>
+                  <Stack mt="0.5rem" spacing="0.5rem">
+                    {question.answer.map((option, index) => (
+                      <Box key={index} display="flex" alignItems="start">
+                        <Checkbox colorScheme="red" mr="0.5rem" mt="0.3rem" />
+                        <Text>{option}</Text>
+                      </Box>
+                    ))}
+                  </Stack>
+                </Box>
+              ))
+            ) : (
+              <Text p="1rem">Invalid data structure for ques</Text>
+            )}
+          </Box>
+        </Box>
+      </Stack>
     </div>
   );
 };

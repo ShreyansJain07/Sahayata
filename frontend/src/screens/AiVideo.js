@@ -47,7 +47,7 @@ const AiVideo = () => {
             }}
             key={item.id}
           >
-            <div>Unit {item.id}</div>
+            <div style={{ fontWeight: 500 }}>Unit {item.id}</div>
             <div style={{ fontSize: "30px", fontWeight: 500 }}>
               {item.title}
             </div>

@@ -132,9 +132,10 @@ const Dashboard = () => {
   const addApplicant = () => {
     const rating = "4.7";
     const disability = selectedValues[0] ? selectedValues[0] : "Blind";
-    const resume = user.resume[0]
-      ? user.resume[0]
-      : "A forward-thinking front-end developer, I specialize in architecting innovative and intuitive user interfaces. My skill set encompasses cutting-edge technologies, allowing me to transform design visions into captivating and user-centric web experiences.";
+    // const resume = user.resume[0]
+    //   ? user.resume[0]
+    //   : "A forward-thinking front-end developer, I specialize in architecting innovative and intuitive user interfaces. My skill set encompasses cutting-edge technologies, allowing me to transform design visions into captivating and user-centric web experiences.";
+    const resume = "A forward-thinking front-end developer, I specialize in architecting innovative and intuitive user interfaces. My skill set encompasses cutting-edge technologies, allowing me to transform design visions into captivating and user-centric web experiences."
     addApplicantProfile(
       user.uid,
       user.name,
@@ -238,6 +239,7 @@ const Dashboard = () => {
   };
 
   const handleOCRRequest = async () => {
+    console.log("pressed");
     const apiUrl = "https://api.edenai.run/v2/ocr/identity_parser";
     const apiKey =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY"; // Replace with your actual API key
@@ -270,8 +272,10 @@ const Dashboard = () => {
   const [notificationNumber, setNotificationNumber] = useState(0);
   const [showDropdown, setShowDropdown] = useState(false);
   const [notificationDetails, setNotificationDetails] = useState([]);
+  const [mount,setMount]  = useState(1)
 
   useEffect(() => {
+    console.log("im running");
     const fetchInterviewData = async () => {
       try {
         const db = getFirestore();
@@ -298,7 +302,11 @@ const Dashboard = () => {
     };
 
     fetchInterviewData();
-  }, []);
+  }, [mount]);
+
+   function fetchNoti(){
+    setMount((prev) => prev + 1)
+  }
 
   const handleIconClick = () => {
     setShowDropdown(!showDropdown);
@@ -337,6 +345,7 @@ const Dashboard = () => {
           }}
         >
           <div
+          onClick={fetchNoti}
             style={{
               // marginTop: "1rem",
               fontWeight: 725,

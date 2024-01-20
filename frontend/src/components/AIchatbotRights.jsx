@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Button } from "@chakra-ui/react";
+import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { BsStars } from "react-icons/bs";
 
 const AIchatbotRights = () => {
@@ -45,6 +45,7 @@ const AIchatbotRights = () => {
           maxWidth: "80vw",
           width: "80vw",
           margin: "auto",
+          // gap: "0.5rem",
         }}
       >
         {/* <label> */}
@@ -57,29 +58,34 @@ const AIchatbotRights = () => {
           style={{
             border: "4px solid #2234da",
             padding: "0.7rem",
-            borderRadius: "1rem",
+            borderTopLeftRadius: "1rem",
+            borderBottomLeftRadius: "1rem",
             width: "100%",
             flex: 1,
+            borderRight: "none",
           }}
         />
         {/* </label> */}
         <Button
           onClick={handleGenerateText}
-          className="aicourse-button"
+          // className="aicourse-button"
           style={{
             display: "flex",
-            borderRadius: "1rem",
+            borderTopRightRadius: "1rem",
+            borderBottomRightRadius: "1rem",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
             backgroundColor: "#2234da",
             padding: "1rem",
             color: "white",
-            height: "3.5rem",
+            height: "3.9rem",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
           }}
           padding="2rem"
         >
-          <div>Ask with AI </div>
+          <div style={{ fontWeight: 550 }}>Ask with AI </div>
           <span
             style={{ color: "", fontSize: "1.15rem", marginLeft: "0.5rem" }}
           >
@@ -87,7 +93,14 @@ const AIchatbotRights = () => {
           </span>
         </Button>
       </div>
-      <div style={{ width: "80vw", margin: "auto" }}>
+      <div
+        style={{
+          width: "80vw",
+          margin: "auto",
+          fontSize: "1rem",
+          marginTop: "0.5rem",
+        }}
+      >
         <strong>Generated Text Ouput:</strong>
         <p>{generatedText}</p>
       </div>
