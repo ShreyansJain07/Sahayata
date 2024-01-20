@@ -272,6 +272,7 @@ const Dashboard = () => {
   const [notificationNumber, setNotificationNumber] = useState(0);
   const [showDropdown, setShowDropdown] = useState(false);
   const [notificationDetails, setNotificationDetails] = useState([]);
+  const [mount,setMount]  = useState(1)
 
   useEffect(() => {
     console.log("im running");
@@ -301,7 +302,11 @@ const Dashboard = () => {
     };
 
     fetchInterviewData();
-  }, []);
+  }, [mount]);
+
+   function fetchNoti(){
+    setMount((prev) => prev + 1)
+  }
 
   const handleIconClick = () => {
     setShowDropdown(!showDropdown);
@@ -340,6 +345,7 @@ const Dashboard = () => {
           }}
         >
           <div
+          onClick={fetchNoti}
             style={{
               // marginTop: "1rem",
               fontWeight: 725,
