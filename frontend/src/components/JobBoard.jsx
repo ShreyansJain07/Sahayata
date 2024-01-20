@@ -396,7 +396,7 @@ const JobBoard = () => {
     console.log(query);
     try {
       const response = await fetch(
-        `http://localhost:8000/jobs?query=${"jobs in "+query + "for disabled people"}`,
+        `http://localhost:8000/jobs?query=${"job in "+query + "for disabled people"}`,
         {
           method: "GET",
           headers: {
