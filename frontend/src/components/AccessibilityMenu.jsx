@@ -47,10 +47,11 @@ const AccessibilityGrid = (props) => {
   const [paused, isPaused] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [animation, setAnimation] = useState(true);
+  const [saturation, setSaturation] = useState(true);
   const zoomIn = () => {
     setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200));
   };
-  
+
   const zoomOut = () => {
     setZoomLevel((prevZoom) => Math.max(prevZoom - 10, 50));
   };
@@ -63,11 +64,23 @@ const AccessibilityGrid = (props) => {
         toggleColorMode();
       },
     },
-    { icon: <IoColorWandOutline />, label: "Highlight Links" },
+    // { icon: <IoColorWandOutline />, label: "Highlight Links" },
+    {
+      icon: paused ? <IoPaperPlane /> : <IoPauseOutline />,
+      label: paused ? "Resume Animations" : "Pause Animations",
+      func: () => {
+        var elements = document.querySelectorAll(".animated-element");
+        elements.forEach(function (element) {
+          // Toggle the class to pause or resume animations
+          element.classList.toggle("paused-animation");
+        });
+        setAnimation(!animation);
+      },
+    },
     {
       icon: <ZoomInSharp />,
       label: "Increase Font Size",
-      func: () => { 
+      func: () => {
         zoomIn();
       },
     },
@@ -78,42 +91,66 @@ const AccessibilityGrid = (props) => {
         zoomOut();
       },
     },
-    { icon: <IoText />, label: "Text Spacing +" ,func:()=>{
-      document.body.style.letterSpacing = '3px';
-    } },
-    { icon: <IoText />, label: "Text Spacing -" ,func:()=>{
-      document.body.style.letterSpacing = 'normal';
-    } },
     {
-      icon: paused ? <IoPaperPlane /> : <IoPauseOutline />,
-      label: paused ? "Resume Animations" : "Pause Animations",
+      icon: <IoText />,
+      label: "Text Spacing +",
       func: () => {
-        var elements = document.querySelectorAll('.animated-element');        
-          elements.forEach(function(element) {
-            // Toggle the class to pause or resume animations
-            element.classList.toggle('paused-animation');
-          });
-          setAnimation(!animation);
-    
-        }
+        document.body.style.letterSpacing = "3px";
       },
-    { icon: hidden ? <IoEyeOutline /> : <IoEyeOffOutline />, label: hidden ? "Show Images" : "Hide Images",func:()=>{
-      let images = document.querySelectorAll('img');
-      images.forEach((img)=> {
-        img.classList.toggle('hidden');
-      });
-    setHidden(!hidden);
-    } },
-    { icon: <IoReaderOutline />, label: "Dyslexia Friendly" },
-    { icon: <IoResizeOutline />, label: "Line Height" },
-    { icon: <IoTextOutline />, label: "Text Align" },
-    { icon: <IoContrastSharp />, label: "Saturation" },
+    },
+    {
+      icon: <IoText />,
+      label: "Text Spacing -",
+      func: () => {
+        document.body.style.letterSpacing = "normal";
+      },
+    },
+
+    {
+      icon: hidden ? <IoEyeOutline /> : <IoEyeOffOutline />,
+      label: hidden ? "Show Images" : "Hide Images",
+      func: () => {
+        let images = document.querySelectorAll("img");
+        images.forEach((img) => {
+          img.classList.toggle("hidden");
+        });
+        setHidden(!hidden);
+      },
+    },
+    {
+      icon: <IoContrastSharp />,
+      label: saturation ? "Saturation Change +" : "Saturation Change -",
+      func: () => {
+        if (saturation) {
+          document.body.style.filter = "saturate(0)";
+        } else {
+          document.body.style.filter = "saturate(1)";
+        }
+        setSaturation(!saturation);
+      },
+    },
+    // { icon: <IoReaderOutline />, label: "Dyslexia Friendly" },
+    {
+      icon: <IoResizeOutline />,
+      label: "Line Height +",
+      func: () => {
+        document.body.style.lineHeight = "2";
+      },
+    },
+    {
+      icon: <IoResizeOutline />,
+      label: "Line Height -",
+      func: () => {
+        document.body.style.lineHeight = "1";
+      },
+    },
+    // { icon: <IoTextOutline />, label: "Text Align" },
+    
   ];
 
   useEffect(() => {
     document.body.style.zoom = `${zoomLevel}%`;
   }, [zoomLevel]);
-  
 
   return (
     <Grid templateColumns="repeat(2, 1fr)" gap={4}>
