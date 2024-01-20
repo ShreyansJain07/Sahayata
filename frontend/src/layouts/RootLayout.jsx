@@ -18,7 +18,7 @@ export default function RootLayout() {
       <FeatureList/> */}
       <SpeechSynthesizer/>
       <div className="App">
-      <CustomCursor />
+      {/* <CustomCursor /> */}
       <div className="container">
         <div
           onMouseEnter={() => cursorChangeHandler("hovered")}

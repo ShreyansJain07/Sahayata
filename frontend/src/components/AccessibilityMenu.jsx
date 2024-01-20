@@ -43,11 +43,45 @@ import { ZoomIn, ZoomInSharp, ZoomOutSharp } from "@material-ui/icons";
 
 const AccessibilityGrid = (props) => {
   const { toggleColorMode } = useColorMode();
-  const [zoomLevel, setZoomLevel] = useState(100);
-  const [paused, isPaused] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [animation, setAnimation] = useState(true);
-  const [saturation, setSaturation] = useState(true);
+  const [zoomLevel, setZoomLevel] = useState(
+    parseInt(localStorage.getItem('zoomLevel')) || 100
+  );
+  const [paused, isPaused] = useState(
+    localStorage.getItem('paused') === 'true' || false
+  );
+  const [hidden, setHidden] = useState(
+    localStorage.getItem('hidden') === 'true' || false
+  );
+  const [animation, setAnimation] = useState(
+    localStorage.getItem('animation') === 'true' || true
+  );
+  const [saturation, setSaturation] = useState(
+    localStorage.getItem('saturation') === 'true' || true
+  );
+
+  // Update local storage when state changes
+  useEffect(() => {
+    localStorage.setItem('zoomLevel', zoomLevel);
+  }, [zoomLevel]);
+
+  useEffect(() => {
+    localStorage.setItem('paused', paused);
+  }, [paused]);
+
+  useEffect(() => {
+    localStorage.setItem('hidden', hidden);
+  }, [hidden]);
+
+  useEffect(() => {
+    localStorage.setItem('animation', animation);
+  }, [animation]);
+
+  useEffect(() => {
+    localStorage.setItem('saturation', saturation);
+  }, [saturation]);
+
+  // Your component rendering and logic here
+
   const zoomIn = () => {
     setZoomLevel((prevZoom) => Math.min(prevZoom + 10, 200));
   };
