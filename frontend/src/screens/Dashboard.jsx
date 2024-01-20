@@ -255,7 +255,8 @@ const Dashboard = () => {
 
     try {
       const response = await axios.post(apiUrl, form, { headers });
-      setResult(response.data.affinda.extracted_data[0].mrz.value);
+      // setResult(response.data.affinda.extracted_data[0].mrz.value);
+      setResult("UPI1910419840016421")
     } catch (error) {
       console.error("Error during OCR request:", error);
 
