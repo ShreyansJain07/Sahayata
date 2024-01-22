@@ -224,7 +224,6 @@ const DesktopSubNav = ({ label, to, subLabel }) => {
 
 const MobileNav = () => {
   const user = useContext(UserContext);
-  console.log(user);
   return (
     <Stack
       bg={useColorModeValue("white", "gray.800")}

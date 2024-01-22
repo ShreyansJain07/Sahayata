@@ -239,8 +239,7 @@ const Dashboard = () => {
 
   const handleOCRRequest = async () => {
     const apiUrl = "https://api.edenai.run/v2/ocr/identity_parser";
-    const apiKey =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY"; // Replace with your actual API key
+    const apiKey =process.env.REACT_APP_EDENV_API_KEY // Replace with your actual API key
 
     const form = new FormData();
     form.append("providers", "affinda");

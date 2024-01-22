@@ -8,14 +8,10 @@ const YoutubeSearch = ({ title }) => {
 
   const [ques, setques] = useState([]);
 
-  const API_KEY = "AIzaSyBrdsClFkrQokGYbdXCVSbUTtcOanxUFBM"; // Replace with your actual YouTube API key
-  const OPENAI_API_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY";
-
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${title}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`
+        `https://www.googleapis.com/youtube/v3/search?key=${process.env.REACT_APP_YOUTUBE_API_KEY}&q=${title}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`
       );
 
       setVideos(response.data.items);
@@ -39,7 +35,7 @@ const YoutubeSearch = ({ title }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${OPENAI_API_KEY}`,
+            Authorization: `Bearer ${process.env.REACT_APP_EDENV_API_KEY}`,
           },
           body: JSON.stringify({
             providers: "google",
@@ -72,7 +68,7 @@ const YoutubeSearch = ({ title }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${OPENAI_API_KEY}`,
+            Authorization: `Bearer ${process.env.REACT_APP_EDENV_API_KEY}`,
           },
           body: JSON.stringify({
             providers: "openai",
