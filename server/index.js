@@ -23,7 +23,7 @@ app.get('/jobs', async (req, res) => {
     const serpApiUrl = 'https://serpapi.com/search';
     const response = await axios.get(serpApiUrl, {
       params: {
-  api_key: "98a1671d5b1c1efae84bf3516820fab33875cb7a4e541c9fa4ddc6523eadeb98",
+  api_key: "caf2c4d5ec02b154ee0c4679ef19a7de35dbce63fe0df25389e7015bc0b966bb",
   engine: "google_jobs",
   lrad: "0",
   q: query,
