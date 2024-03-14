@@ -677,7 +677,7 @@ const Dashboard = () => {
                 <div>
                   Work experience:{" "}
                   <a style={{ color: "black", fontWeight: 600 }}>
-                    {user ? user.WorkExperience + " years" : "-"}
+                    {user ? user.WorkExperience + " years" : "2" + "years"}
                   </a>
                 </div>
                 <div>

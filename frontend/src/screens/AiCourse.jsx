@@ -33,7 +33,7 @@ const AiCourse = () => {
       headers: {
         "Content-Type": "application/json",
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODIwNjhhMGQtYTIwNC00ZmZkLWEzODAtYWNmOTM1YzNmZjY0IiwidHlwZSI6ImFwaV90b2tlbiJ9.BHighurU1Ddd-2WuimMZ3sy13LCFoaB0WcpM8hGRTlQ",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZWY4ZmI2YjctMzczOC00NWNjLWJhNjUtYjYxZDkxMGRkZDIzIiwidHlwZSI6ImFwaV90b2tlbiJ9.7_2wj3ZqUpcUfxXJHg5viceJPYmVWHmprqEvxByLBEw",
       },
       body: JSON.stringify({
         providers: "openai",
