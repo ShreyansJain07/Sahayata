@@ -5,6 +5,7 @@ import AppContext from "../AppContext";
 import { ArrowRight } from "@material-ui/icons";
 import { BsStars } from "react-icons/bs";
 import { UserContext } from "../App";
+import { ai, GEMINI_MODEL } from "../services/ai";
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -24,46 +25,47 @@ function Question() {
   let { handleChangeInput, nextQuestion } = value.function;
 
   const [enhancedAnswer, setEnhancedAnswer] = React.useState("");
+  const [isEnhancing, setIsEnhancing] = React.useState(false);
 
   const fetchData = async () => {
-    try {
-      const response = await fetch(
-        "https://api.edenai.run/v2/text/generation",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZWY4ZmI2YjctMzczOC00NWNjLWJhNjUtYjYxZDkxMGRkZDIzIiwidHlwZSI6ImFwaV90b2tlbiJ9.7_2wj3ZqUpcUfxXJHg5viceJPYmVWHmprqEvxByLBEw",
-          },
-          body: JSON.stringify({
-            providers: "google",
-            text: `Enhance my answer ${questionAnswer.answer} to this question ${questionAnswer.question} only 2 paragraphs`,
-            temperature: 0.2,
-            max_tokens: 300,
-            fallback_providers: "",
-          }),
-        }
-      );
+    if (!questionAnswer.answer?.trim()) {
+      return;
+    }
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      const enhancedText = data.google.generated_text;
+    setIsEnhancing(true);
+    try {
+      const prompt = `You are a professional resume writer. Enhance the following answer to make it more professional, impactful, and suitable for a resume.
+
+Question: "${questionAnswer.question}"
+Original Answer: "${questionAnswer.answer}"
+
+Rules:
+- Keep it concise (2 short paragraphs maximum)
+- Use action verbs and quantifiable achievements where possible
+- Maintain a professional tone
+- Do not add any asterisks, markdown formatting, or special characters
+- Just provide the enhanced text directly`;
+
+      const response = await ai.models.generateContent({
+        model: GEMINI_MODEL,
+        contents: prompt,
+      });
+
+      const enhancedText = response.text.replace(/\*/g, " ").trim();
       setEnhancedAnswer(() => {
-        const enhancedAnswer = enhancedText.replace(/\*/g, " ");
-        handleChangeInput({ target: { value: enhancedAnswer } });
-        return enhancedAnswer;
+        handleChangeInput({ target: { value: enhancedText } });
+        return enhancedText;
       });
       setUser((prev) => {
         const now = prev;
-        now.resume = [...now.resume, enhancedText.replace(/\*/g, " ")];
+        now.resume = [...now.resume, enhancedText];
         return now;
       });
       console.log(enhancedText);
     } catch (error) {
       console.error("Fetch Error:", error);
+    } finally {
+      setIsEnhancing(false);
     }
   };
 
@@ -99,15 +101,16 @@ function Question() {
           </Button>
           <Button
             onClick={() => fetchData()}
+            disabled={isEnhancing}
             style={{
               color: "white",
-              backgroundColor: "#ff5045",
+              backgroundColor: isEnhancing ? "#999" : "#ff5045",
               marginLeft: "1rem",
               fontWeight: 620,
             }}
             className={classes.button}
           >
-            Enhance with AI
+            {isEnhancing ? "Enhancing..." : "Enhance with AI"}
             <BsStars style={{ marginLeft: "0.35rem" }} />
           </Button>
         </div>

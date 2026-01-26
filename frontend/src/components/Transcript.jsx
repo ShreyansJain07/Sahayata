@@ -1,326 +1,148 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Heading, Text, Checkbox, Stack, Center } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  Checkbox,
+  Stack,
+  Center,
+  Spinner,
+  Button,
+} from "@chakra-ui/react";
+import { ai, GEMINI_MODEL } from "../services/ai";
 
 const YoutubeSearch = ({ title }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [videos, setVideos] = useState([]);
   const [videoSummary, setVideoSummary] = useState("");
-
   const [ques, setques] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [summaryLoading, setSummaryLoading] = useState(false);
 
-  const API_KEY = "AIzaSyBrdsClFkrQokGYbdXCVSbUTtcOanxUFBM"; // Replace with your actual YouTube API key
-  const OPENAI_API_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY";
+  const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY; // YouTube Data API v3 key
 
   const handleSearch = async () => {
+    setLoading(true);
+    setVideoSummary("");
+    setques([]);
+
     try {
+      if (!API_KEY) {
+        console.error("Missing REACT_APP_YOUTUBE_API_KEY");
+        return;
+      }
       const response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${title}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`
+        "https://www.googleapis.com/youtube/v3/search",
+        {
+          params: {
+            key: API_KEY,
+            part: "snippet",
+            q: title,
+            type: "video",
+            videoEmbeddable: "true",
+            videoDuration: "medium",
+            maxResults: 5,
+          },
+        },
       );
 
       setVideos(response.data.items);
 
       if (response.data.items.length > 0) {
-        const videoId = response.data.items[0].id.videoId;
-        const summary = await summarizeVideo(videoId);
+        const videoTitle = response.data.items[0].snippet?.title || title;
+        setSummaryLoading(true);
+        const summary = await summarizeVideo(videoTitle);
         setVideoSummary(summary);
       }
     } catch (error) {
       console.error("Error fetching YouTube data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const summarizeVideo = async (videoId) => {
+  const summarizeVideo = async (videoTitle) => {
     try {
-      // const videoUrl = https://www.youtube.com/embed/${videoId};
-      const response = await fetch(
-        "https://api.edenai.run/v2/text/generation",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${OPENAI_API_KEY}`,
-          },
-          body: JSON.stringify({
-            providers: "google",
-            text: `Write a random paragraph about the YouTube video related to ${title}.`,
-            temperature: 0.2,
-            max_tokens: 500,
-            fallback_providers: "",
-          }),
-        }
-      );
+      const prompt = `You are an educational content expert. Write a comprehensive, informative summary about the topic "${title}" as it would be covered in an educational video titled "${videoTitle}".
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+The summary should:
+- Be 150-200 words
+- Explain key concepts clearly
+- Be educational and engaging
+- Cover the main points a student should understand
 
-      const data = await response.json();
-      generateQuestionsAndAnswers(data.google.generated_text);
-      return data.google.generated_text;
+Write only the summary paragraph, no headers or formatting.`;
+
+      const response = await ai.models.generateContent({
+        model: GEMINI_MODEL,
+        contents: prompt,
+      });
+
+      const summary = response.text;
+      await generateQuestionsAndAnswers(summary);
+      setSummaryLoading(false);
+      return summary;
     } catch (error) {
       console.error("Error generating summary:", error);
-      return "";
+      setSummaryLoading(false);
+      return "Unable to generate summary. Please try again.";
     }
   };
 
   const generateQuestionsAndAnswers = async (summary) => {
     try {
-      const response = await fetch(
-        "https://api.edenai.run/v2/text/generation",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${OPENAI_API_KEY}`,
-          },
-          body: JSON.stringify({
-            providers: "openai",
-            //   text: ` generate 5 ques on ${videoSummary} with 4 options answers the answers options should not exceed the number the response  \n\n exapmle reponse should be in format of html with tags ,display
-            //  `,
-            text: `Based on the video summary provided, generate 5 multiple-choice questions related to the content. Each question should have four possible answers. The output should be structured in JSON format, similar to the example provided. 
+      const prompt = `You are an educational quiz generator. Based on the following summary, create exactly 5 multiple-choice questions to test understanding.
 
-          Video Summary: '${summary}'
-          Examle JSON :-
-          [
-            {
-              "id": 1,
-              "question": "What is the role of React components in web development?",
-              "answer": ["Option A", "Option B", "Option C", "Option D"],
-              "correctAns": "Correct Answer"
-            },
-            {
-              "id": 2,
-              "question": "What are the fundamental building blocks of React components?",
-              "answer": ["Option A", "Option B", "Option C", "Option D"],
-              "correctAns": "Correct Answer"
-            }
-          ]`,
-            temperature: 0.2,
-            max_tokens: 500,
-            fallback_providers: "",
-          }),
-        }
-      );
+Summary: "${summary}"
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+IMPORTANT: Return ONLY valid JSON, no markdown, no code blocks, no explanations.
 
-      const data = await response.json();
-      const jsonObject = JSON.parse(data.openai.generated_text);
-      setques(jsonObject);
+Required JSON structure:
+[
+  {
+    "id": 1,
+    "question": "Clear, specific question about the content?",
+    "answer": ["Option A", "Option B", "Option C", "Option D"],
+    "correctAns": "The correct option text"
+  }
+]
+
+Rules:
+- Create exactly 5 questions
+- Each question must have exactly 4 options
+- correctAns must match one of the answer options exactly
+- Questions should test understanding, not just memorization
+- Options should be plausible but only one correct
+- Return ONLY the JSON array`;
+
+      const response = await ai.models.generateContent({
+        model: GEMINI_MODEL,
+        contents: prompt,
+      });
+
+      const responseText = response.text;
+      console.log("Questions response:", responseText);
+
+      const questions = JSON.parse(responseText);
+      setques(questions);
     } catch (error) {
-      console.error("Error generating summary:", error);
-      return "";
+      console.error("Error generating questions:", error);
+      setques([]);
     }
   };
 
   return (
     <div>
-      {/* <input
-        type="text"
-        placeholder="Enter your search query"
-        value={title}
-        // onChange={(e) => setSearchQuery(e.target.value)}
-      /> */}
-      <button onClick={handleSearch}>Search</button>
-
-      {/* <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "1rem",
-          justifyContent: "space-between",
-        }}
+      <Button
+        onClick={handleSearch}
+        isLoading={loading}
+        loadingText="Searching..."
+        colorScheme="blue"
+        mb="1rem"
       >
-        <div style={{ flex: 1 }}>
-          {videos.length > 0 && (
-            <div>
-              {videos[0].id.videoId && (
-                <iframe
-                  title={
-                    videos[0].snippet && videos[0].snippet.title
-                      ? videos[0].snippet.title
-                      : "Video"
-                  }
-                  width="500"
-                  height="315"
-                  style={{
-                    margin: "1rem",
-                    marginLeft: 0,
-                    borderRadius: "1rem",
-                  }}
-                  src={`https://www.youtube.com/embed/${videos[0].id.videoId}`}
-                  frameBorder="0"
-                  allowFullScreen
-                ></iframe>
-              )}
-            </div>
-          )}
-
-          <div
-            style={{
-              marginTop: "1.5rem",
-            }}
-          >
-            <h2
-              style={{
-                marginBottom: "1rem",
-                fontSize: "1.35rem",
-                fontWeight: 590,
-              }}
-            >
-              Summary for the First Video
-            </h2>
-            <p>{videoSummary}</p>
-          </div>
-        </div>
-
-        <div style={{ flex: 1 }}>
-          <h2
-            style={{
-              marginBottom: "0.5rem",
-              fontSize: "1.35rem",
-              fontWeight: 590,
-              minWidth: "33%",
-              flex: 1,
-            }}
-          >
-            Questions and Answers
-          </h2>
-          {console.log(typeof ques)}
-          {Array.isArray(ques) ? (
-            ques.map((question) => (
-              <div key={question.id} style={{ marginTop: "1rem" }}>
-                <div style={{ fontWeight: 550 }}>{question.question}</div>
-                <div>
-                  {question.answer.map((option, index) => (
-                    <div key={index}>
-                      <input
-                        type="checkbox"
-                        name=""
-                        style={{ marginRight: "0.5rem", color: "#ff5045" }}
-                        id=""
-                        color="#ff5045"
-                      />
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>Invalid data structure for ques</p>
-          )}
-        </div>
-      </div> */}
-      {/* <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "1rem",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            flex: 1,
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            borderRadius: "1rem",
-            overflow: "hidden",
-          }}
-        >
-          {videos.length > 0 && (
-            <div>
-              {videos[0].id.videoId && (
-                <iframe
-                  title={
-                    videos[0].snippet && videos[0].snippet.title
-                      ? videos[0].snippet.title
-                      : "Video"
-                  }
-                  width="100%"
-                  height="315"
-                  style={{ borderRadius: "1rem" }}
-                  src={`https://www.youtube.com/embed/${videos[0].id.videoId}`}
-                  frameBorder="0"
-                  allowFullScreen
-                ></iframe>
-              )}
-            </div>
-          )}
-
-          <div style={{ marginTop: "1.5rem", padding: "1rem" }}>
-            <h2
-              style={{
-                marginBottom: "1rem",
-                fontSize: "1.5rem",
-                fontWeight: 600,
-              }}
-            >
-              Summary for the First Video
-            </h2>
-            <p>{videoSummary}</p>
-          </div>
-        </div>
-
-        <div
-          style={{
-            flex: 1,
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            borderRadius: "1rem",
-            overflow: "hidden",
-          }}
-        >
-          <h2
-            style={{
-              marginBottom: "1rem",
-              fontSize: "1.5rem",
-              fontWeight: 600,
-              minWidth: "33%",
-              flex: 1,
-              padding: "1rem",
-            }}
-          >
-            Questions and Answers
-          </h2>
-
-          {Array.isArray(ques) ? (
-            ques.map((question) => (
-              <div
-                key={question.id}
-                style={{ marginTop: "1rem", padding: "1rem" }}
-              >
-                <div style={{ fontWeight: 600 }}>{question.question}</div>
-                <div style={{ marginTop: "0.5rem" }}>
-                  {question.answer.map((option, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginBottom: "0.5rem",
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        name=""
-                        style={{ marginRight: "0.5rem", color: "#ff5045" }}
-                        id=""
-                      />
-                      <label htmlFor="">{option}</label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))
-          ) : (
-            <p style={{ padding: "1rem" }}>Invalid data structure for ques</p>
-          )}
-        </div>
-      </div> */}
+        Search & Generate Content
+      </Button>
       <Stack direction="row" spacing="1rem" justifyContent="space-between">
         <Box flex="1" boxShadow="xl" borderRadius="xl" overflow="hidden">
           {videos.length > 0 && (
@@ -347,9 +169,16 @@ const YoutubeSearch = ({ title }) => {
 
           <Box mt="1rem" p="1rem">
             <Heading mb="1rem" fontSize="xl" fontWeight="bold">
-              Summary for the First Video
+              Summary for the Video
             </Heading>
-            <Text>{videoSummary}</Text>
+            {summaryLoading ? (
+              <Center py="2rem">
+                <Spinner size="lg" color="blue.500" />
+                <Text ml="1rem">Generating summary...</Text>
+              </Center>
+            ) : (
+              <Text>{videoSummary}</Text>
+            )}
           </Box>
         </Box>
 
@@ -359,7 +188,12 @@ const YoutubeSearch = ({ title }) => {
               Questions and Answers
             </Heading>
 
-            {Array.isArray(ques) ? (
+            {summaryLoading ? (
+              <Center py="2rem">
+                <Spinner size="lg" color="blue.500" />
+                <Text ml="1rem">Generating questions...</Text>
+              </Center>
+            ) : Array.isArray(ques) && ques.length > 0 ? (
               ques.map((question) => (
                 <Box
                   key={question.id}
@@ -379,7 +213,9 @@ const YoutubeSearch = ({ title }) => {
                 </Box>
               ))
             ) : (
-              <Text p="1rem">Invalid data structure for ques</Text>
+              <Text p="1rem" color="gray.500">
+                Click "Search & Generate Content" to generate questions
+              </Text>
             )}
           </Box>
         </Box>

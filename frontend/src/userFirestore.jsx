@@ -46,13 +46,14 @@ export const addApplicantProfile = async (
   Resume,
   Disability
 ) => {
+  const resume = "Sample resume of Applicant"
   const applicantRef = doc(firestore, "applicants", uid);
   await setDoc(applicantRef, {
     uid,
     Name,
     Role,
     Rating,
-    Resume,
+    resume,
     Disability,
   });
 };

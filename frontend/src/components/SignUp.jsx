@@ -220,7 +220,7 @@ const Signup = () => {
             <h1
               style={{
                 color: "#e38a43",
-                fontSize: "5.5rem",
+                fontSize: "3.5rem",
                 fontWeight: "bolder",
               }}
             >

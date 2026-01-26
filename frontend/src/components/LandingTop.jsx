@@ -196,7 +196,7 @@ export default function LandingTop() {
         </div>
 
         <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSfNcTB41jQPWYFckTmcPfo7LNhTWmh7BrNU54vgDaD_BJ3Q4Q/viewform?usp=sf_link"
+          href="https://forms.gle/bRZN3G6a9HkSenv27"
           className="btn3 "
           style={{ textDecoration: "none" }}
         >

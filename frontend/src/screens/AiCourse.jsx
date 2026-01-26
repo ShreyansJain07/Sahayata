@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AiCourse.css";
-import { Input, Button } from "antd";
+import { Input, Button, Spin, message } from "antd";
 import { BsStars } from "react-icons/bs";
 import svg from "../assests/aicourse.svg";
+import { ai, GEMINI_MODEL } from "../services/ai";
 
 const AiCourse = () => {
   const navigate = useNavigate();
   const [inputFields, setInputFields] = useState([{ value: "" }]);
   const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
   const handleInputChange = (e, id) => {
     const newInputFields = [...inputFields];
     newInputFields[id].value = e.target.value;
@@ -27,44 +29,75 @@ const AiCourse = () => {
   };
 
   const handleGenerate = async () => {
-    console.log("pressed");
-    const response = await fetch("https://api.edenai.run/v2/text/generation", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZWY4ZmI2YjctMzczOC00NWNjLWJhNjUtYjYxZDkxMGRkZDIzIiwidHlwZSI6ImFwaV90b2tlbiJ9.7_2wj3ZqUpcUfxXJHg5viceJPYmVWHmprqEvxByLBEw",
-      },
-      body: JSON.stringify({
-        providers: "openai",
-        text: `Generate a list of topics and subtopics under the main parts of ${title}, namely '${inputFields[0].value}' and '${inputFields[1].value}'. The output should be in a well-structured JSON format. Here's an example of the expected output:
-        [
-          {
-            "id": 1,
-            "title": "${inputFields[1].value}",
-            "subtopics": ["...."]
-          },
-          {
-            "id": 2,
-            "title": "${inputFields[1].value}",
-            "subtopics": ["..."]
-          }
-        ]
-        
-        Please fill in the '${title}' with the main topic (${inputFields[0].value} or ${inputFields[1].value}) and 'subtopics' with relevant subtopics under each main topic.`,
-        temperature: 0.2,
-        max_tokens: 500,
-        fallback_providers: "",
-      }),
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    // Validate inputs
+    if (!title.trim()) {
+      message.error("Please enter a course title");
+      return;
     }
-    const data = await response.json();
-    const params = {
-      paramName: data.openai.generated_text,
-    };
-    navigate("/aivideo", { state: params });
+
+    const filledUnits = inputFields.filter((field) => field.value.trim());
+    if (filledUnits.length === 0) {
+      message.error("Please enter at least one unit");
+      return;
+    }
+
+    setLoading(true);
+    console.log("Generating course...");
+
+    try {
+      const unitsList = filledUnits
+        .map((field, index) => `Unit ${index + 1}: ${field.value}`)
+        .join("\n");
+
+      const prompt = `You are an expert course curriculum designer. Create a comprehensive course structure for "${title}".
+
+The course should cover these units:
+${unitsList}
+
+For each unit, generate 4-6 specific, actionable subtopics that a student should learn. Each subtopic should be clear enough to search for educational videos on YouTube.
+
+IMPORTANT: Return ONLY valid JSON, no markdown, no code blocks, no explanations.
+
+Required JSON structure:
+[
+  {
+    "id": 1,
+    "title": "Unit title here",
+    "subtopics": ["Subtopic 1", "Subtopic 2", "Subtopic 3", "Subtopic 4"]
+  }
+]
+
+Rules:
+- Each subtopic should be 3-8 words
+- Subtopics should be searchable terms for educational content
+- Order subtopics from basic to advanced within each unit
+- Return ONLY the JSON array, nothing else`;
+
+      const response = await ai.models.generateContent({
+        model: GEMINI_MODEL,
+        contents: prompt,
+      });
+
+      const responseText = response.text;
+      console.log("AI Response:", responseText);
+
+      // Parse and validate JSON
+      const courseData = JSON.parse(responseText);
+
+      if (!Array.isArray(courseData) || courseData.length === 0) {
+        throw new Error("Invalid course structure received");
+      }
+
+      const params = {
+        paramName: JSON.stringify(courseData),
+      };
+      navigate("/aivideo", { state: params });
+    } catch (error) {
+      console.error("Error generating course:", error);
+      message.error("Failed to generate course. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -144,22 +177,36 @@ const AiCourse = () => {
             </Button>
             <Button
               onClick={handleGenerate}
+              disabled={loading}
               className="aicourse-button"
               style={{
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "#2234da",
+                backgroundColor: loading ? "#6b7280" : "#2234da",
                 padding: "0.35rem",
               }}
             >
-              <div>Generate </div>
-              <span
-                style={{ color: "", fontSize: "1.15rem", marginLeft: "0.5rem" }}
-              >
-                <BsStars />
-              </span>
+              {loading ? (
+                <>
+                  <Spin size="small" style={{ marginRight: "0.5rem" }} />
+                  <div>Generating...</div>
+                </>
+              ) : (
+                <>
+                  <div>Generate </div>
+                  <span
+                    style={{
+                      color: "",
+                      fontSize: "1.15rem",
+                      marginLeft: "0.5rem",
+                    }}
+                  >
+                    <BsStars />
+                  </span>
+                </>
+              )}
             </Button>
           </div>
         </div>

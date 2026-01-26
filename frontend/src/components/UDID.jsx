@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const OCRComponent = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -13,7 +13,12 @@ const OCRComponent = () => {
 
   const handleOCRRequest = async () => {
     const apiUrl = "https://api.edenai.run/v2/ocr/identity_parser";
-    const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOGZjMDdiMWItZDVhYS00MDEwLWJjMzEtYjRjMGJjNmNmOWJkIiwidHlwZSI6ImFwaV90b2tlbiJ9.FRpoCr6xHdRLkoW_ysOWdzAqW7gS-blH9cdHAo3NAaY"; // Replace with your actual API key
+    const apiKey = process.env.REACT_APP_EDENAI_API_KEY;
+
+    if (!apiKey) {
+      setError("Missing REACT_APP_EDENAI_API_KEY");
+      return;
+    }
 
     const form = new FormData();
     form.append("providers", "affinda");
