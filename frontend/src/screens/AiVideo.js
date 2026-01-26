@@ -25,63 +25,55 @@ const AiVideo = () => {
   }, [params.paramName]);
 
   const handleSubtopicClick = (unit, chapter, title) => {
+    if (
+      selected.unit === unit &&
+      selected.chapter === chapter &&
+      selected.title === title
+    ) {
+      return;
+    }
     setSelected({ unit, chapter, title });
   };
 
-  
-
   return (
     <div className="aivideo-main">
-      <div
-        className="aivideo-contents"
-        style={{
-          overflowY: "scroll",
-          maxHeight: "90vh",
-          marginRight: "1rem",
-        }}
-      >
-        {data.map((item) => (
-          <div
-            style={{
-              borderBottom: "1px solid lightgray",
-              marginTop: "10px",
-              padding: "0px 0 20px",
-            }}
-            key={item.id}
-          >
-            <div style={{ fontWeight: 500 }}>Unit {item.id}</div>
-            <div style={{ fontSize: "30px", fontWeight: 500 }}>
-              {item.title}
-            </div>
+      <aside className="aivideo-sidebar">
+        <div className="aivideo-sidebar-title">Course Outline</div>
+        <div className="aivideo-contents">
+          {data.map((item) => (
+            <div className="aivideo-unit" key={item.id}>
+              <div className="aivideo-unit-label">Unit {item.id}</div>
+              <div className="aivideo-unit-title">{item.title}</div>
 
-            {item.subtopics.map((subtopic, index) => (
-              <li
-                style={{ fontWeight: 500 }}
-                key={index}
-                onClick={() =>
-                  handleSubtopicClick(item.id, index + 1, subtopic)
-                }
-                className={
-                  selected.unit === item.id && selected.chapter === index + 1
-                    ? "li-selected"
-                    : ""
-                }
-              >
-                {subtopic}
-              </li>
-            ))}
-          </div>
-        ))}
-      </div>
-      <div className="aivideo-video">
-        <div style={{ fontWeight: 590, fontSize: "2rem" }}>
-          Unit {selected.unit} · Chapter {selected.chapter}
+              {item.subtopics.map((subtopic, index) => (
+                <button
+                  type="button"
+                  key={index}
+                  onClick={() =>
+                    handleSubtopicClick(item.id, index + 1, subtopic)
+                  }
+                  className={`aivideo-subtopic${
+                    selected.unit === item.id && selected.chapter === index + 1
+                      ? " is-active"
+                      : ""
+                  }`}
+                >
+                  {subtopic}
+                </button>
+              ))}
+            </div>
+          ))}
         </div>
-        <div style={{ fontWeight: 590, fontSize: "1.5rem" }}>
-          {selected.title}
+      </aside>
+      <main className="aivideo-video">
+        <div className="aivideo-header">
+          <div className="aivideo-kicker">
+            Unit {selected.unit} · Chapter {selected.chapter}
+          </div>
+          <div className="aivideo-title">{selected.title}</div>
         </div>
         <YoutubeSearch title={selected.title} />
-      </div>
+      </main>
       {/* <div className="aivideo-ques"></div> */}
     </div>
   );

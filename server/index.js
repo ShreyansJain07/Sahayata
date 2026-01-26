@@ -20,9 +20,12 @@ app.get("/jobs", async (req, res) => {
     if (!process.env.SERPAPI_API_KEY) {
       return res.status(500).json({ error: "Missing SERPAPI_API_KEY" });
     }
+    if (!req.query.query) {
+      return res.status(400).json({ error: "Missing query parameter" });
+    }
     console.log("hitting server");
     console.log(req.query);
-    const query = req.query.query.replace(/ /g, "+");
+    const query = req.query.query;
     console.log(query);
     // const query = "full stack developer mumbai";
 
@@ -39,9 +42,16 @@ app.get("/jobs", async (req, res) => {
     //   },
     // });
 
-    const response = await axios.get(
-      `https://serpapi.com/search.json?engine=google_jobs&q=${query}&google_domain=google.com&gl=in&hl=en&api_key=${process.env.SERPAPI_API_KEY}`,
-    );
+    const response = await axios.get("https://serpapi.com/search.json", {
+      params: {
+        engine: "google_jobs",
+        q: query,
+        google_domain: "google.com",
+        hl: "en",
+        gl: "in",
+        api_key: process.env.SERPAPI_API_KEY,
+      },
+    });
 
     res.json(response.data);
   } catch (error) {

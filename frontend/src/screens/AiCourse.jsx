@@ -8,7 +8,10 @@ import { ai, GEMINI_MODEL } from "../services/ai";
 
 const AiCourse = () => {
   const navigate = useNavigate();
-  const [inputFields, setInputFields] = useState([{ value: "" }]);
+  const [inputFields, setInputFields] = useState([
+    { value: "" },
+    { value: "" },
+  ]);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const handleInputChange = (e, id) => {
@@ -21,7 +24,7 @@ const AiCourse = () => {
   };
 
   const handleDeleteLastUnit = () => {
-    if (inputFields.length > 1) {
+    if (inputFields.length > 2) {
       const newInputFields = [...inputFields];
       newInputFields.pop();
       setInputFields(newInputFields);
@@ -102,17 +105,8 @@ Rules:
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: "2rem",
-          justifyContent: "space-evenly",
-          minHeight: "90vh",
-        }}
-      >
-        <div style={{ width: "50%" }}>
+      <div className="aicourse-page">
+        <div className="aicourse-left">
           <div className="aicourse-main">AI Course Maker</div>
           <div className="aicourse-info">
             Enter in a course title, or what you want to learn about. Then enter
@@ -143,49 +137,28 @@ Rules:
               </div>
             </div>
           ))}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              paddingTop: "20px",
-            }}
-          >
+          <div className="aicourse-actions">
             <Button
               className="aicourse-button"
-              style={{ backgroundColor: "green", paddingTop: "0" }}
+              style={{ backgroundColor: "#16a34a", paddingTop: "0" }}
               onClick={handleAddUnit}
             >
-              Add Unit{" "}
-              <span
-                style={{ color: "", fontSize: "1.15rem", marginLeft: "0.5rem" }}
-              >
-                +
-              </span>
+              Add Unit <span className="aicourse-button-icon">+</span>
             </Button>
             <Button
               className="aicourse-button"
-              style={{ backgroundColor: "red", paddingTop: "0" }}
+              style={{ backgroundColor: "#dc2626", paddingTop: "0" }}
               onClick={handleDeleteLastUnit}
             >
-              Delete Unit{" "}
-              <span
-                style={{ color: "", fontSize: "1.15rem", marginLeft: "0.5rem" }}
-              >
-                -
-              </span>
+              Delete Unit <span className="aicourse-button-icon">-</span>
             </Button>
             <Button
               onClick={handleGenerate}
               disabled={loading}
-              className="aicourse-button"
+              className="aicourse-button aicourse-button-generate"
               style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: loading ? "#6b7280" : "#2234da",
-                padding: "0.35rem",
+                backgroundColor: loading ? "#6b7280" : "#1d4ed8",
+                paddingTop: "0",
               }}
             >
               {loading ? (
@@ -195,14 +168,8 @@ Rules:
                 </>
               ) : (
                 <>
-                  <div>Generate </div>
-                  <span
-                    style={{
-                      color: "",
-                      fontSize: "1.15rem",
-                      marginLeft: "0.5rem",
-                    }}
-                  >
+                  <div>Generate</div>
+                  <span className="aicourse-button-icon">
                     <BsStars />
                   </span>
                 </>
@@ -210,8 +177,8 @@ Rules:
             </Button>
           </div>
         </div>
-        <div>
-          <img src={svg} style={{ height: "100%", width: "100%" }} alt="" />
+        <div className="aicourse-right">
+          <img src={svg} className="aicourse-hero" alt="" />
         </div>
       </div>
     </>

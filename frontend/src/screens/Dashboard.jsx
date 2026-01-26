@@ -950,7 +950,7 @@ const Dashboard = () => {
                         gap: "0.5rem",
                       }}
                     >
-                      <div>₹{job.Salary}</div>
+                      <div>${job.Salary}</div>
                       <div
                         style={{
                           display: "flex",

@@ -30,6 +30,10 @@ import {
   HStack,
   InputGroup,
   InputLeftElement,
+  Tag,
+  TagLeftIcon,
+  TagLabel,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   FaCalendarWeek,
@@ -47,7 +51,7 @@ import { FaLocationArrow } from "react-icons/fa";
 import { TiTick } from "react-icons/ti";
 import axios from "axios";
 
-const FilterBox = ({ filterFunction }) => {
+const FilterBox = ({ filters, onChange, onApply, onClear }) => {
   const [position, setPosition] = useState("");
   const [locations, setLocations] = useState([]);
   const [workType, setWorkType] = useState("");
@@ -65,8 +69,8 @@ const FilterBox = ({ filterFunction }) => {
       experience,
     };
 
-    console.log("Search State:", searchState);
-    filterFunction(searchState);
+    onChange(searchState);
+    onApply(searchState);
   };
 
   const handleClearAll = () => {
@@ -75,18 +79,22 @@ const FilterBox = ({ filterFunction }) => {
     setWorkType("");
     setSalary([0, 1000000]);
     setExperience("");
-    handleFilterChange();
+    onClear();
   };
 
   return (
     <Box
-      p={[0, 4]}
-      m={[0, 4]}
+      p={[4, 6]}
       boxShadow="xl"
-      py={[0, 6, 12]}
-      rounded="lg"
+      borderRadius="xl"
+      bg="white"
       textAlign="left"
+      position="sticky"
+      top="6rem"
     >
+      <Text fontSize="lg" fontWeight="bold" mb={4}>
+        Filters
+      </Text>
       <Box display={{ base: "inline", md: "none" }}>
         <Button
           leftIcon={<Icon as={FaFilter} />}
@@ -99,7 +107,7 @@ const FilterBox = ({ filterFunction }) => {
         </Button>
       </Box>
 
-      <Box display={{ base: "none", md: "inline" }}>
+      <Box display={{ base: "none", md: "block" }}>
         <strong>Position:</strong>
         <Input
           placeholder="Search by position"
@@ -119,12 +127,14 @@ const FilterBox = ({ filterFunction }) => {
           ))}
           <Input
             placeholder="Add location"
-            value={locations}
-            onChange={(e) => setLocations([...locations, e.target.value])}
+            value=""
+            onChange={() => {}}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
-                setLocations([...locations, e.target.value]);
+                if (!e.target.value.trim()) return;
+                setLocations([...locations, e.target.value.trim()]);
+                e.target.value = "";
               }
             }}
           />
@@ -148,10 +158,10 @@ const FilterBox = ({ filterFunction }) => {
             min={0}
             max={1000000}
             step={10000}
-            value={salary}
-            onChange={(value) => setSalary(value)}
+            value={salary[1]}
+            onChange={(value) => setSalary([0, value])}
           />
-          {`₹${salary[0]} - ₹${salary[1]}`}
+          {`$${salary[0]} - $${salary[1]}`}
         </Box>
 
         <Box mb={2}>
@@ -170,7 +180,7 @@ const FilterBox = ({ filterFunction }) => {
           width="full"
           leftIcon={<Icon as={TiTick} />}
         >
-          Include
+          Apply Filters
         </Button>
 
         <Button
@@ -200,11 +210,19 @@ const FilterBox = ({ filterFunction }) => {
   );
 };
 
-const JobList = ({ jobs }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const JobList = ({ jobs, loading }) => {
+  const [selectedJob, setSelectedJob] = useState(null);
 
   return (
     <Box width={{ base: "full", md: "10/12" }} p={4}>
+      {loading && (
+        <Box py={6} textAlign="center">
+          <Spinner size="lg" color="teal.500" />
+          <Text mt={2} color="gray.500">
+            Loading jobs...
+          </Text>
+        </Box>
+      )}
       {jobs.map((job) => (
         <Box
           key={job.id}
@@ -213,6 +231,7 @@ const JobList = ({ jobs }) => {
           borderRadius="lg"
           p={4}
           mb={2}
+          bg="white"
         >
           <Text
             align={"left"}
@@ -229,7 +248,14 @@ const JobList = ({ jobs }) => {
             <Text fontSize="3xl" fontWeight="bold" align={"left"}>
               {job.position}
             </Text>
-            <Image src={job.thumbnail} alt={job.company} w={10} h={10}></Image>
+            <Image
+              src={job.thumbnail}
+              alt={job.company}
+              w={10}
+              h={10}
+              borderRadius="full"
+              fallbackSrc="https://placehold.co/40x40?text=%F0%9F%92%BC"
+            />
           </Flex>
 
           <Flex
@@ -243,11 +269,16 @@ const JobList = ({ jobs }) => {
             <Text fontSize="lg">{job.company}</Text>
           </Flex>
           <Divider my={2} />
-          <Flex>
-            <Button leftIcon={<FaMapPin />} variant="link" mb={2}>
-              {job.place}|{job.modeOfWork}
-            </Button>
-          </Flex>
+          <HStack spacing={2} flexWrap="wrap" mb={2}>
+            <Tag size="md" variant="subtle" colorScheme="blue">
+              <TagLeftIcon as={FaMapPin} />
+              <TagLabel>{job.place || "Anywhere"}</TagLabel>
+            </Tag>
+            <Tag size="md" variant="subtle" colorScheme="purple">
+              <TagLeftIcon as={FaLocationArrow} />
+              <TagLabel>{job.modeOfWork || "Flexible"}</TagLabel>
+            </Tag>
+          </HStack>
 
           <Flex>
             <ButtonGroup spacing={2} ml={1}>
@@ -305,42 +336,56 @@ const JobList = ({ jobs }) => {
               colorScheme={"teal"}
               bordersize={"lg"}
               m={2}
-              onClick={onOpen}
+              onClick={() => setSelectedJob(job)}
             >
               View Details
             </Button>
-            <Modal isOpen={isOpen} onClose={onClose} size="xl">
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>{job.position}</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody maxHeight="80vh" overflowY="auto">
-                  {job.description}
-                </ModalBody>
-
-                <ModalFooter>
-                  <Button
-                    colorScheme="red"
-                    width={"full"}
-                    mr={3}
-                    onClick={onClose}
-                  >
-                    Close
-                  </Button>
-                  <Button
-                    colorScheme="teal"
-                    width={"full"}
-                    mr={3}
-                    onClick={onClose}
-                  >
-                    Apply
-                  </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
           </Flex>
         </Box>
       ))}
+      <Modal
+        isOpen={!!selectedJob}
+        onClose={() => setSelectedJob(null)}
+        size="xl"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{selectedJob?.position}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box maxHeight="60vh" overflowY="auto" pr={2}>
+              {selectedJob?.description || "No description available."}
+            </Box>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="red"
+              width={"full"}
+              mr={3}
+              onClick={() => setSelectedJob(null)}
+            >
+              Close
+            </Button>
+            {selectedJob?.applyLink ? (
+              <Button
+                as="a"
+                href={selectedJob.applyLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                colorScheme="teal"
+                width={"full"}
+              >
+                Apply
+              </Button>
+            ) : (
+              <Button colorScheme="teal" width={"full"} isDisabled>
+                Apply
+              </Button>
+            )}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
@@ -389,14 +434,28 @@ const JobBoard = () => {
     },
   ]);
   const [filteredJobs, setFilteredJobs] = useState(dummyJobData);
+  const [filters, setFilters] = useState({
+    position: "",
+    locations: [],
+    workType: "",
+    salary: [0, 1000000],
+    experience: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   // const query="data scientist"
 
   const fetchData = async (query) => {
     console.log(query);
     try {
+      if (!query || !query.trim()) {
+        return;
+      }
+      setIsLoading(true);
       const response = await fetch(
-        `http://localhost:8000/jobs?query=${"job in "+query + "for disabled people"}`,
+        `http://localhost:8000/jobs?query=${encodeURIComponent(
+          "job in " + query + " for disabled people",
+        )}`,
         {
           method: "GET",
           headers: {
@@ -404,7 +463,7 @@ const JobBoard = () => {
             // Add any additional headers if needed
           },
           // You can add a request body if your server expects it
-        }
+        },
       );
 
       // Use await to get the actual data from the response
@@ -430,6 +489,8 @@ const JobBoard = () => {
           postDate: job.posted_at || "",
           thumbnail: job.thumbnail || "",
           via: job.via || "",
+          applyLink:
+            job.apply_options?.[0]?.link || job.related_links?.[0]?.link || "",
         };
       });
 
@@ -437,15 +498,42 @@ const JobBoard = () => {
       // Use jobDataFromAPI in your setDummyJobData function
       setDummyJobData(jobDataFromAPI);
       setFilteredJobs(jobDataFromAPI);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching job data:", error);
+      setIsLoading(false);
     }
   };
 
-  const handleFilter = (filter) => {
-    const filtered = dummyJobData.filter((job) =>
-      job.position.toLowerCase().includes(filter.toLowerCase())
-    );
+  const applyFilters = (nextFilters = filters) => {
+    const filtered = dummyJobData.filter((job) => {
+      const positionMatch = nextFilters.position
+        ? job.position
+            .toLowerCase()
+            .includes(nextFilters.position.toLowerCase())
+        : true;
+
+      const workTypeMatch = nextFilters.workType
+        ? job.modeOfWork
+            .toLowerCase()
+            .includes(nextFilters.workType.toLowerCase())
+        : true;
+
+      const locationMatch = nextFilters.locations.length
+        ? nextFilters.locations.some((loc) =>
+            job.place.toLowerCase().includes(loc.toLowerCase()),
+          )
+        : true;
+
+      const experienceMatch = nextFilters.experience
+        ? job.experience
+            .toLowerCase()
+            .includes(nextFilters.experience.toLowerCase())
+        : true;
+
+      return positionMatch && workTypeMatch && locationMatch && experienceMatch;
+    });
+
     setFilteredJobs(filtered);
   };
 
@@ -457,35 +545,53 @@ const JobBoard = () => {
   // }, []);
 
   return (
-    <Container maxW="container.xl">
-      {/* Adjusted grid template columns for responsiveness */}
-      <Grid templateColumns={{ base: "1fr", md: "2fr 3fr" }} gap={4}>
-        <GridItem>
-          <FilterBox filterFunction={handleFilter} />
-        </GridItem>
-        <GridItem>
-          <Container maxW="xl">
-            <Box p={6} boxShadow="lg" rounded="lg">
+    <Container maxW="container.xl" py={6}>
+      <Flex direction={{ base: "column", md: "row" }} gap={6}>
+        <Box w={{ base: "full", md: "320px" }} flexShrink={0}>
+          <FilterBox
+            filters={filters}
+            onChange={(state) => setFilters(state)}
+            onApply={(state) => applyFilters(state)}
+            onClear={() => {
+              const cleared = {
+                position: "",
+                locations: [],
+                workType: "",
+                salary: [0, 1000000],
+                experience: "",
+              };
+              setFilters(cleared);
+              setFilteredJobs(dummyJobData);
+            }}
+          />
+        </Box>
+        <Box flex="1">
+          <Box p={6} boxShadow="lg" rounded="lg" bg="white" mb={4}>
+            <HStack spacing={3}>
               <Input
-                placeholder="Enter search query"
+                placeholder="Search job titles or keywords"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                mb={4}
               />
               <Button
                 colorScheme="teal"
                 onClick={() => {
                   fetchData(query);
                 }}
+                isLoading={isLoading}
+                loadingText="Searching"
               >
                 Search
               </Button>
-            </Box>
-          </Container>
+            </HStack>
+          </Box>
 
-          <JobList jobs={filteredJobs} />
-        </GridItem>
-      </Grid>
+          <Text fontWeight="bold" mb={2} color="gray.600">
+            Showing {filteredJobs.length} jobs
+          </Text>
+          <JobList jobs={filteredJobs} loading={isLoading} />
+        </Box>
+      </Flex>
     </Container>
   );
 };

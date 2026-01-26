@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -10,10 +10,14 @@ import {
   Spinner,
   Button,
 } from "@chakra-ui/react";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import { ai, GEMINI_MODEL } from "../services/ai";
 
 const YoutubeSearch = ({ title }) => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const lastSearchedTitleRef = useRef("");
   const [videos, setVideos] = useState([]);
   const [videoSummary, setVideoSummary] = useState("");
   const [ques, setques] = useState([]);
@@ -22,7 +26,14 @@ const YoutubeSearch = ({ title }) => {
 
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY; // YouTube Data API v3 key
 
-  const handleSearch = async () => {
+  const handleSearch = async (queryTitle = title) => {
+    if (!queryTitle) {
+      return;
+    }
+    if (lastSearchedTitleRef.current === queryTitle) {
+      return;
+    }
+    lastSearchedTitleRef.current = queryTitle;
     setLoading(true);
     setVideoSummary("");
     setques([]);
@@ -38,7 +49,7 @@ const YoutubeSearch = ({ title }) => {
           params: {
             key: API_KEY,
             part: "snippet",
-            q: title,
+            q: queryTitle,
             type: "video",
             videoEmbeddable: "true",
             videoDuration: "medium",
@@ -50,7 +61,7 @@ const YoutubeSearch = ({ title }) => {
       setVideos(response.data.items);
 
       if (response.data.items.length > 0) {
-        const videoTitle = response.data.items[0].snippet?.title || title;
+        const videoTitle = response.data.items[0].snippet?.title || queryTitle;
         setSummaryLoading(true);
         const summary = await summarizeVideo(videoTitle);
         setVideoSummary(summary);
@@ -119,30 +130,38 @@ Rules:
       const response = await ai.models.generateContent({
         model: GEMINI_MODEL,
         contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+        },
       });
 
       const responseText = response.text;
       console.log("Questions response:", responseText);
 
-      const questions = JSON.parse(responseText);
-      setques(questions);
+      let questions;
+      try {
+        questions = JSON.parse(responseText);
+      } catch (parseError) {
+        const match = responseText.match(/\[[\s\S]*\]/);
+        if (!match) {
+          throw parseError;
+        }
+        questions = JSON.parse(match[0]);
+      }
+
+      setques(Array.isArray(questions) ? questions : []);
     } catch (error) {
       console.error("Error generating questions:", error);
       setques([]);
     }
   };
 
+  useEffect(() => {
+    handleSearch(title);
+  }, [title]);
+
   return (
     <div>
-      <Button
-        onClick={handleSearch}
-        isLoading={loading}
-        loadingText="Searching..."
-        colorScheme="blue"
-        mb="1rem"
-      >
-        Search & Generate Content
-      </Button>
       <Stack direction="row" spacing="1rem" justifyContent="space-between">
         <Box flex="1" boxShadow="xl" borderRadius="xl" overflow="hidden">
           {videos.length > 0 && (
@@ -177,7 +196,14 @@ Rules:
                 <Text ml="1rem">Generating summary...</Text>
               </Center>
             ) : (
-              <Text>{videoSummary}</Text>
+              <Box className="aivideo-summary">
+                <ReactMarkdown
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {videoSummary}
+                </ReactMarkdown>
+              </Box>
             )}
           </Box>
         </Box>
